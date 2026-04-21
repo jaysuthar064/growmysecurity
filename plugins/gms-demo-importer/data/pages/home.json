@@ -1,0 +1,645 @@
+{
+    "version": "0.4",
+    "title": "Home",
+    "type": "page",
+    "page_settings": [],
+    "content": [
+        {
+            "id": "607cc0a1",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "0",
+                    "right": "0",
+                    "bottom": "0",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "d2c57068",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "a9bc57e1",
+                            "elType": "widget",
+                            "widgetType": "gms-hero",
+                            "settings": {
+                                "slides": [
+                                    {
+                                        "layout": "centered",
+                                        "label": "Security Marketing Agency",
+                                        "title": "Turn Your Brand Into Your Most Powerful Strategic Asset.",
+                                        "copy": "We help cybersecurity and regulated-industry companies generate qualified pipeline through compliant, data-backed marketing systems without compromising trust, privacy, or security.",
+                                        "image": {
+                                            "url": "{{theme_url}}/assets/images/homebg.png"
+                                        },
+                                        "art_image": {
+                                            "url": ""
+                                        },
+                                        "primary_text": "Request a Free Consultation",
+                                        "primary_url": {
+                                            "url": "{{site_url}}/contact-us/"
+                                        },
+                                        "secondary_text": "See How Growth Works",
+                                        "secondary_url": {
+                                            "url": "{{site_url}}/about-us/"
+                                        },
+                                        "feature_points": "Personalized onboarding\nComprehensive analytics\nDedicated support",
+                                        "scroll_label": "Scroll to explore"
+                                    }
+                                ]
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "c2f423e0",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "0",
+                    "right": "0",
+                    "bottom": "0",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "c242bc62",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "fa4663c4",
+                            "elType": "widget",
+                            "widgetType": "gms-story",
+                            "settings": {
+                                "layout": "problem-list",
+                                "eyebrow": "The Problem",
+                                "title": "Security Brands Struggle Because Their Expertise Isn\u2019t Visible or Trusted Online.",
+                                "description": "In the security industry, trust is everything. Buyers are cautious, risk-aware, and slow to commit. They don\u2019t respond to loud marketing, generic promises, or copy-paste campaigns. They look for credibility, authority, and proof long before they ever reach out.",
+                                "supporting_text": "As a result, potential clients visit, hesitate, and leave. The value isn\u2019t communicated in a way buyers believe.",
+                                "copy_secondary": "This is the gap we focus on closing.",
+                                "image": {
+                                    "url": ""
+                                },
+                                "values": [
+                                    {
+                                        "title": "Invisible Profile",
+                                        "text": "Without a clear digital footprint, high-value clients cannot find you. Your agency exists in the shadows of the internet."
+                                    },
+                                    {
+                                        "title": "Trust Deficit",
+                                        "text": "Security is bought on trust. If your brand looks generic, clients assume your security protocols are too."
+                                    },
+                                    {
+                                        "title": "\u201cFake\u201d Perception",
+                                        "text": "Generic visuals create a shell-company aesthetic. Real authority requires distinct, verified, and credible branding."
+                                    }
+                                ]
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "c8271316",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "0",
+                    "right": "0",
+                    "bottom": "0",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "b3512b54",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "3801cb09",
+                            "elType": "widget",
+                            "widgetType": "gms-story",
+                            "settings": {
+                                "layout": "media-content",
+                                "eyebrow": "The Solution",
+                                "title": "Smarter Marketing, Trust-led Positioning Built Specifically For the Security Industries",
+                                "description": "We help security companies build visible trust through systems designed around how security buyers actually think and buy. From positioning and messaging to content, search visibility, and lead pathways, every element works together to answer one question:",
+                                "highlight_text": "\u201cCan I trust this company with something critical?\u201d",
+                                "supporting_text": "Instead of disconnected campaigns, we build a structured growth engine that makes your brand a credible authority in your niche.",
+                                "copy_secondary": "This isn\u2019t marketing for clicks. This is marketing that builds confidence, reduces doubt, and shortens decision cycles because in security, trust is the real conversion factor.",
+                                "bullets": "Establishes your brand as a credible authority in your niche\nCommunicates expertise without overselling or exaggeration\nAligns marketing with real security buyer intent\nConverts visibility into qualified, high-trust inquiries",
+                                "chips": "3.2x increase in leads generation\n100% User Retention\n50% less wasted ad spend",
+                                "button_text": "Schedule a Free Consultation",
+                                "button_url": {
+                                    "url": "{{site_url}}/contact-us/"
+                                },
+                                "image": {
+                                    "url": "{{theme_url}}/assets/images/home-solution-media.png"
+                                },
+                                "values": []
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "08a4e3b1",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "0",
+                    "right": "0",
+                    "bottom": "0",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "ed879f36",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "51280f1f",
+                            "elType": "widget",
+                            "widgetType": "gms-process-timeline",
+                            "settings": {
+                                "eyebrow": "Our Guarantee",
+                                "title": "How We Help Security Brands Win Trust & Growth",
+                                "description": "We work as a strategic growth partner for security-focused brands, helping them move from being technically capable to being clearly trusted in the market. Every engagement is designed around long-term authority, not short-term spikes.",
+                                "items": [
+                                    {
+                                        "accent": "Clear Positioning",
+                                        "title": "in a Crowded Market",
+                                        "text": "We help you articulate what you do, who you\u2019re for, and why you\u2019re different, without jargon or overclaiming.",
+                                        "link_text": "Learn More",
+                                        "link_url": {
+                                            "url": "{{site_url}}/about-us/"
+                                        },
+                                        "icon": "shield"
+                                    },
+                                    {
+                                        "accent": "Trust-First",
+                                        "title": "Brand Presence",
+                                        "text": "From messaging and content to design and digital touchpoints, we ensure your brand looks, sounds, and feels credible across every channel.",
+                                        "link_text": "See How This Works",
+                                        "link_url": {
+                                            "url": "{{site_url}}/services/"
+                                        },
+                                        "icon": "users"
+                                    },
+                                    {
+                                        "accent": "Buyer-Aligned",
+                                        "title": "Demand Generation",
+                                        "text": "We focus on attracting decision-makers who are already searching for solutions like yours, guiding them with the right information at each stage.",
+                                        "link_text": "Explore More",
+                                        "link_url": {
+                                            "url": "{{site_url}}/resources-insights/"
+                                        },
+                                        "icon": "target"
+                                    },
+                                    {
+                                        "accent": "Consistency Over",
+                                        "title": "Campaigns",
+                                        "text": "Instead of disconnected tactics, we build a repeatable system that compounds visibility, authority, and inbound demand over time.",
+                                        "link_text": "Get Started",
+                                        "link_url": {
+                                            "url": "{{site_url}}/contact-us/"
+                                        },
+                                        "icon": "link"
+                                    }
+                                ]
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "aa500c6e",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "0",
+                    "right": "0",
+                    "bottom": "0",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "44eb0f80",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "fa6a0b60",
+                            "elType": "widget",
+                            "widgetType": "gms-testimonials",
+                            "settings": {
+                                "layout": "featured",
+                                "background_word": "Testimonials",
+                                "items": [
+                                    {
+                                        "quote": "Anthony Rumore is exactly the kind of man you want to do business with. He is patient, professional and extremely knowledgeable. The most amazing quality, above all else, he is trustworthy and honest. In an era where it is very easy to choose the wrong person to work with, Anthony is dependable, reliable, and you can count on what he says he will accomplish for you. Who you work with truly matters.",
+                                        "name": "Valerie LaBianca",
+                                        "role": "Co-founder | VistaTech"
+                                    }
+                                ]
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ba10124b",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "0",
+                    "right": "0",
+                    "bottom": "0",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "84d7a2a5",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "51febff4",
+                            "elType": "widget",
+                            "widgetType": "gms-icon-grid",
+                            "settings": {
+                                "eyebrow": "Verticals",
+                                "title": "Security Verticals Supported",
+                                "description": "If your buyers are technical and your product is complex, you\u2019re in the right place.",
+                                "items": [
+                                    {
+                                        "title": "Contract Security Guards",
+                                        "icon": "guard"
+                                    },
+                                    {
+                                        "title": "Electronic Security Companies & Integrators",
+                                        "icon": "bolt"
+                                    },
+                                    {
+                                        "title": "Alarm & Monitoring Companies",
+                                        "icon": "alarm"
+                                    },
+                                    {
+                                        "title": "Executive Protection & Personal Security",
+                                        "icon": "user"
+                                    },
+                                    {
+                                        "title": "Event Security & Crowd Management",
+                                        "icon": "team"
+                                    },
+                                    {
+                                        "title": "Loss Prevention & Retail Security",
+                                        "icon": "retail"
+                                    },
+                                    {
+                                        "title": "Private Investigation & Security",
+                                        "icon": "investigation"
+                                    },
+                                    {
+                                        "title": "Government & Municipal Security Contractors",
+                                        "icon": "building"
+                                    },
+                                    {
+                                        "title": "Camera Monitoring & Access Control",
+                                        "icon": "camera"
+                                    }
+                                ],
+                                "button_text": "Schedule a Free Consultation",
+                                "button_url": {
+                                    "url": "{{site_url}}/contact-us/"
+                                },
+                                "footer_text": "Don\u2019t see your industry? Contact us to see if we can help you."
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "8ad07514",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "0",
+                    "right": "0",
+                    "bottom": "0",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "da307937",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "fc2ad3cf",
+                            "elType": "widget",
+                            "widgetType": "gms-services-accordion",
+                            "settings": {
+                                "eyebrow": "Our Services",
+                                "title": "Building Security Solutions with Intelligent Services",
+                                "description": "If your buyers are technical and your product is complex, you\u2019re in the right place.",
+                                "image": {
+                                    "url": "{{theme_url}}/assets/images/home-services-media.png"
+                                },
+                                "button_text": "View All Services",
+                                "button_url": {
+                                    "url": "{{site_url}}/services/"
+                                },
+                                "items": [
+                                    {
+                                        "title": "Marketing Services",
+                                        "summary": "If your buyers are technical and your product is complex, you\u2019re in the right place.",
+                                        "tags": "SEO\nAEO\nGEO"
+                                    },
+                                    {
+                                        "title": "Leads Generation",
+                                        "summary": "Demand systems that attract decision-makers already looking for solutions like yours.",
+                                        "tags": ""
+                                    },
+                                    {
+                                        "title": "Fractional CMO",
+                                        "summary": "Senior strategic guidance to align positioning, content, and pipeline growth.",
+                                        "tags": ""
+                                    },
+                                    {
+                                        "title": "Web Development",
+                                        "summary": "Trust-building web experiences designed for security brands and complex services.",
+                                        "tags": ""
+                                    },
+                                    {
+                                        "title": "AI Solutions",
+                                        "summary": "Responsible AI-enhanced workflows that improve output without compromising credibility.",
+                                        "tags": ""
+                                    }
+                                ]
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "35a9ef26",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "0",
+                    "right": "0",
+                    "bottom": "0",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "e06a52fb",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "c4234737",
+                            "elType": "widget",
+                            "widgetType": "gms-faq",
+                            "settings": {
+                                "layout": "split",
+                                "eyebrow": "FAQ\u2019s",
+                                "title": "Frequently Asked Questions",
+                                "description": "In the security industry, trust is everything. Buyers are cautious, risk-aware, and slow to commit. They don\u2019t respond to loud marketing, generic promises, or copy-paste campaigns.",
+                                "primary_button_text": "Schedule a Free Consultation",
+                                "primary_button_url": {
+                                    "url": "{{site_url}}/contact-us/"
+                                },
+                                "secondary_button_text": "Check All FAQ",
+                                "secondary_button_url": {
+                                    "url": "{{site_url}}/faq/"
+                                },
+                                "footer_text": "Do you have anymore questions for us?",
+                                "footer_link_text": "Contact Us",
+                                "footer_link_url": {
+                                    "url": "{{site_url}}/contact-us/"
+                                },
+                                "items": [
+                                    {
+                                        "question": "How does this actually drive results?",
+                                        "answer": "In the security industry, trust is everything. Buyers are cautious, risk-aware, and slow to commit. They don\u2019t respond to loud marketing, generic promises, or copy-paste campaigns."
+                                    },
+                                    {
+                                        "question": "What metrics do we use to measure success?",
+                                        "answer": "We focus on qualified pipeline, buyer intent signals, branded search growth, conversion rate, and reduced wasted ad spend."
+                                    },
+                                    {
+                                        "question": "Can we identify studies that highlight our impact?",
+                                        "answer": "Yes. We map authority, traffic quality, lead quality, and sales outcomes into measurable case studies."
+                                    },
+                                    {
+                                        "question": "How long does it take to see traction?",
+                                        "answer": "The first wins usually come from clearer positioning and sharper buyer-facing pages, while compounding SEO and authority gains build over the following months."
+                                    }
+                                ]
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "5bfd9774",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "0",
+                    "right": "0",
+                    "bottom": "0",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "fb2add05",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "2fc403e1",
+                            "elType": "widget",
+                            "widgetType": "gms-post-grid",
+                            "settings": {
+                                "eyebrow": "Blogs",
+                                "title": "Updated Journal",
+                                "description": "Strategists dedicated to creating stunning, functional websites that align with your unique business goals.",
+                                "items": [
+                                    {
+                                        "meta": "Website Design",
+                                        "title": "Why UX/UI Design Can Make or Break Your Website.",
+                                        "excerpt": "Why the top of the funnel isn\u2019t broken anymore and how better trust design improves conversion before the first call.",
+                                        "image": {
+                                            "url": "{{theme_url}}/assets/images/home-journal-1.png"
+                                        },
+                                        "url": {
+                                            "url": "{{site_url}}/why-ux-ui-design-can-make-or-break-your-website/"
+                                        }
+                                    },
+                                    {
+                                        "meta": "AI Trend",
+                                        "title": "5 Must-Have Features for a Modern Business Website.",
+                                        "excerpt": "The technical and credibility layers every modern security brand website needs to convert high-intent buyers.",
+                                        "image": {
+                                            "url": "{{theme_url}}/assets/images/home-journal-2.png"
+                                        },
+                                        "url": {
+                                            "url": "{{site_url}}/five-must-have-features-for-a-modern-business-website/"
+                                        }
+                                    },
+                                    {
+                                        "meta": "AI Trend",
+                                        "title": "AI in Content Creation: Friend or Foe? in 2026",
+                                        "excerpt": "A practical view of AI-assisted content systems for regulated industries that cannot afford generic messaging.",
+                                        "image": {
+                                            "url": "{{theme_url}}/assets/images/home-journal-3.png"
+                                        },
+                                        "url": {
+                                            "url": "{{site_url}}/ai-in-content-creation-friend-or-foe-in-2026/"
+                                        }
+                                    }
+                                ],
+                                "button_text": "",
+                                "button_url": {
+                                    "url": "{{site_url}}/resources-insights/"
+                                }
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "0e08f909",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "0",
+                    "right": "0",
+                    "bottom": "0",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "6f1cb67e",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "ca6f5790",
+                            "elType": "widget",
+                            "widgetType": "gms-contact-form",
+                            "settings": {
+                                "eyebrow": "Contact Us",
+                                "title": "Get your free quote",
+                                "description": "Supercharge your online presence with a tailored digital marketing strategy. Fill out the form today to get a personalized consultation and quote within 24-48 hours.",
+                                "email": "info@growmysecuritycompany.com",
+                                "phone": "(623) 282-1778",
+                                "address": "Chicago, IL, United States",
+                                "hours": "Monday-Friday, 09:00AM - 06:00PM",
+                                "services_list": "Branding Services\nSearch Engine Optimization\nFractional CMO Services\nSocial Media Marketing\nWebsite Design\nWebsite Development\nAdvertising Services\nAI Solutions",
+                                "footer_chips": "24-48 hour response\nNo spam, ever\nLocal experts"
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

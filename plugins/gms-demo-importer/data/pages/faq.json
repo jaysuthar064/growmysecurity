@@ -1,0 +1,105 @@
+{
+    "version": "0.4",
+    "title": "FAQ",
+    "type": "page",
+    "page_settings": [],
+    "content": [
+        {
+            "id": "7cbd867e",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "48",
+                    "right": "0",
+                    "bottom": "48",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "22b6ef84",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "90f49c56",
+                            "elType": "widget",
+                            "widgetType": "gms-faq",
+                            "settings": {
+                                "eyebrow": "Faq",
+                                "title": "Read Frequently Asked Question",
+                                "description": "Straight answers about how trust-led positioning works in complex security markets.",
+                                "items": [
+                                    {
+                                        "question": "How does this actually drive results?",
+                                        "answer": "In the security industry, trust is everything. Buyers are cautious, risk-aware, and slow to commit. They do not respond to loud marketing, generic promises, or copy-paste campaigns."
+                                    },
+                                    {
+                                        "question": "What metrics do we use to measure success?",
+                                        "answer": "We focus on qualified pipeline, buyer intent signals, branded search growth, conversion rate, and reduced wasted ad spend."
+                                    },
+                                    {
+                                        "question": "Can we identify studies that highlight our impact?",
+                                        "answer": "Yes. We map content, authority, traffic quality, and lead quality against business outcomes so case studies stay measurable and credible."
+                                    }
+                                ]
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "8108b828",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "48",
+                    "right": "0",
+                    "bottom": "48",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "bf3ade0d",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "04dd3b6a",
+                            "elType": "widget",
+                            "widgetType": "gms-cta-banner",
+                            "settings": {
+                                "eyebrow": "Faqs",
+                                "title": "Ready to build trust that drives revenue?",
+                                "description": "You bring the expertise, we turn it into visibility, credibility, and pipeline momentum.",
+                                "button_text": "Schedule a Free Consultation",
+                                "button_url": {
+                                    "url": "{{site_url}}/contact-us/"
+                                },
+                                "image": {
+                                    "url": "{{theme_url}}/assets/images/image-3.png"
+                                }
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

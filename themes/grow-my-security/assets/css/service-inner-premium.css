@@ -1,0 +1,527 @@
+.gms-service-detail-page.gms-service-premium {
+  --gms-service-bg: #130b0a;
+  --gms-service-bg-2: #190d0b;
+  --gms-service-surface: rgba(55, 33, 31, 0.62);
+  --gms-service-surface-strong: rgba(30, 17, 16, 0.84);
+  --gms-service-border: rgba(255, 255, 255, 0.1);
+  --gms-service-border-strong: rgba(239, 32, 20, 0.24);
+  --gms-service-text: #f5f1ee;
+  --gms-service-muted: #c7bbb5;
+  --gms-service-accent: #ef2014;
+  --gms-service-accent-soft: rgba(239, 32, 20, 0.14);
+  --gms-service-glow: rgba(255, 255, 255, 0.12);
+  --gms-service-shadow: 0 24px 64px rgba(0, 0, 0, 0.34);
+  --gms-service-shadow-hover: 0 34px 82px rgba(0, 0, 0, 0.46);
+  position: relative;
+  overflow: clip;
+  isolation: isolate;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  background:
+    radial-gradient(circle at top right, rgba(239, 32, 20, 0.2), transparent 24%),
+    radial-gradient(circle at 12% 10%, rgba(255, 255, 255, 0.05), transparent 18%),
+    linear-gradient(180deg, #190d0b 0%, #130b0a 34%, #100807 100%);
+  color: var(--gms-service-text);
+}
+
+.gms-service-detail-page.gms-service-premium::before,
+.gms-service-detail-page.gms-service-premium::after {
+  content: "";
+  position: absolute;
+  inset: auto;
+  border-radius: 999px;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gms-service-detail-page.gms-service-premium::before {
+  top: 120px;
+  right: -120px;
+  width: 280px;
+  height: 280px;
+  background: rgba(239, 32, 20, 0.18);
+}
+
+.gms-service-detail-page.gms-service-premium::after {
+  top: 520px;
+  left: -120px;
+  width: 240px;
+  height: 240px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.gms-service-detail-page.gms-service-premium img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__shell {
+  position: relative;
+  z-index: 1;
+  width: min(1288px, calc(100% - 64px));
+  margin: 0 auto;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__section {
+  padding: 84px 0;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__section--muted {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0%, rgba(255, 255, 255, 0.012) 100%);
+  border-block: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__hero {
+  padding: 44px 0 36px;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__hero-panel,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__content-card,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__glass-card,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__step-card,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__cta-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--gms-service-border);
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(63, 39, 36, 0.7) 0%, rgba(25, 14, 13, 0.9) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: var(--gms-service-shadow);
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__hero-panel::before,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__content-card::before,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__glass-card::before,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__step-card::before,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__cta-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--gms-service-glow) 52%, transparent 100%);
+  opacity: 0.55;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__hero-panel {
+  padding: 34px;
+  background:
+    radial-gradient(circle at top left, rgba(239, 32, 20, 0.14), transparent 24%),
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.05), transparent 22%),
+    linear-gradient(180deg, rgba(55, 33, 31, 0.82) 0%, rgba(25, 14, 13, 0.94) 100%);
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__hero-grid,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(340px, 0.94fr);
+  gap: 36px;
+  align-items: center;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__hero-copy,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__content-card {
+  min-width: 0;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(239, 32, 20, 0.2);
+  background: linear-gradient(180deg, rgba(239, 32, 20, 0.16) 0%, rgba(239, 32, 20, 0.08) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--gms-service-accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.gms-service-detail-page.gms-service-premium h1,
+.gms-service-detail-page.gms-service-premium h2,
+.gms-service-detail-page.gms-service-premium h3 {
+  margin: 0;
+  color: var(--gms-service-text);
+  letter-spacing: -0.03em;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+}
+
+.gms-service-detail-page.gms-service-premium h1 {
+  font-size: clamp(2.6rem, 5vw, 5rem);
+  line-height: 0.98;
+  max-width: 10ch;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__hero-text {
+  margin: 22px 0 0;
+  max-width: 58ch;
+  color: var(--gms-service-muted);
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__badges,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__highlights,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__badges,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__actions {
+  margin-top: 24px;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__badge,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__highlight {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--gms-service-text);
+  font-weight: 600;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 22px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-button.gms-service-premium__button {
+  background: linear-gradient(135deg, #ef2014 0%, #ff6b4d 100%);
+  box-shadow: 0 18px 38px rgba(239, 32, 20, 0.28);
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__button--ghost {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__button:hover,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__glass-card:hover,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__step-card:hover,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__visual-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--gms-service-shadow-hover);
+  border-color: var(--gms-service-border-strong);
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__meta {
+  margin-top: 20px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--gms-service-muted);
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__meta-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gms-service-accent);
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__meta a {
+  color: var(--gms-service-text);
+  text-decoration: none;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__media-frame,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__visual-card {
+  overflow: hidden;
+  border-radius: 24px;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__media-frame img,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__visual-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: inherit;
+  filter: saturate(0.92) contrast(1.06);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__visual-card:hover img {
+  transform: scale(1.03);
+  filter: saturate(1) contrast(1.08);
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__content-card {
+  padding: 34px;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__heading {
+  max-width: 760px;
+  margin: 0 auto 34px;
+  text-align: center;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__heading--left {
+  max-width: none;
+  margin-inline: 0;
+  text-align: left;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__heading h2,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__cta-card h2 {
+  font-size: clamp(2rem, 4vw, 3.3rem);
+  line-height: 1.08;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__heading p,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__prose p,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__glass-card p,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__step-copy p,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__cta-card p {
+  color: var(--gms-service-muted);
+  line-height: 1.75;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__prose p + p {
+  margin-top: 18px;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__highlights {
+  margin-top: 28px;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__grid--compact {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__grid--three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__glass-card {
+  padding: 28px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__glass-card:hover {
+  background: linear-gradient(180deg, rgba(74, 46, 43, 0.78) 0%, rgba(28, 16, 15, 0.94) 100%);
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__glass-card--compact {
+  min-height: 100%;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__glass-card--value {
+  background: linear-gradient(180deg, rgba(55, 33, 31, 0.7) 0%, rgba(25, 14, 13, 0.92) 100%);
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__icon {
+  width: 52px;
+  height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(239, 32, 20, 0.18);
+  background: linear-gradient(180deg, rgba(239, 32, 20, 0.2) 0%, rgba(239, 32, 20, 0.08) 100%);
+  color: var(--gms-service-accent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 18px 30px rgba(239, 32, 20, 0.14);
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__glass-card h3,
+.gms-service-detail-page.gms-service-premium .gms-service-premium__step-copy h3 {
+  font-size: 1.16rem;
+  margin-bottom: 10px;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__step-card {
+  padding: 24px;
+  min-height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__step-card:hover {
+  background: linear-gradient(180deg, rgba(74, 46, 43, 0.78) 0%, rgba(28, 16, 15, 0.94) 100%);
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__step-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 18px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #ef2014 0%, #ff6b4d 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-weight: 800;
+  box-shadow: 0 16px 28px rgba(239, 32, 20, 0.24);
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__section--cta {
+  padding-top: 20px;
+  padding-bottom: 96px;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__cta-card {
+  padding: 42px;
+  text-align: center;
+  background:
+    radial-gradient(circle at top center, rgba(239, 32, 20, 0.16), transparent 34%),
+    linear-gradient(180deg, rgba(66, 40, 37, 0.8) 0%, rgba(22, 13, 12, 0.95) 100%);
+  border-color: rgba(239, 32, 20, 0.18);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.4);
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__cta-card p {
+  max-width: 58ch;
+  margin: 16px auto 0;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__actions--center {
+  justify-content: center;
+  margin-top: 28px;
+}
+
+@media (max-width: 1200px) {
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1024px) {
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__hero-grid,
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__hero-copy h1 {
+    max-width: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__shell {
+    width: min(100% - 32px, 1288px);
+  }
+
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__hero {
+    padding-top: 28px;
+  }
+
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__section {
+    padding: 56px 0;
+  }
+
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__hero-panel,
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__content-card,
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__glass-card,
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__step-card,
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__cta-card {
+    padding: 22px;
+  }
+
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__grid,
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__grid--compact,
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__grid--three,
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__steps {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__actions {
+    flex-direction: column;
+  }
+
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__button {
+    width: 100%;
+  }
+
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__media-frame img,
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__visual-card img {
+    height: clamp(260px, 70vw, 360px);
+  }
+}
+
+/* ==========================================================================
+   Elementor Editor Sync & Alignment Fixes
+   ========================================================================== */
+
+/* Fix 100vw bleed in editor - prevents clipping by sidebar */
+.elementor-editor-active .gms-service-detail-page.gms-service-premium {
+  width: auto !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  border-radius: 16px; /* Optional: softer look in editor */
+}
+
+/* Reduce image size for About sections as requested */
+.gms-service-detail-page.gms-service-premium .gms-service-premium__visual-card {
+  max-width: 90%; /* Slight reduction in visual weight */
+  margin-inline: auto;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__visual-card img {
+  aspect-ratio: 16 / 10; /* Wider, shorter aspect ratio to "reduce" vertical space */
+  max-height: 480px;
+}
+
+/* Ensure Logo/Mark stays aligned after reduction */
+.gms-service-detail-page.gms-service-premium .gms-service-premium__visual-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__button,
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__glass-card,
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__step-card,
+  .gms-service-detail-page.gms-service-premium .gms-service-premium__visual-card {
+    transition: none !important;
+  }
+}

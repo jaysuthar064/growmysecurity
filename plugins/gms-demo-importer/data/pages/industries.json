@@ -1,0 +1,276 @@
+{
+    "version": "0.4",
+    "title": "Industries",
+    "type": "page",
+    "page_settings": [],
+    "content": [
+        {
+            "id": "21d691fc",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "0",
+                    "right": "0",
+                    "bottom": "32",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "f3602d1a",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "00c770dd",
+                            "elType": "widget",
+                            "widgetType": "gms-hero",
+                            "settings": {
+                                "slides": [
+                                    {
+                                        "layout": "split",
+                                        "label": "Verticals",
+                                        "title": "Security Verticals Supported",
+                                        "copy": "If your buyers are technical and your product is complex, you are in the right place.",
+                                        "image": {
+                                            "url": ""
+                                        },
+                                        "art_image": {
+                                            "url": "{{theme_url}}/assets/images/industry-hero-lock.png"
+                                        },
+                                        "primary_text": "",
+                                        "primary_url": {
+                                            "url": "{{site_url}}/contact-us/"
+                                        },
+                                        "secondary_text": "",
+                                        "secondary_url": {
+                                            "url": "{{site_url}}/about-us/"
+                                        }
+                                    }
+                                ]
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "dae523c9",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "48",
+                    "right": "0",
+                    "bottom": "48",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "8b12aa74",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "d35d6c33",
+                            "elType": "widget",
+                            "widgetType": "gms-card-grid",
+                            "settings": {
+                                "eyebrow": "Verticals",
+                                "title": "Security Verticals Supported",
+                                "description": "Built for technical buyers in complex, trust-sensitive markets.",
+                                "cards": [
+                                    {
+                                        "meta": "",
+                                        "icon": {
+                                            "value": "fas fa-user-shield",
+                                            "library": "fa-solid"
+                                        },
+                                        "title": "Contract Security Guards",
+                                        "text": "Position guarding and patrol services as the trusted choice for commercial buyers.",
+                                        "bullets": "",
+                                        "button_text": "Learn More",
+                                        "button_url": {
+                                            "url": "{{site_url}}/industries/contract-security/"
+                                        }
+                                    },
+                                    {
+                                        "meta": "",
+                                        "icon": {
+                                            "value": "fas fa-microchip",
+                                            "library": "fa-solid"
+                                        },
+                                        "title": "Electronic Security Companies & Integrators",
+                                        "text": "Showcase integration expertise and win larger electronic security projects.",
+                                        "bullets": "",
+                                        "button_text": "Learn More",
+                                        "button_url": {
+                                            "url": "{{site_url}}/industries/electronic-security/"
+                                        }
+                                    },
+                                    {
+                                        "meta": "",
+                                        "icon": {
+                                            "value": "fas fa-broadcast-tower",
+                                            "library": "fa-solid"
+                                        },
+                                        "title": "Alarm & Monitoring Companies",
+                                        "text": "Capture high-intent monitoring demand with a trust-led digital presence.",
+                                        "bullets": "",
+                                        "button_text": "Learn More",
+                                        "button_url": {
+                                            "url": "{{site_url}}/industries/alarm-monitoring/"
+                                        }
+                                    },
+                                    {
+                                        "meta": "",
+                                        "icon": {
+                                            "value": "fas fa-user-secret",
+                                            "library": "fa-solid"
+                                        },
+                                        "title": "Executive Protection & Personal Security",
+                                        "text": "Signal discretion, readiness, and premium authority for personal protection services.",
+                                        "bullets": "",
+                                        "button_text": "Learn More",
+                                        "button_url": {
+                                            "url": "{{site_url}}/industries/executive-protection/"
+                                        }
+                                    },
+                                    {
+                                        "meta": "",
+                                        "icon": {
+                                            "value": "fas fa-users",
+                                            "library": "fa-solid"
+                                        },
+                                        "title": "Event Security & Crowd Management",
+                                        "text": "Present large-scale event coverage as a polished, dependable service offering.",
+                                        "bullets": "",
+                                        "button_text": "Learn More",
+                                        "button_url": {
+                                            "url": "{{site_url}}/industries/event-security/"
+                                        }
+                                    },
+                                    {
+                                        "meta": "",
+                                        "icon": {
+                                            "value": "fas fa-shopping-cart",
+                                            "library": "fa-solid"
+                                        },
+                                        "title": "Loss Prevention & Retail Security",
+                                        "text": "Demonstrate operational control for retail, shrink reduction, and site protection.",
+                                        "bullets": "",
+                                        "button_text": "Learn More",
+                                        "button_url": {
+                                            "url": "{{site_url}}/industries/loss-prevention/"
+                                        }
+                                    },
+                                    {
+                                        "meta": "",
+                                        "icon": {
+                                            "value": "fas fa-search",
+                                            "library": "fa-solid"
+                                        },
+                                        "title": "Private Investigation & Security",
+                                        "text": "Frame investigative services with clarity, credibility, and high-trust positioning.",
+                                        "bullets": "",
+                                        "button_text": "Learn More",
+                                        "button_url": {
+                                            "url": "{{site_url}}/industries/private-investigation/"
+                                        }
+                                    },
+                                    {
+                                        "meta": "",
+                                        "icon": {
+                                            "value": "fas fa-landmark",
+                                            "library": "fa-solid"
+                                        },
+                                        "title": "Government & Municipal Security Contractors",
+                                        "text": "Highlight compliance, public-sector experience, and mission-ready delivery.",
+                                        "bullets": "",
+                                        "button_text": "Learn More",
+                                        "button_url": {
+                                            "url": "{{site_url}}/industries/government-security/"
+                                        }
+                                    },
+                                    {
+                                        "meta": "",
+                                        "icon": {
+                                            "value": "fas fa-video",
+                                            "library": "fa-solid"
+                                        },
+                                        "title": "Camera Monitoring & Access Control",
+                                        "text": "Convert surveillance and access control expertise into clear buyer confidence.",
+                                        "bullets": "",
+                                        "button_text": "Learn More",
+                                        "button_url": {
+                                            "url": "{{site_url}}/industries/camera-monitoring/"
+                                        }
+                                    }
+                                ]
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "f64cd5c9",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "48",
+                    "right": "0",
+                    "bottom": "48",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "ad3684fd",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "32a81ac5",
+                            "elType": "widget",
+                            "widgetType": "gms-cta-banner",
+                            "settings": {
+                                "eyebrow": "Contact Us",
+                                "title": "Not sure where to start?",
+                                "description": "We bring the expertise, visibility, and measurable trust your audience needs.",
+                                "button_text": "Get a free audit",
+                                "button_url": {
+                                    "url": "{{site_url}}/contact-us/"
+                                },
+                                "image": {
+                                    "url": "{{theme_url}}/assets/images/image-3.png"
+                                }
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

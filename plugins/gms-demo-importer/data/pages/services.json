@@ -1,0 +1,234 @@
+{
+    "version": "0.4",
+    "title": "Services",
+    "type": "page",
+    "page_settings": [],
+    "content": [
+        {
+            "id": "1d5b5021",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "0",
+                    "right": "0",
+                    "bottom": "16",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "49ef489d",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "1c716761",
+                            "elType": "widget",
+                            "widgetType": "gms-page-hero",
+                            "settings": {
+                                "variant": "service",
+                                "eyebrow": "Services",
+                                "title": "Creative Services built for impact",
+                                "description": "We help technical teams earn credibility and belief, turning what they know into visible, measurable trust that drives real opportunity.",
+                                "art_image": {
+                                    "url": "{{theme_url}}/assets/images/services-hero-art.png"
+                                },
+                                "background_image": {
+                                    "url": ""
+                                },
+                                "primary_text": "",
+                                "primary_url": {
+                                    "url": "{{site_url}}/contact-us/"
+                                },
+                                "secondary_text": "",
+                                "secondary_url": {
+                                    "url": "{{site_url}}/about-us/"
+                                }
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "8c37a34a",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "24",
+                    "right": "0",
+                    "bottom": "48",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "50f08f7b",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "574d446f",
+                            "elType": "widget",
+                            "widgetType": "gms-service-grid",
+                            "settings": {
+                                "show_heading": "",
+                                "cards": [
+                                    {
+                                        "icon": "AD",
+                                        "title": "Advertising Solutions",
+                                        "text": "We create tailored marketing strategies that enhance online visibility and drive customer engagement.",
+                                        "bullets": "SEO Optimization\nContent Marketing\nSocial Media Management",
+                                        "button_text": "Learn More",
+                                        "button_url": {
+                                            "url": "{{site_url}}/services/advertising-solutions/"
+                                        }
+                                    },
+                                    {
+                                        "icon": "AI",
+                                        "title": "AI Solutions",
+                                        "text": "Transform your ideas into engaging mobile experiences, providing users with seamless interactions and high functionality.",
+                                        "bullets": "SEO Optimization\nContent Marketing\nSocial Media Management",
+                                        "button_text": "Learn More",
+                                        "button_url": {
+                                            "url": "{{site_url}}/services/ai-solutions/"
+                                        }
+                                    },
+                                    {
+                                        "icon": "CMO",
+                                        "title": "Fractional CMO Services",
+                                        "text": "We create tailored marketing strategies that enhance online visibility and drive customer engagement.",
+                                        "bullets": "SEO Optimization\nContent Marketing\nSocial Media Management",
+                                        "button_text": "Learn More",
+                                        "button_url": {
+                                            "url": "{{site_url}}/services/fractional-cmo-services/"
+                                        }
+                                    },
+                                    {
+                                        "icon": "DM",
+                                        "title": "Digital Marketing Solutions",
+                                        "text": "We create tailored marketing strategies that enhance online visibility and drive customer engagement.",
+                                        "bullets": "SEO Optimization\nContent Marketing\nSocial Media Management",
+                                        "button_text": "Learn More",
+                                        "button_url": {
+                                            "url": "{{site_url}}/services/digital-marketing-solutions/"
+                                        }
+                                    },
+                                    {
+                                        "icon": "LEAD",
+                                        "title": "Leads Generation Services",
+                                        "text": "Transform your ideas into engaging mobile experiences, providing users with seamless interactions and high functionality.",
+                                        "bullets": "SEO Optimization\nContent Marketing\nSocial Media Management",
+                                        "button_text": "Learn More",
+                                        "button_url": {
+                                            "url": "{{site_url}}/services/leads-generation-services/"
+                                        }
+                                    },
+                                    {
+                                        "icon": "SEO",
+                                        "title": "SEO Solutions",
+                                        "text": "We help technical teams earn credibility and belief, turning what they know into visible, measurable trust that drives real opportunity.",
+                                        "bullets": "SEO Optimization\nContent Marketing\nSocial Media Management",
+                                        "button_text": "Learn More",
+                                        "button_url": {
+                                            "url": "{{site_url}}/services/seo-solutions/"
+                                        }
+                                    },
+                                    {
+                                        "icon": "AEO",
+                                        "title": "AEO",
+                                        "text": "We help technical teams earn credibility and belief, turning what they know into visible, measurable trust that drives real opportunity.",
+                                        "bullets": "Custom Web Design\nTheme Creation\nFast Loading",
+                                        "button_text": "Learn More",
+                                        "button_url": {
+                                            "url": "{{site_url}}/services/aeo/"
+                                        }
+                                    },
+                                    {
+                                        "icon": "GEO",
+                                        "title": "GEO",
+                                        "text": "We help technical teams earn credibility and belief, turning what they know into visible, measurable trust that drives real opportunity.",
+                                        "bullets": "Custom Web Design\nTheme Creation\nFast Loading",
+                                        "button_text": "Learn More",
+                                        "button_url": {
+                                            "url": "{{site_url}}/services/geo/"
+                                        }
+                                    },
+                                    {
+                                        "icon": "DEV",
+                                        "title": "Web Development",
+                                        "text": "We help technical teams earn credibility and belief, turning what they know into visible, measurable trust that drives real opportunity.",
+                                        "bullets": "Custom Web Design\nTheme Creation\nFast Loading",
+                                        "button_text": "Learn More",
+                                        "button_url": {
+                                            "url": "{{site_url}}/services/web-development/"
+                                        }
+                                    }
+                                ]
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "2e6a5031",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "48",
+                    "right": "0",
+                    "bottom": "48",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "a197a959",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "a32bdd17",
+                            "elType": "widget",
+                            "widgetType": "gms-cta-banner",
+                            "settings": {
+                                "eyebrow": "Contact Us",
+                                "title": "Not sure where to start?",
+                                "description": "You bring the expertise, we will turn it into visibility, credibility, and pipeline momentum.",
+                                "button_text": "Get a free audit",
+                                "button_url": {
+                                    "url": "{{site_url}}/contact-us/"
+                                },
+                                "image": {
+                                    "url": "{{theme_url}}/assets/images/home-services-media.png"
+                                }
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,205 @@
+{
+    "version": "0.4",
+    "title": "Single Service Page",
+    "type": "page",
+    "page_settings": [],
+    "content": [
+        {
+            "id": "97b2c367",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "0",
+                    "right": "0",
+                    "bottom": "20",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "c378f018",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "8cb0318e",
+                            "elType": "widget",
+                            "widgetType": "gms-page-hero",
+                            "settings": {
+                                "variant": "detail",
+                                "eyebrow": "Service",
+                                "title": "Advertising Solutions",
+                                "description": "We create tailored marketing strategies that enhance online visibility and drive customer engagement.",
+                                "art_image": {
+                                    "url": "{{theme_url}}/assets/images/services-icon.png"
+                                },
+                                "background_image": {
+                                    "url": ""
+                                },
+                                "primary_text": "",
+                                "primary_url": {
+                                    "url": "{{site_url}}/contact-us/"
+                                },
+                                "secondary_text": "",
+                                "secondary_url": {
+                                    "url": "{{site_url}}/services/advertising-solutions/"
+                                }
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "fb1cc2cc",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "0",
+                    "right": "0",
+                    "bottom": "48",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "28fff813",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "8494df10",
+                            "elType": "widget",
+                            "widgetType": "gms-service-detail",
+                            "settings": {
+                                "nav_items": [
+                                    {
+                                        "title": "Advertising Solutions",
+                                        "url": {
+                                            "url": "{{site_url}}/services/advertising-solutions/"
+                                        },
+                                        "is_active": "yes"
+                                    },
+                                    {
+                                        "title": "AI Solutions",
+                                        "url": {
+                                            "url": "{{site_url}}/services/ai-solutions/"
+                                        },
+                                        "is_active": ""
+                                    },
+                                    {
+                                        "title": "Fractional CMO Services",
+                                        "url": {
+                                            "url": "{{site_url}}/services/fractional-cmo-services/"
+                                        },
+                                        "is_active": ""
+                                    },
+                                    {
+                                        "title": "Digital Marketing Solutions",
+                                        "url": {
+                                            "url": "{{site_url}}/services/digital-marketing-solutions/"
+                                        },
+                                        "is_active": ""
+                                    },
+                                    {
+                                        "title": "Leads Generation Services",
+                                        "url": {
+                                            "url": "{{site_url}}/services/leads-generation-services/"
+                                        },
+                                        "is_active": ""
+                                    },
+                                    {
+                                        "title": "SEO Services",
+                                        "url": {
+                                            "url": "{{site_url}}/services/seo-solutions/"
+                                        },
+                                        "is_active": ""
+                                    },
+                                    {
+                                        "title": "AEO Services",
+                                        "url": {
+                                            "url": "{{site_url}}/services/aeo/"
+                                        },
+                                        "is_active": ""
+                                    },
+                                    {
+                                        "title": "GEO Services",
+                                        "url": {
+                                            "url": "{{site_url}}/services/geo/"
+                                        },
+                                        "is_active": ""
+                                    },
+                                    {
+                                        "title": "Website Development",
+                                        "url": {
+                                            "url": "{{site_url}}/services/web-development/"
+                                        },
+                                        "is_active": ""
+                                    }
+                                ],
+                                "contact_title": "Contact with us for any advice",
+                                "contact_text": "Need help? Talk to an expert",
+                                "contact_phone": "+1 (623) 282-1778",
+                                "overview_title": "Service Overview",
+                                "overview_text": "If you're leading growth for a technical brand, you've probably had the conversation: how do we create demand without sounding generic or overhyped?\n\nWe create tailored marketing strategies that enhance online visibility and drive customer engagement. Our approach is built for complex buying decisions where trust, credibility, and mental availability matter before a lead ever fills out a form.\n\nGrow My Security Company uses data-backed positioning, conversion architecture, and buyer-aligned channel execution to turn that expertise into visible demand.",
+                                "overview_image": {
+                                    "url": "{{theme_url}}/assets/images/image-3.png"
+                                },
+                                "features_title": "Key Features",
+                                "features_text": "Our services are designed to empower your brand with creativity, strategy, and cutting-edge technology. We combine innovative thinking with data-driven insights to deliver solutions that are visually strong, strategically sound, and performance-focused.",
+                                "features": [
+                                    {
+                                        "icon": "AD",
+                                        "title": "Custom Advertising",
+                                        "text": "We build category-aware service systems that align to your positioning, audience, and business goals.",
+                                        "bullets": "SEO Optimization\nContent Marketing\nSocial Media Management"
+                                    },
+                                    {
+                                        "icon": "CS",
+                                        "title": "Creative Solutions",
+                                        "text": "Execution stays grounded in measurable trust signals, clearer demand capture, and stronger buyer confidence.",
+                                        "bullets": "SEO Optimization\nContent Marketing\nSocial Media Management"
+                                    }
+                                ],
+                                "benefits_title": "Our Benefits",
+                                "benefits_text": "Choosing means partnering with a team dedicated to delivering exceptional creative solutions that drive real business success. Here are the key benefits you will enjoy when working with us.",
+                                "benefits_items": "Tailored Strategies|Custom solutions designed specifically around your brand goals, audience, and industry challenges.\nData-Driven Insights|Leveraging analytics to inform decisions and optimize performance across all marketing channels.\nInnovative Tools|Utilizing the latest tools and software to keep your brand agile, visible, and effective.",
+                                "benefits_image": {
+                                    "url": "{{theme_url}}/assets/images/home-solution-media.png"
+                                },
+                                "faq_items": [
+                                    {
+                                        "question": "How does this actually drive results?",
+                                        "answer": "In the security industry, trust is everything. Buyers are cautious, risk-aware, and slow to commit. They do not respond to loud marketing, generic promises, or copy-paste campaigns."
+                                    },
+                                    {
+                                        "question": "What metrics do we use to measure success?",
+                                        "answer": "We focus on qualified pipeline, buyer intent signals, branded search growth, conversion rate, and reduced wasted ad spend."
+                                    },
+                                    {
+                                        "question": "Can we identify studies that highlight our impact?",
+                                        "answer": "Yes. We map content, authority, traffic quality, and lead quality against business outcomes so case studies stay measurable and credible."
+                                    }
+                                ]
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

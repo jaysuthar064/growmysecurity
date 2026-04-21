@@ -1,0 +1,163 @@
+{
+    "version": "0.4",
+    "title": "About Us",
+    "type": "page",
+    "page_settings": [],
+    "content": [
+        {
+            "id": "6dbd0ac5",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "48",
+                    "right": "0",
+                    "bottom": "48",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "9b386f07",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "a54d82b8",
+                            "elType": "widget",
+                            "widgetType": "gms-story",
+                            "settings": {
+                                "eyebrow": "About Us",
+                                "title": "Turn expertise into trust that scales",
+                                "description": "We help technical teams earn credibility and belief, turning what they know into visible, measurable trust that drives real opportunity.",
+                                "image": {
+                                    "url": "{{theme_url}}/assets/images/image-2.png"
+                                },
+                                "values": [
+                                    {
+                                        "title": "Truth Over Tactics",
+                                        "text": "Security buyers respond to clear authority, not hype."
+                                    },
+                                    {
+                                        "title": "Empathy in Action",
+                                        "text": "We build for cautious, risk-aware audiences."
+                                    },
+                                    {
+                                        "title": "Active Listening",
+                                        "text": "Deep discovery produces stronger positioning."
+                                    }
+                                ]
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "2d4916e5",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "48",
+                    "right": "0",
+                    "bottom": "48",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "6f79aec2",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "0efa8863",
+                            "elType": "widget",
+                            "widgetType": "gms-story",
+                            "settings": {
+                                "eyebrow": "Our Story",
+                                "title": "Origin Story",
+                                "description": "After nearly 20 years climbing the security corporate ladder, Anthony noticed a heightened need for strategic company growth within the security industry.",
+                                "image": {
+                                    "url": "{{theme_url}}/assets/images/image-3.png"
+                                },
+                                "values": [
+                                    {
+                                        "title": "Security Industry Depth",
+                                        "text": "Built from leadership, operations, sales, and growth experience."
+                                    },
+                                    {
+                                        "title": "Military Discipline",
+                                        "text": "A no-nonsense approach to execution and follow-through."
+                                    },
+                                    {
+                                        "title": "Authority Through Visibility",
+                                        "text": "Visible trust is the bridge between expertise and growth."
+                                    }
+                                ]
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "521c39c1",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "48",
+                    "right": "0",
+                    "bottom": "48",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "bc047f4c",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "44edd2ca",
+                            "elType": "widget",
+                            "widgetType": "gms-cta-banner",
+                            "settings": {
+                                "eyebrow": "Contact Us",
+                                "title": "Ready to build trust that drives revenue?",
+                                "description": "Let\u2019s turn your credibility into visible authority.",
+                                "button_text": "Get a free audit",
+                                "button_url": {
+                                    "url": "{{site_url}}/contact-us/"
+                                },
+                                "image": {
+                                    "url": "{{theme_url}}/assets/images/image-4.png"
+                                }
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

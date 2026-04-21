@@ -1,0 +1,83 @@
+{
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "color": {
+      "defaultPalette": false,
+      "palette": [
+        {
+          "color": "#ef2014",
+          "name": "Accent",
+          "slug": "accent"
+        },
+        {
+          "color": "#130b0a",
+          "name": "Background",
+          "slug": "background"
+        },
+        {
+          "color": "#241816",
+          "name": "Background Alt",
+          "slug": "background-alt"
+        },
+        {
+          "color": "#2a1110",
+          "name": "Surface",
+          "slug": "surface"
+        },
+        {
+          "color": "#f5f1ee",
+          "name": "Text",
+          "slug": "text"
+        },
+        {
+          "color": "#c2b8b2",
+          "name": "Muted Text",
+          "slug": "text-muted"
+        }
+      ]
+    },
+    "layout": {
+      "contentSize": "1288px",
+      "wideSize": "1560px"
+    },
+    "spacing": {
+      "blockGap": "32px",
+      "units": ["px", "%", "rem", "vw"]
+    },
+    "typography": {
+      "fontFamilies": [
+        {
+          "fontFamily": "\"Inter\", sans-serif",
+          "name": "Inter",
+          "slug": "body"
+        },
+        {
+          "fontFamily": "\"Manrope\", sans-serif",
+          "name": "Manrope",
+          "slug": "heading"
+        }
+      ]
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "#130b0a",
+      "text": "#f5f1ee"
+    },
+    "spacing": {
+      "blockGap": "32px"
+    },
+    "typography": {
+      "fontFamily": "var:preset|font-family|body",
+      "lineHeight": "1.65"
+    },
+    "elements": {
+      "heading": {
+        "typography": {
+          "fontFamily": "var:preset|font-family|heading"
+        }
+      }
+    }
+  }
+}

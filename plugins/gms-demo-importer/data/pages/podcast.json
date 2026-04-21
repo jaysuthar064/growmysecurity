@@ -1,0 +1,59 @@
+{
+    "version": "0.4",
+    "title": "Podcast",
+    "type": "page",
+    "page_settings": [],
+    "content": [
+        {
+            "id": "c6784f89",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "48",
+                    "right": "0",
+                    "bottom": "48",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "7008f7c5",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "2ff3f374",
+                            "elType": "widget",
+                            "widgetType": "gms-post-grid",
+                            "settings": {
+                                "eyebrow": "Podcast",
+                                "title": "Podcast Episodes",
+                                "description": "Conversations about authority, trust, and growth for security companies.",
+                                "items": [
+                                    {
+                                        "meta": "",
+                                        "title": "Building Trust In Security Marketing",
+                                        "excerpt": "A conversation about authority, trust, and buyer confidence in complex security markets.",
+                                        "image": {
+                                            "url": "{{theme_url}}/assets/images/resources.png"
+                                        },
+                                        "url": {
+                                            "url": "{{site_url}}/building-trust-in-security-marketing/"
+                                        }
+                                    }
+                                ]
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

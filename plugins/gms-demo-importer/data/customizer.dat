@@ -1,0 +1,21 @@
+{
+    "theme_mods": {
+        "gms_accent_color": "#ef2014",
+        "gms_background_color": "#130b0a",
+        "gms_background_alt_color": "#241816",
+        "gms_surface_color": "#2a1110",
+        "gms_surface_alt_color": "#332c2b",
+        "gms_text_color": "#f5f1ee",
+        "gms_text_muted_color": "#c2b8b2",
+        "gms_heading_font": "Manrope",
+        "gms_body_font": "Inter",
+        "gms_base_font_size": 15.5,
+        "gms_content_width": 1288,
+        "gms_content_gutter": 32,
+        "gms_section_gap": 104,
+        "gms_button_radius": 8,
+        "gms_header_background_color": "#1a0b0a",
+        "gms_footer_background_color": "#090505",
+        "gms_site_background_image": ""
+    }
+}

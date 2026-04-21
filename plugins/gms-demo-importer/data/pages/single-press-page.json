@@ -1,0 +1,125 @@
+{
+    "version": "0.4",
+    "title": "Single Press Page",
+    "type": "page",
+    "page_settings": [],
+    "content": [
+        {
+            "id": "2b402875",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "48",
+                    "right": "0",
+                    "bottom": "48",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "7564218c",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "d3895169",
+                            "elType": "widget",
+                            "widgetType": "gms-story",
+                            "settings": {
+                                "eyebrow": "Press",
+                                "title": "Grow My Security Company Coaching For The Security Industry",
+                                "description": "Authority-focused growth systems built specifically for security companies.",
+                                "image": {
+                                    "url": "{{theme_url}}/assets/images/image-2.png"
+                                },
+                                "values": [
+                                    {
+                                        "title": "Media Coverage",
+                                        "text": "Designed to showcase authority and market positioning."
+                                    },
+                                    {
+                                        "title": "High-Trust Messaging",
+                                        "text": "Built for cautious, technical readers."
+                                    },
+                                    {
+                                        "title": "Repeatable Layouts",
+                                        "text": "A reusable editorial system for future press coverage."
+                                    }
+                                ]
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "e1bb30c4",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "48",
+                    "right": "0",
+                    "bottom": "48",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "e5664644",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "a776840a",
+                            "elType": "widget",
+                            "widgetType": "gms-post-grid",
+                            "settings": {
+                                "eyebrow": "Press",
+                                "title": "More Coverage",
+                                "description": "Additional press-ready content blocks for future updates.",
+                                "items": [
+                                    {
+                                        "meta": "",
+                                        "title": "Grow My Security Company Coaching For The Security Industry",
+                                        "excerpt": "Authority-focused growth systems built specifically for security companies.",
+                                        "image": {
+                                            "url": "{{theme_url}}/assets/images/image-2.png"
+                                        },
+                                        "url": {
+                                            "url": "{{site_url}}/coaching-for-the-security-industry/"
+                                        }
+                                    },
+                                    {
+                                        "meta": "",
+                                        "title": "Grow My Security Company How To Scale Security Marketing",
+                                        "excerpt": "A field-tested approach to visibility, credibility, and measurable inbound demand.",
+                                        "image": {
+                                            "url": "{{theme_url}}/assets/images/image-3.png"
+                                        },
+                                        "url": {
+                                            "url": "{{site_url}}/how-to-scale-security-marketing/"
+                                        }
+                                    }
+                                ]
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

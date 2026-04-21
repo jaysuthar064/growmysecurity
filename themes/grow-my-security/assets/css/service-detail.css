@@ -1,0 +1,596 @@
+/*
+ * Industry detail page styles.
+ */
+
+:root {
+  --gms-detail-bg: #130b0a;
+  --gms-detail-bg-alt: rgba(255, 255, 255, 0.03);
+  --gms-detail-surface: rgba(55, 33, 31, 0.62);
+  --gms-detail-surface-soft: rgba(30, 17, 16, 0.84);
+  --gms-detail-text: #f5f1ee;
+  --gms-detail-muted: #c7bbb5;
+  --gms-detail-border: rgba(255, 255, 255, 0.1);
+  --gms-detail-border-strong: rgba(239, 32, 20, 0.24);
+  --gms-detail-accent: #ef2014;
+  --gms-detail-accent-soft: rgba(239, 32, 20, 0.14);
+  --gms-detail-glow: rgba(255, 255, 255, 0.12);
+  --gms-detail-shadow: 0 24px 64px rgba(0, 0, 0, 0.34);
+  --gms-detail-shadow-hover: 0 34px 82px rgba(0, 0, 0, 0.46);
+  --gms-detail-radius: 18px;
+}
+
+.gms-service-page.gms-industry-detail-page {
+  position: relative;
+  overflow: clip;
+  isolation: isolate;
+  /* Break out of any Elementor boxed container to achieve full edge-to-edge rendering */
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  box-sizing: border-box !important;
+  background:
+    radial-gradient(circle at top right, rgba(239, 32, 20, 0.2), transparent 24%),
+    radial-gradient(circle at 12% 10%, rgba(255, 255, 255, 0.05), transparent 18%),
+    linear-gradient(180deg, #190d0b 0%, #130b0a 34%, #100807 100%);
+  color: var(--gms-detail-text);
+  font-family: var(--gms-font-body, "Inter"), sans-serif;
+}
+
+body.page-template-single-service .gms-page-shell {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+body.page-template-single-service .gms-page-content--elementor > .elementor {
+  width: 100%;
+}
+
+body.page-template-single-service .gms-page-content--elementor > .elementor > .elementor-section.elementor-section-boxed > .elementor-container {
+  width: 100% !important;
+  max-width: none !important;
+  padding-inline: 0 !important;
+}
+
+body.page-template-single-service .gms-page-content--elementor .elementor-column > .elementor-widget-wrap,
+body.page-template-single-service .gms-page-content--elementor .elementor-widget-container {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* ── Industry inner-page Elementor editor: remove left/right gaps ── */
+.elementor-section.elementor-section-boxed:has(.gms-industry-detail-page) > .elementor-container,
+.elementor-section.elementor-section-boxed:has(.gms-service-page) > .elementor-container {
+  width: 100% !important;
+  max-width: none !important;
+  padding-inline: 0 !important;
+  margin-inline: 0 !important;
+}
+
+.elementor-column:has(.gms-industry-detail-page) > .elementor-widget-wrap,
+.elementor-column:has(.gms-industry-detail-page) > .elementor-element-populated,
+.elementor-column:has(.gms-service-page) > .elementor-widget-wrap,
+.elementor-column:has(.gms-service-page) > .elementor-element-populated {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.elementor-widget:has(.gms-industry-detail-page) > .elementor-widget-container,
+.elementor-widget:has(.gms-service-page) > .elementor-widget-container {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Also target the page-level shell when Elementor renders these pages */
+.gms-page-content--elementor:has(.gms-industry-detail-page),
+.gms-page-content--elementor:has(.gms-service-page) {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.gms-page-content--elementor:has(.gms-industry-detail-page) > .elementor,
+.gms-page-content--elementor:has(.gms-service-page) > .elementor {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.gms-page-content--elementor:has(.gms-industry-detail-page) > .elementor > .elementor-section.elementor-section-boxed > .elementor-container,
+.gms-page-content--elementor:has(.gms-service-page) > .elementor > .elementor-section.elementor-section-boxed > .elementor-container {
+  width: 100% !important;
+  max-width: none !important;
+  padding-inline: 0 !important;
+}
+
+/* Elementor editor body-class fallback (editor adds .elementor-editor-active) */
+body.elementor-editor-active .elementor-section.elementor-section-boxed:has(.gms-industry-detail-page) > .elementor-container,
+body.elementor-editor-active .elementor-section.elementor-section-boxed:has(.gms-service-page) > .elementor-container {
+  width: 100% !important;
+  max-width: none !important;
+  padding-inline: 0 !important;
+  margin-inline: 0 !important;
+}
+
+.gms-service-page.gms-industry-detail-page::before,
+.gms-service-page.gms-industry-detail-page::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gms-service-page.gms-industry-detail-page::before {
+  top: 120px;
+  right: -120px;
+  width: 280px;
+  height: 280px;
+  background: rgba(239, 32, 20, 0.18);
+}
+
+.gms-service-page.gms-industry-detail-page::after {
+  top: 520px;
+  left: -120px;
+  width: 240px;
+  height: 240px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.gms-industry-detail-page img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+@keyframes gmsDetailFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-up {
+  opacity: 0;
+  animation: gmsDetailFadeUp 0.7s ease forwards;
+}
+
+.gms-industry-detail-page .gms-shell-narrow {
+  position: relative;
+  z-index: 1;
+  width: min(var(--gms-content-width, 1288px), calc(100% - 64px));
+  margin: 0 auto;
+}
+
+.gms-industry-section {
+  padding: 88px 0;
+}
+
+.gms-industry-section--muted {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0%, rgba(255, 255, 255, 0.012) 100%);
+  border-block: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gms-industry-section--cta {
+  padding-top: 24px;
+  padding-bottom: 96px;
+}
+
+.gms-industry-section-heading {
+  max-width: 760px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+.gms-industry-section-heading--left {
+  margin-left: 0;
+  margin-right: 0;
+  text-align: left;
+}
+
+.gms-industry-section__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(239, 32, 20, 0.2);
+  background: linear-gradient(180deg, rgba(239, 32, 20, 0.16) 0%, rgba(239, 32, 20, 0.08) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--gms-detail-accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.gms-industry-section-heading h2,
+.gms-industry-hero h1,
+.gms-industry-cta h2 {
+  margin: 0;
+  color: var(--gms-detail-text);
+  letter-spacing: -0.03em;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+}
+
+.gms-industry-section-heading h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.15;
+}
+
+.gms-industry-section-heading p,
+.gms-industry-hero__lead,
+.gms-industry-cta p,
+.gms-industry-note-card p,
+.gms-industry-step-card__content p,
+.gms-industry-info-card p,
+.gms-industry-benefit-card p,
+.gms-industry-checklist__item p {
+  color: var(--gms-detail-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.gms-industry-hero {
+  padding: 72px 0 32px;
+}
+
+
+.gms-industry-hero__grid,
+.gms-industry-overview,
+.gms-industry-why {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+  gap: 48px;
+  align-items: center;
+}
+
+.gms-industry-hero__copy,
+.gms-industry-overview__main,
+.gms-industry-why__content {
+  min-width: 0;
+}
+
+.gms-industry-hero h1 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1.05;
+  margin-bottom: 20px;
+}
+
+.gms-industry-hero__lead {
+  max-width: 58ch;
+  font-size: 1.06rem;
+  margin-bottom: 30px;
+}
+
+.gms-industry-hero__actions,
+.gms-industry-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.gms-industry-cta__actions {
+  justify-content: center;
+}
+
+.gms-industry-media-card,
+.gms-industry-note-card,
+.gms-industry-checklist__item,
+.gms-industry-info-card,
+.gms-industry-benefit-card,
+.gms-industry-step-card,
+.gms-industry-cta {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--gms-detail-radius);
+  background: linear-gradient(180deg, rgba(63, 39, 36, 0.7) 0%, rgba(25, 14, 13, 0.9) 100%);
+  border: 1px solid var(--gms-detail-border);
+  box-shadow: var(--gms-detail-shadow);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.gms-industry-media-card::before,
+.gms-industry-note-card::before,
+.gms-industry-checklist__item::before,
+.gms-industry-info-card::before,
+.gms-industry-benefit-card::before,
+.gms-industry-step-card::before,
+.gms-industry-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--gms-detail-glow) 52%, transparent 100%);
+  opacity: 0.9;
+}
+
+.gms-industry-media-card,
+.gms-industry-note-card,
+.gms-industry-checklist__item,
+.gms-industry-info-card,
+.gms-industry-benefit-card,
+.gms-industry-step-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+.gms-industry-media-card:hover,
+.gms-industry-note-card:hover,
+.gms-industry-checklist__item:hover,
+.gms-industry-info-card:hover,
+.gms-industry-benefit-card:hover,
+.gms-industry-step-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--gms-detail-border-strong);
+  box-shadow: var(--gms-detail-shadow-hover);
+  background: linear-gradient(180deg, rgba(74, 46, 43, 0.78) 0%, rgba(28, 16, 15, 0.94) 100%);
+}
+
+.gms-industry-media-card img {
+  width: 100%;
+  max-width: 100%;
+  height: clamp(320px, 34vw, 420px);
+  object-fit: cover;
+  filter: saturate(0.92) contrast(1.06);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.gms-industry-media-card:hover img {
+  transform: scale(1.03);
+  filter: saturate(1) contrast(1.08);
+}
+
+.gms-industry-note-card {
+  margin-top: 18px;
+  padding: 24px;
+}
+
+.gms-industry-note-card h3,
+.gms-industry-info-card h3,
+.gms-industry-benefit-card h3,
+.gms-industry-step-card__content h3 {
+  margin: 0 0 10px;
+  color: var(--gms-detail-text);
+  font-size: 1.1rem;
+  line-height: 1.35;
+}
+
+.gms-industry-checklist {
+  display: grid;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.gms-industry-checklist__item {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  padding: 18px 20px;
+}
+
+.gms-industry-checklist__icon,
+.gms-industry-info-card__icon,
+.gms-industry-benefit-card__icon {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(239, 32, 20, 0.2) 0%, rgba(239, 32, 20, 0.08) 100%);
+  border: 1px solid rgba(239, 32, 20, 0.18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  color: var(--gms-detail-accent);
+  flex-shrink: 0;
+}
+
+.gms-industry-checklist__icon svg,
+.gms-industry-info-card__icon svg,
+.gms-industry-benefit-card__icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.gms-industry-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.gms-industry-info-card,
+.gms-industry-benefit-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  min-height: 100%;
+  padding: 28px;
+}
+
+.gms-industry-benefit-card__stat {
+  font-size: 2.3rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--gms-detail-accent);
+  text-shadow: 0 12px 32px rgba(239, 32, 20, 0.28);
+}
+
+.gms-industry-step-list {
+  display: grid;
+  gap: 18px;
+  margin-top: 8px;
+}
+
+.gms-industry-step-card {
+  display: grid;
+  grid-template-columns: 60px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  padding: 20px 22px;
+}
+
+.gms-industry-step-card__number {
+  width: 60px;
+  height: 60px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #ef2014 0%, #ff6b4d 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1rem;
+  box-shadow: 0 16px 28px rgba(239, 32, 20, 0.24);
+}
+
+.gms-industry-cta {
+  padding: 40px;
+  text-align: center;
+  background:
+    radial-gradient(circle at top center, rgba(239, 32, 20, 0.16), transparent 34%),
+    linear-gradient(180deg, rgba(66, 40, 37, 0.8) 0%, rgba(22, 13, 12, 0.95) 100%);
+  border-color: rgba(239, 32, 20, 0.18);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.4);
+}
+
+.gms-industry-cta h2 {
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+
+.gms-industry-cta p {
+  max-width: 58ch;
+  margin: 0 auto 28px;
+}
+
+.gms-industry-detail-page .gms-button,
+.gms-industry-detail-page .gms-button-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0 22px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.gms-industry-detail-page .gms-button {
+  background: linear-gradient(135deg, #ef2014 0%, #ff6b4d 100%);
+  color: #ffffff;
+  box-shadow: 0 14px 30px rgba(239, 32, 20, 0.22);
+}
+
+.gms-industry-detail-page .gms-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px rgba(239, 32, 20, 0.28);
+}
+
+.gms-industry-detail-page .gms-button-outline {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+  color: var(--gms-detail-text);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.gms-industry-detail-page .gms-button-outline:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(239, 32, 20, 0.08) 100%);
+  border-color: rgba(239, 32, 20, 0.24);
+}
+
+@media (max-width: 1024px) {
+  .gms-industry-section {
+    padding: 72px 0;
+  }
+
+  .gms-industry-hero__grid,
+  .gms-industry-overview,
+  .gms-industry-why {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .gms-industry-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .gms-industry-detail-page .gms-shell-narrow {
+    width: min(100% - 32px, 1180px);
+  }
+
+  .gms-industry-hero {
+    padding-top: 48px;
+  }
+
+  .gms-industry-section {
+    padding: 56px 0;
+  }
+
+  .gms-industry-hero h1 {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+
+  .gms-industry-media-card img {
+    height: clamp(280px, 62vw, 360px);
+  }
+
+  .gms-industry-card-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .gms-industry-checklist__item,
+  .gms-industry-step-card {
+    grid-template-columns: 1fr;
+  }
+
+  .gms-industry-checklist__icon,
+  .gms-industry-step-card__number {
+    margin-bottom: 4px;
+  }
+
+  .gms-industry-cta {
+    padding: 30px 22px;
+  }
+
+  .gms-industry-hero__actions,
+  .gms-industry-cta__actions {
+    flex-direction: column;
+  }
+
+  .gms-industry-detail-page .gms-button,
+  .gms-industry-detail-page .gms-button-outline {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-up,
+  .gms-industry-media-card,
+  .gms-industry-media-card img,
+  .gms-industry-note-card,
+  .gms-industry-checklist__item,
+  .gms-industry-step-card,
+  .gms-industry-info-card,
+  .gms-industry-benefit-card,
+  .gms-industry-detail-page .gms-button,
+  .gms-industry-detail-page .gms-button-outline {
+    animation: none !important;
+    transition: none !important;
+  }
+}

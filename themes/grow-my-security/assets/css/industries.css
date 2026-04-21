@@ -1,0 +1,388 @@
+/* =============================================
+   SENIOR UI/UX REDESIGN (v3.0) - AUTHORITY 
+   ============================================= */
+
+.gms-v3-title {
+    font-size: clamp(3rem, 6.5vw, 6.2rem);
+    font-weight: 950;
+    line-height: 0.92;
+    margin-bottom: 25px;
+    letter-spacing: -0.05em;
+    color: #fff;
+    text-transform: capitalize;
+}
+
+.gms-industry-v3 {
+    background: #050505;
+    color: #fff;
+    overflow-x: hidden;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.gms-animate-fade-up {
+    animation: fadeInUp 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    opacity: 1;
+}
+
+.gms-animate-fade-right {
+    animation: fadeInUp 1.2s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    opacity: 1;
+}
+
+.gms-animate-fade-left {
+    animation: fadeInUp 1.2s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    opacity: 1;
+}
+
+/* Section Header Polishing */
+.solution-header {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.solution-header h2 {
+    font-size: clamp(2.5rem, 4vw, 3.8rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    margin-top: 20px;
+}
+
+.solution-header h2 span {
+    color: #ef2014;
+}
+
+/* HERO SECTION (Cinema-Grade) */
+.gms-v3-hero {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 140px 0;
+    background: radial-gradient(ellipse at 80% 20%, #200505 0%, #050505 100%);
+    overflow: hidden;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gms-v3-hero::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(239, 32, 20, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.gms-v3-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(320px, 1fr) minmax(300px, 0.8fr);
+    gap: 4.5rem;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.gms-v3-title {
+    font-size: clamp(3rem, 6.5vw, 6.2rem);
+    font-weight: 950;
+    line-height: 0.92;
+    margin-bottom: 25px;
+    letter-spacing: -0.05em;
+    color: #fff;
+    text-transform: capitalize;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.gms-v3-hook {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #ef2014;
+    margin-bottom: 30px;
+    line-height: 1.25;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.gms-v3-desc {
+    font-size: 1.35rem;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 60px;
+    max-width: 650px;
+    overflow-wrap: break-word;
+}
+
+.gms-v3-hero-media {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.gms-v3-media-card {
+    position: relative;
+    border-radius: 50px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 614px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 60px 120px rgba(0, 0, 0, 0.85);
+    /* Heavy Depth */
+    transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Persistent CSS Watermark Branding */
+.gms-v3-media-card::after {
+    content: '';
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    width: clamp(140px, 15vw, 180px);
+    height: clamp(40px, 5vw, 54px);
+    background: url('../images/logo.png') no-repeat center right / contain;
+    opacity: 0.92;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.45));
+    z-index: 10;
+    pointer-events: none;
+}
+
+.gms-v3-media-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    transition: transform 1.2s ease;
+}
+
+.gms-v3-media-card:hover img {
+    transform: scale(1.08);
+}
+
+.gms-v3-media-glow {
+    position: absolute;
+    bottom: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 40%;
+    background: radial-gradient(ellipse, rgba(239, 32, 20, 0.3) 0%, transparent 70%);
+    filter: blur(40px);
+    z-index: -1;
+}
+
+/* CHALLENGES (Authority Icons) */
+.gms-v3-challenges-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 35px;
+}
+
+.gms-v3-challenge-card {
+    background: rgba(255, 255, 255, 0.025);
+    padding: 50px 40px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.4s ease;
+}
+
+.gms-v3-challenge-card:hover {
+    background: rgba(239, 32, 20, 0.03);
+    border-color: #ef2014;
+    transform: translateY(-8px);
+}
+
+.gms-v3-card-icon {
+    margin-bottom: 25px;
+}
+
+/* SOLUTION (Clean Pillars) */
+.gms-v3-split-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 120px;
+    align-items: center;
+}
+
+.gms-v3-sol-item {
+    margin-bottom: 45px;
+    border-left: 3px solid #ef2014;
+    padding-left: 35px;
+}
+
+.gms-v3-sol-item h3 {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.gms-v3-glass-container {
+    position: relative;
+    border-radius: 40px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gms-v3-glass-container img {
+    width: 100%;
+    display: block;
+    filter: brightness(0.9);
+}
+
+/* STRATEGY (High-End 01-02-03) */
+.gms-v3-steps-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.gms-v3-step {
+    background: #080808;
+    padding: 60px 40px;
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    position: relative;
+    overflow: hidden;
+}
+
+.gms-v3-step h3 {
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.gms-v3-step span {
+    font-size: 5.5rem;
+    font-weight: 950;
+    color: rgba(239, 32, 20, 0.15);
+    /* Stronger Visibility */
+    position: absolute;
+    top: -15px;
+    right: 25px;
+}
+
+/* METRICS & DASHBOARD */
+.v3-stat {
+    border: none !important;
+    background: transparent !important;
+}
+
+.gms-v3-dashboard-visual {
+    margin-top: 100px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+}
+
+.gms-v3-dashboard-visual img {
+    width: 100%;
+    border-radius: 30px;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+}
+
+.dashboard-label {
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 800;
+    color: #ef2014;
+    margin-bottom: 20px;
+    font-size: 0.85rem;
+}
+
+/* GLOW BUTTON LARGE */
+.btn-glow-large {
+    display: inline-block;
+    padding: 22px 45px !important;
+    font-size: 1.1rem !important;
+    font-weight: 800 !important;
+    border-radius: 12px !important;
+    background: #ef2014 !important;
+    color: #fff !important;
+    text-decoration: none !important;
+    box-shadow: 0 15px 40px rgba(239, 32, 20, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+.btn-glow-large:hover {
+    box-shadow: 0 20px 60px rgba(239, 32, 20, 0.6);
+    background: #ff2a1d !important;
+    transform: translateY(-4px);
+}
+
+/* CTA CARD (Footer Dominance) */
+.gms-v3-cta-card {
+    background: linear-gradient(135deg, #ef2014 0%, #1a0505 100%);
+    border-radius: 60px;
+    padding: 100px 80px;
+    text-align: center;
+    box-shadow: 0 50px 120px rgba(0, 0, 0, 0.8);
+    position: relative;
+    overflow: hidden;
+}
+
+.gms-v3-cta-card h2 {
+    font-size: clamp(2.5rem, 4.5vw, 4rem);
+    font-weight: 900;
+    margin: 25px 0 35px;
+}
+
+/* RESPONSIVE SENIOR FIXES */
+@media (max-width: 1024px) {
+
+    .gms-v3-hero-grid,
+    .gms-v3-split-layout,
+    .gms-v3-challenges-grid,
+    .gms-v3-steps-row {
+        grid-template-columns: 1fr;
+        gap: 80px;
+    }
+
+    .gms-v3-hero-content {
+        text-align: center;
+    }
+
+    .gms-v3-desc {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .gms-v3-hero-media {
+        order: -1;
+    }
+
+    .gms-v3-cta-card {
+        padding: 80px 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .gms-v3-title {
+        font-size: 3rem;
+    }
+
+    .gms-v3-hook {
+        font-size: 1.2rem;
+    }
+}

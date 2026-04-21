@@ -1,0 +1,12 @@
+uploads/
+cache/
+upgrade/
+ai1wm-backups/
+updraft/
+wpvividbackups/
+*.log
+.env
+node_modules/
+.DS_Store
+*.zip
+*.gz

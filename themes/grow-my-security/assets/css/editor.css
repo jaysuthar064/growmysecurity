@@ -1,0 +1,18 @@
+body {
+  font-family: "Inter", sans-serif;
+}
+
+.editor-styles-wrapper {
+  color: #f5f1ee;
+  background: #130b0a;
+  font-family: "Inter", sans-serif;
+}
+
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3,
+.editor-styles-wrapper h4,
+.editor-styles-wrapper h5,
+.editor-styles-wrapper h6 {
+  font-family: "Manrope", sans-serif;
+}

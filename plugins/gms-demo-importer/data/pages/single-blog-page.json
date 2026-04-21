@@ -1,0 +1,136 @@
+{
+    "version": "0.4",
+    "title": "Single Blog Page",
+    "type": "page",
+    "page_settings": [],
+    "content": [
+        {
+            "id": "a77ab5ae",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "48",
+                    "right": "0",
+                    "bottom": "48",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "c3c3fda2",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "52822b85",
+                            "elType": "widget",
+                            "widgetType": "gms-story",
+                            "settings": {
+                                "eyebrow": "Article",
+                                "title": "Why UX/UI Design Can Make or Break Your Website.",
+                                "description": "Why the top of the funnel isn\u2019t broken anymore and how better trust design improves conversion before the first call.",
+                                "image": {
+                                    "url": "{{theme_url}}/assets/images/image-2.png"
+                                },
+                                "values": [
+                                    {
+                                        "title": "Trust Design",
+                                        "text": "Credibility starts before the buyer ever clicks Contact."
+                                    },
+                                    {
+                                        "title": "Authority Signals",
+                                        "text": "High-intent buyers read visual trust cues fast."
+                                    },
+                                    {
+                                        "title": "Structured Conversion",
+                                        "text": "The strongest pages remove doubt section by section."
+                                    }
+                                ]
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "664dac89",
+            "elType": "section",
+            "settings": {
+                "content_width": "boxed",
+                "gap": "extended",
+                "padding": {
+                    "unit": "px",
+                    "top": "48",
+                    "right": "0",
+                    "bottom": "48",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "21d8f1f3",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "d1a5ace5",
+                            "elType": "widget",
+                            "widgetType": "gms-post-grid",
+                            "settings": {
+                                "eyebrow": "Related Articles",
+                                "title": "Related Articles",
+                                "description": "More insight from the journal.",
+                                "items": [
+                                    {
+                                        "meta": "Website Design",
+                                        "title": "Why UX/UI Design Can Make or Break Your Website.",
+                                        "excerpt": "Why the top of the funnel isn\u2019t broken anymore and how better trust design improves conversion before the first call.",
+                                        "image": {
+                                            "url": "{{theme_url}}/assets/images/image-2.png"
+                                        },
+                                        "url": {
+                                            "url": "{{site_url}}/why-ux-ui-design-can-make-or-break-your-website/"
+                                        }
+                                    },
+                                    {
+                                        "meta": "AI Trend",
+                                        "title": "5 Must-Have Features for a Modern Business Website.",
+                                        "excerpt": "The technical and credibility layers every modern security brand website needs to convert high-intent buyers.",
+                                        "image": {
+                                            "url": "{{theme_url}}/assets/images/image-3.png"
+                                        },
+                                        "url": {
+                                            "url": "{{site_url}}/five-must-have-features-for-a-modern-business-website/"
+                                        }
+                                    },
+                                    {
+                                        "meta": "AI Trend",
+                                        "title": "AI in Content Creation: Friend or Foe? in 2026",
+                                        "excerpt": "A practical view of AI-assisted content systems for regulated industries that cannot afford generic messaging.",
+                                        "image": {
+                                            "url": "{{theme_url}}/assets/images/image-4.png"
+                                        },
+                                        "url": {
+                                            "url": "{{site_url}}/ai-in-content-creation-friend-or-foe-in-2026/"
+                                        }
+                                    }
+                                ]
+                            },
+                            "elements": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
