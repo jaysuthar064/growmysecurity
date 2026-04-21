@@ -3867,6 +3867,414 @@ function gms_store_audit_payload( $website_url, $payload ) {
 }
 
 /**
+ * ─── AI VISIBILITY (GEO) SCORING ───────────────────────────────────────────
+ * Calculates how visible a website is to AI engines (ChatGPT, Gemini, etc.)
+ * by checking robots.txt bot permissions, Schema.org markup, meta tags,
+ * and brand mentions via Serper.dev search API.
+ */
+
+/**
+ * Get the Serper.dev API key.
+ *
+ * @return string
+ */
+function gms_get_serper_api_key() {
+	return defined( 'GMS_SERPER_API_KEY' ) ? trim( (string) GMS_SERPER_API_KEY ) : '';
+}
+
+/**
+ * Fetch and analyse robots.txt for AI bot permissions.
+ *
+ * @param string $url Target URL.
+ * @return array { 'score' => int 0-100, 'details' => array }
+ */
+function gms_check_ai_bot_permissions( $url ) {
+	$parsed  = wp_parse_url( $url );
+	$origin  = ( $parsed['scheme'] ?? 'https' ) . '://' . ( $parsed['host'] ?? '' );
+	$robots_url = trailingslashit( $origin ) . 'robots.txt';
+
+	$ai_bots = [
+		'GPTBot'           => 'OpenAI / ChatGPT',
+		'Google-Extended'  => 'Google Gemini',
+		'CCBot'            => 'Common Crawl (Claude training data)',
+		'anthropic-ai'     => 'Anthropic / Claude',
+		'PerplexityBot'    => 'Perplexity AI',
+		'Bytespider'       => 'ByteDance / TikTok AI',
+	];
+
+	$response = wp_remote_get( $robots_url, [
+		'timeout'    => 10,
+		'sslverify'  => false,
+		'user-agent' => 'Mozilla/5.0 (compatible; GrowMySecurityAudit/1.0)',
+	] );
+
+	$details = [];
+
+	if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+		// No robots.txt = all bots allowed (good for AI visibility).
+		foreach ( $ai_bots as $bot => $label ) {
+			$details[] = [
+				'bot'     => $bot,
+				'label'   => $label,
+				'allowed' => true,
+				'reason'  => 'No robots.txt found – bot is allowed by default.',
+			];
+		}
+		return [ 'score' => 100, 'details' => $details, 'robots_found' => false ];
+	}
+
+	$body = wp_remote_retrieve_body( $response );
+	$lines = preg_split( '/\r?\n/', $body );
+
+	// Simple parser: track current user-agent context.
+	$rules          = []; // bot_lower => [ 'disallow_all' => bool ].
+	$current_agents = [];
+
+	foreach ( $lines as $line ) {
+		$line = trim( $line );
+		if ( '' === $line || '#' === $line[0] ) {
+			continue;
+		}
+
+		if ( preg_match( '/^user-agent\s*:\s*(.+)/i', $line, $m ) ) {
+			$agent = trim( $m[1] );
+			$current_agents = [ strtolower( $agent ) ];
+		} elseif ( preg_match( '/^disallow\s*:\s*(.*)/i', $line, $m ) ) {
+			$path = trim( $m[1] );
+			if ( '/' === $path ) {
+				foreach ( $current_agents as $ca ) {
+					$rules[ $ca ]['disallow_all'] = true;
+				}
+			}
+		} elseif ( preg_match( '/^allow\s*:\s*(.*)/i', $line, $m ) ) {
+			$path = trim( $m[1] );
+			if ( '/' === $path ) {
+				foreach ( $current_agents as $ca ) {
+					$rules[ $ca ]['disallow_all'] = false;
+				}
+			}
+		}
+	}
+
+	$allowed_count = 0;
+	$total_bots    = count( $ai_bots );
+
+	foreach ( $ai_bots as $bot => $label ) {
+		$bot_lower  = strtolower( $bot );
+		$is_blocked = false;
+		$reason     = 'Allowed (no specific rule found).';
+
+		// Check specific bot rule first, then wildcard *.
+		if ( isset( $rules[ $bot_lower ] ) && ! empty( $rules[ $bot_lower ]['disallow_all'] ) ) {
+			$is_blocked = true;
+			$reason     = 'Blocked by Disallow: / for ' . $bot;
+		} elseif ( isset( $rules['*'] ) && ! empty( $rules['*']['disallow_all'] ) && ! isset( $rules[ $bot_lower ] ) ) {
+			$is_blocked = true;
+			$reason     = 'Blocked by wildcard Disallow: / (no override for ' . $bot . ').';
+		}
+
+		if ( ! $is_blocked ) {
+			++$allowed_count;
+		}
+
+		$details[] = [
+			'bot'     => $bot,
+			'label'   => $label,
+			'allowed' => ! $is_blocked,
+			'reason'  => $reason,
+		];
+	}
+
+	$score = (int) round( ( $allowed_count / max( 1, $total_bots ) ) * 100 );
+
+	return [ 'score' => $score, 'details' => $details, 'robots_found' => true ];
+}
+
+/**
+ * Scan a website's HTML for Schema.org / JSON-LD structured data.
+ *
+ * @param string $url Target URL.
+ * @return array { 'score' => int, 'schemas_found' => array, 'details' => array }
+ */
+function gms_check_schema_markup( $url ) {
+	$response = wp_remote_get( $url, [
+		'timeout'    => 15,
+		'sslverify'  => false,
+		'user-agent' => 'Mozilla/5.0 (compatible; GrowMySecurityAudit/1.0)',
+	] );
+
+	if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+		return [
+			'score'         => 0,
+			'schemas_found' => [],
+			'details'       => [ 'Could not fetch the page to check for Schema markup.' ],
+		];
+	}
+
+	$body = wp_remote_retrieve_body( $response );
+
+	// Extract all JSON-LD blocks.
+	$schemas_found = [];
+	$details       = [];
+
+	if ( preg_match_all( '/<script[^>]*type=["\']application\/ld\+json["\'][^>]*>(.*?)<\/script>/si', $body, $matches ) ) {
+		foreach ( $matches[1] as $json_block ) {
+			$decoded = json_decode( trim( $json_block ), true );
+			if ( is_array( $decoded ) ) {
+				$type = $decoded['@type'] ?? ( $decoded[0]['@type'] ?? 'Unknown' );
+				if ( is_array( $type ) ) {
+					$type = implode( ', ', $type );
+				}
+				$schemas_found[] = $type;
+			}
+		}
+	}
+
+	// Check for important AI-friendly meta signals.
+	$has_meta_description = (bool) preg_match( '/<meta[^>]+name=["\']description["\'][^>]*>/i', $body );
+	$has_og_tags          = (bool) preg_match( '/<meta[^>]+property=["\']og:/i', $body );
+	$has_canonical        = (bool) preg_match( '/<link[^>]+rel=["\']canonical["\'][^>]*>/i', $body );
+
+	$important_types = [ 'Organization', 'LocalBusiness', 'WebSite', 'WebPage', 'Service', 'Product', 'FAQPage', 'Article', 'BreadcrumbList' ];
+	$found_important = array_intersect( $schemas_found, $important_types );
+
+	// Score: max 100.
+	$score = 0;
+	if ( count( $schemas_found ) > 0 ) {
+		$score += 25;
+		$details[] = count( $schemas_found ) . ' JSON-LD schema block(s) found.';
+	} else {
+		$details[] = 'No JSON-LD structured data found.';
+	}
+
+	if ( count( $found_important ) > 0 ) {
+		$score += 25;
+		$details[] = 'Important schema types detected: ' . implode( ', ', $found_important ) . '.';
+	} else {
+		$details[] = 'No high-value schema types (Organization, LocalBusiness, Service) found.';
+	}
+
+	if ( $has_meta_description ) {
+		$score += 15;
+		$details[] = 'Meta description tag present.';
+	} else {
+		$details[] = 'Missing meta description tag.';
+	}
+
+	if ( $has_og_tags ) {
+		$score += 15;
+		$details[] = 'Open Graph (social sharing) tags detected.';
+	} else {
+		$details[] = 'No Open Graph tags found.';
+	}
+
+	if ( $has_canonical ) {
+		$score += 10;
+		$details[] = 'Canonical URL tag present.';
+	} else {
+		$details[] = 'Missing canonical URL tag.';
+	}
+
+	// Bonus for multiple schemas.
+	if ( count( $schemas_found ) >= 3 ) {
+		$score += 10;
+	}
+
+	return [
+		'score'         => min( 100, $score ),
+		'schemas_found' => $schemas_found,
+		'details'       => $details,
+	];
+}
+
+/**
+ * Search for brand mentions using Serper.dev API.
+ *
+ * @param string $url     Target URL.
+ * @param string $brand   Brand/company name extracted from the site.
+ * @return array { 'score' => int, 'mentions' => int, 'snippets' => array, 'details' => array }
+ */
+function gms_check_brand_mentions( $url, $brand = '' ) {
+	$api_key = gms_get_serper_api_key();
+
+	if ( '' === $api_key ) {
+		return [
+			'score'    => 0,
+			'mentions' => 0,
+			'snippets' => [],
+			'details'  => [ 'Serper API key not configured.' ],
+		];
+	}
+
+	$parsed   = wp_parse_url( $url );
+	$hostname = $parsed['host'] ?? '';
+
+	// If no brand name provided, derive from hostname.
+	if ( '' === $brand ) {
+		$brand = preg_replace( '/^www\./', '', $hostname );
+		$brand = preg_replace( '/\.(com|net|org|io|co|us|uk|dev|live|agency|security)$/i', '', $brand );
+		$brand = str_replace( [ '-', '_', '.' ], ' ', $brand );
+		$brand = ucwords( $brand );
+	}
+
+	$queries = [
+		'"' . $brand . '" services',
+		'site:' . $hostname,
+	];
+
+	$total_mentions = 0;
+	$all_snippets   = [];
+	$details        = [];
+
+	foreach ( $queries as $query ) {
+		$response = wp_remote_post( 'https://google.serper.dev/search', [
+			'timeout' => 12,
+			'headers' => [
+				'X-API-KEY'    => $api_key,
+				'Content-Type' => 'application/json',
+			],
+			'body'    => wp_json_encode( [
+				'q'   => $query,
+				'num' => 10,
+			] ),
+		] );
+
+		if ( is_wp_error( $response ) ) {
+			$details[] = 'Search query failed: ' . $query;
+			continue;
+		}
+
+		$body    = wp_remote_retrieve_body( $response );
+		$decoded = json_decode( $body, true );
+
+		if ( ! is_array( $decoded ) ) {
+			continue;
+		}
+
+		// Count organic results.
+		$organic = $decoded['organic'] ?? [];
+		foreach ( $organic as $result ) {
+			++$total_mentions;
+			if ( count( $all_snippets ) < 5 ) {
+				$all_snippets[] = [
+					'title'   => $result['title'] ?? '',
+					'snippet' => $result['snippet'] ?? '',
+					'link'    => $result['link'] ?? '',
+				];
+			}
+		}
+
+		// Check for AI overview / knowledge graph presence.
+		if ( ! empty( $decoded['knowledgeGraph'] ) ) {
+			$total_mentions += 5; // Bonus for knowledge graph.
+			$details[] = 'Brand appears in Google Knowledge Graph.';
+		}
+
+		if ( ! empty( $decoded['answerBox'] ) ) {
+			$total_mentions += 3; // Bonus for answer box.
+			$details[] = 'Brand content appears in Google Answer Box.';
+		}
+	}
+
+	// Score calculation based on mentions.
+	if ( $total_mentions >= 15 ) {
+		$score = 100;
+	} elseif ( $total_mentions >= 10 ) {
+		$score = 80;
+	} elseif ( $total_mentions >= 5 ) {
+		$score = 60;
+	} elseif ( $total_mentions >= 2 ) {
+		$score = 40;
+	} elseif ( $total_mentions >= 1 ) {
+		$score = 20;
+	} else {
+		$score = 0;
+	}
+
+	$details[] = $total_mentions . ' brand mention(s) found across search results.';
+
+	return [
+		'score'    => $score,
+		'mentions' => $total_mentions,
+		'snippets' => $all_snippets,
+		'details'  => $details,
+	];
+}
+
+/**
+ * Calculate the composite AI Visibility score.
+ *
+ * @param string $url Target URL.
+ * @return array Full AI visibility payload.
+ */
+function gms_calculate_ai_visibility( $url ) {
+	$bot_check    = gms_check_ai_bot_permissions( $url );
+	$schema_check = gms_check_schema_markup( $url );
+	$brand_check  = gms_check_brand_mentions( $url );
+
+	// Weighted composite: bots 30%, schema 35%, brand 35%.
+	$composite = (int) round(
+		( $bot_check['score'] * 0.30 ) +
+		( $schema_check['score'] * 0.35 ) +
+		( $brand_check['score'] * 0.35 )
+	);
+
+	$composite = min( 100, max( 0, $composite ) );
+
+	// Build issues list.
+	$issues = [];
+
+	// Bot permission issues.
+	foreach ( $bot_check['details'] as $bot_detail ) {
+		if ( ! $bot_detail['allowed'] ) {
+			$issues[] = [
+				'label'    => $bot_detail['label'] . ' (' . $bot_detail['bot'] . ') is blocked',
+				'desc'     => $bot_detail['reason'] . ' This prevents this AI engine from indexing your content.',
+				'severity' => 'critical',
+				'tag'      => 'ai',
+			];
+		}
+	}
+
+	// Schema issues.
+	if ( $schema_check['score'] < 50 ) {
+		$issues[] = [
+			'label'    => 'Insufficient structured data for AI engines',
+			'desc'     => 'Add JSON-LD Schema.org markup (Organization, LocalBusiness, Service) so AI models can accurately understand and cite your business.',
+			'severity' => 'warning',
+			'tag'      => 'ai',
+		];
+	}
+
+	// Brand mention issues.
+	if ( $brand_check['score'] < 40 ) {
+		$issues[] = [
+			'label'    => 'Low brand visibility in search results',
+			'desc'     => 'Your brand has limited presence in search engine results. Build authoritative backlinks and publish consistent content to improve AI citation likelihood.',
+			'severity' => 'warning',
+			'tag'      => 'ai',
+		];
+	}
+
+	return [
+		'score'   => $composite,
+		'label'   => gms_get_score_label( $composite ),
+		'source'  => 'GEO Analysis (Robots.txt + Schema + Search Mentions)',
+		'breakdown' => [
+			'bot_permissions' => $bot_check['score'],
+			'schema_markup'   => $schema_check['score'],
+			'brand_mentions'  => $brand_check['score'],
+		],
+		'details' => [
+			'bots'   => $bot_check,
+			'schema' => $schema_check,
+			'brand'  => $brand_check,
+		],
+		'issues'  => $issues,
+	];
+}
+
+/**
  * AJAX handler for live Website Audit data.
  *
  * @return void
@@ -3893,9 +4301,10 @@ function gms_ajax_fetch_real_audit_data() {
 		wp_send_json_error( [ 'message' => $normalized_url->get_error_message() ], 422 );
 	}
 
-	$pagespeed    = gms_fetch_pagespeed_with_retries( $normalized_url, $strategy );
-	$mozilla      = gms_fetch_mozilla_observatory( $normalized_url );
-	$live_headers = gms_fetch_live_security_headers( $normalized_url );
+	$pagespeed      = gms_fetch_pagespeed_with_retries( $normalized_url, $strategy );
+	$mozilla        = gms_fetch_mozilla_observatory( $normalized_url );
+	$live_headers   = gms_fetch_live_security_headers( $normalized_url );
+	$ai_visibility  = gms_calculate_ai_visibility( $normalized_url );
 	$lighthouse   = is_array( $pagespeed['data']['lighthouseResult'] ?? null ) ? $pagespeed['data']['lighthouseResult'] : [];
 	$categories   = is_array( $lighthouse['categories'] ?? null ) ? $lighthouse['categories'] : [];
 
@@ -3957,17 +4366,23 @@ function gms_ajax_fetch_real_audit_data() {
 				gms_get_score_label( $seo_score ),
 				'Google PageSpeed Insights'
 			),
+			'ai_visibility' => gms_build_score_payload(
+				$ai_visibility['score'],
+				$ai_visibility['label'],
+				$ai_visibility['source']
+			),
 		],
 		'issues'        => gms_prepare_issue_list(
 			array_merge(
 				$security_issues,
 				$performance_issues,
-				$seo_issues
+				$seo_issues,
+				$ai_visibility['issues'] ?? []
 			),
-			10
+			12
 		),
 		'meta'          => [
-			'summary'               => sprintf( '%s scan powered by Google PageSpeed Insights and Mozilla Observatory.', 'mobile' === $strategy ? 'Mobile' : 'Desktop' ),
+			'summary'               => sprintf( '%s scan powered by Google PageSpeed Insights, Mozilla Observatory, and AI Visibility analysis.', 'mobile' === $strategy ? 'Mobile' : 'Desktop' ),
 			'scannedAt'             => current_time( 'c' ),
 			'pagespeedMode'         => $pagespeed_mode,
 			'pagespeedModeLabel'    => $pagespeed_mode_label,

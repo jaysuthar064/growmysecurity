@@ -941,7 +941,7 @@
 	flex-direction: column;
 	align-items: center;
 	gap: 16px;
-	grid-column: span 4;
+	grid-column: span 3;
 	padding: 32px 20px;
 	min-height: 100%;
 	background:
@@ -1261,7 +1261,7 @@
 	}
 
 	.gms-audit-scores {
-		grid-template-columns: 1fr;
+		grid-template-columns: repeat(2, 1fr);
 		gap: 16px;
 	}
 

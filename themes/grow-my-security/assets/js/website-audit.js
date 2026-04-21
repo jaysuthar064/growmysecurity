@@ -32,7 +32,17 @@
 	var downloadBtn = document.getElementById('gms-audit-download-report');
 	var strategyButtons = Array.prototype.slice.call(document.querySelectorAll('[data-strategy-button]'));
 
-	var state = { currentUrl:'', currentStrategy:defaultStrategy, resultsCache:{}, inFlight:{}, runId:0, loaderTick:null, loaderTimers:[], lastData:null };
+	var state = { currentUrl:'', currentStrategy:defaultStrategy, resultsCache:{}, inFlight:{}, runId:0, loaderTick:null, loaderTimers:[], lastData:null, logoBase64:null };
+
+	/* ── Preload company logo for PDF ── */
+	(function preloadLogo(){
+		var logoUrl=app.dataset.ajaxUrl?app.dataset.ajaxUrl.replace(/\/wp-admin\/admin-ajax\.php$/,''):'';
+		logoUrl=logoUrl+'/wp-content/themes/grow-my-security/assets/images/logo.png';
+		var img=new Image();img.crossOrigin='anonymous';
+		img.onload=function(){try{var c=document.createElement('canvas');c.width=img.naturalWidth;c.height=img.naturalHeight;var ctx=c.getContext('2d');ctx.drawImage(img,0,0);state.logoBase64=c.toDataURL('image/png');state.logoNatW=img.naturalWidth;state.logoNatH=img.naturalHeight;}catch(e){console.warn('Logo preload failed:',e);}};
+		img.onerror=function(){console.warn('Could not load logo for PDF.');};
+		img.src=logoUrl;
+	})();
 
 	function normalizeUrl(input) {
 		var v = String(input||'').trim();
@@ -84,7 +94,7 @@
 		if(sh){void sh.offsetHeight;sh.classList.add('is-animating');}
 		var progress=0;
 		state.loaderTick=window.setInterval(function(){if(progress>=92) return; progress+=progress<70?2:1; setLoaderProgress(progress);},180);
-		[{index:0,delay:0},{index:1,delay:1000},{index:2,delay:2200},{index:3,delay:3400}].forEach(function(item){
+		[{index:0,delay:0},{index:1,delay:800},{index:2,delay:1800},{index:3,delay:2800},{index:4,delay:3800}].forEach(function(item){
 			var tid=window.setTimeout(function(){
 				if(item.index>0){scanSteps[item.index-1].classList.remove('is-active');scanSteps[item.index-1].classList.add('is-done');}
 				if(scanSteps[item.index]) scanSteps[item.index].classList.add('is-active');
@@ -166,6 +176,7 @@
 		animateScore('security',scores.security||null,120);
 		animateScore('performance',scores.performance||null,260);
 		animateScore('seo',scores.seo||null,400);
+		animateScore('ai_visibility',scores.ai_visibility||null,540);
 		renderIssues(data.issues||[]);
 	}
 	function parseJsonResponse(r) {
@@ -291,6 +302,11 @@
 		// Header bar
 		doc.setFillColor(10,10,15); doc.rect(0,0,w,45,'F');
 		doc.setFillColor(239,32,20); doc.rect(0,43,w,2,'F');
+
+		// Logo in upper-right corner
+		// Logo in upper-right corner (preserve aspect ratio)
+		if(state.logoBase64&&state.logoNatW&&state.logoNatH){try{var lMaxW=45,lMaxH=28,lRatio=state.logoNatW/state.logoNatH,lW=lMaxW,lH=lW/lRatio;if(lH>lMaxH){lH=lMaxH;lW=lH*lRatio;}doc.addImage(state.logoBase64,'PNG',w-margin-lW,8+(28-lH)/2,lW,lH);}catch(e){console.warn('Logo embed failed:',e);}}
+
 		doc.setTextColor(240,240,245); doc.setFontSize(22); doc.setFont('helvetica','bold');
 		doc.text('Website Audit Report',margin,22);
 		doc.setFontSize(11); doc.setFont('helvetica','normal'); doc.setTextColor(142,142,160);
@@ -311,9 +327,10 @@
 		var scoreTypes=[
 			{key:'security',label:'Security Score'},
 			{key:'performance',label:'Performance'},
-			{key:'seo',label:'SEO Score'}
+			{key:'seo',label:'SEO Score'},
+			{key:'ai_visibility',label:'AI Visibility'}
 		];
-		var colW=cw/3;
+		var colW=cw/4;
 		scoreTypes.forEach(function(st,i){
 			var s=scores[st.key]||{}, val=typeof s.value==='number'?s.value:null;
 			var cx=margin+colW*i+colW/2;
@@ -366,6 +383,7 @@
 		if(scores.security&&typeof scores.security.value==='number'&&scores.security.value<80) recs.push('Implement missing security headers (CSP, HSTS, X-Content-Type-Options) to protect against common web attacks.');
 		if(scores.performance&&typeof scores.performance.value==='number'&&scores.performance.value<80) recs.push('Optimize page load speed by compressing images, enabling browser caching, and minimizing render-blocking resources.');
 		if(scores.seo&&typeof scores.seo.value==='number'&&scores.seo.value<80) recs.push('Improve SEO by adding proper meta descriptions, optimizing heading structure, and ensuring mobile-friendliness.');
+		if(scores.ai_visibility&&typeof scores.ai_visibility.value==='number'&&scores.ai_visibility.value<80) recs.push('Boost AI visibility by adding JSON-LD Schema.org markup (Organization, LocalBusiness), allowing AI crawlers (GPTBot, Google-Extended) in robots.txt, and building authoritative brand citations across the web.');
 		if(recs.length===0) recs.push('Your website is performing well across all categories. Continue monitoring regularly to maintain these scores.');
 		recs.forEach(function(r,i){
 			var lines=doc.splitTextToSize((i+1)+'. '+r,cw);

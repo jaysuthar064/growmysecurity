@@ -201,6 +201,13 @@ $logo_url    = function_exists( 'gms_get_brand_asset_url' ) ? gms_get_brand_asse
 						<span class="gms-audit-scan-step__label"><?php esc_html_e( 'Reviewing SEO signals & metadata...', 'grow-my-security' ); ?></span>
 						<span class="gms-audit-scan-step__check" aria-hidden="true">✓</span>
 					</li>
+					<li class="gms-audit-scan-step" data-scan-step="ai">
+						<span class="gms-audit-scan-step__icon" aria-hidden="true">
+							<svg viewBox="0 0 24 24"><path d="M21 11.18V9.72c0-.47-.16-.92-.46-1.28L16.6 3.72c-.38-.46-.94-.72-1.54-.72H8.94c-.6 0-1.16.26-1.54.72L3.46 8.44c-.3.36-.46.81-.46 1.28v1.46c0 .83.67 1.5 1.5 1.5h.04c.83 0 1.5-.67 1.5-1.5V11h1v8c0 1.1.9 2 2 2h5c1.1 0 2-.9 2-2v-8h1v.18c0 .83.67 1.5 1.5 1.5h.04c.83 0 1.5-.67 1.5-1.5Z" fill="currentColor"/></svg>
+						</span>
+						<span class="gms-audit-scan-step__label"><?php esc_html_e( 'Analyzing AI visibility & GEO signals...', 'grow-my-security' ); ?></span>
+						<span class="gms-audit-scan-step__check" aria-hidden="true">✓</span>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -269,6 +276,18 @@ $logo_url    = function_exists( 'gms_get_brand_asset_url' ) ? gms_get_brand_asse
 						</div>
 						<h3><?php esc_html_e( 'SEO Score', 'grow-my-security' ); ?></h3>
 						<span class="gms-audit-score-card__grade" data-score-grade="seo"></span>
+					</div>
+
+					<div class="gms-audit-score-card" data-score-type="ai_visibility">
+						<div class="gms-audit-score-card__ring">
+							<svg viewBox="0 0 120 120">
+								<circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="8"/>
+								<circle cx="60" cy="60" r="52" fill="none" stroke-width="8" stroke-linecap="round" class="gms-audit-score-card__arc" data-arc="ai_visibility" stroke-dasharray="326.73" stroke-dashoffset="326.73" transform="rotate(-90 60 60)"/>
+							</svg>
+							<span class="gms-audit-score-card__value" data-score-value="ai_visibility">0</span>
+						</div>
+						<h3><?php esc_html_e( 'AI Visibility', 'grow-my-security' ); ?></h3>
+						<span class="gms-audit-score-card__grade" data-score-grade="ai_visibility"></span>
 					</div>
 				</div>
 
