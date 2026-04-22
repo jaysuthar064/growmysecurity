@@ -368,7 +368,6 @@ class Service_Detail_Widget extends GMS_Widget_Base {
 						<?php if ( ! empty( $settings['cta_text'] ) ) : ?><p><?php echo esc_html( $settings['cta_text'] ); ?></p><?php endif; ?>
 						<div class="gms-service-premium__actions gms-service-premium__actions--center">
 							<?php $this->render_link( 'service-cta-primary-' . $this->get_id(), $settings['cta_primary_url'] ?? [], $settings['cta_primary_text'] ?? '', 'gms-button gms-service-premium__button' ); ?>
-							<?php $this->render_link( 'service-cta-secondary-' . $this->get_id(), $settings['cta_secondary_url'] ?? [], $settings['cta_secondary_text'] ?? '', 'gms-button-outline gms-service-premium__button gms-service-premium__button--ghost' ); ?>
 						</div>
 					</div>
 				</div>
