@@ -78,12 +78,12 @@ $logo_url    = function_exists( 'gms_get_brand_asset_url' ) ? gms_get_brand_asse
 					<div class="gms-audit-hero__stat-divider" aria-hidden="true"></div>
 					<div class="gms-audit-hero__stat">
 						<strong>98%</strong>
-						<span><?php esc_html_e( 'Satisfaction', 'grow-my-security' ); ?></span>
+						<span><?php esc_html_e( 'Accuracy Rate', 'grow-my-security' ); ?></span>
 					</div>
 					<div class="gms-audit-hero__stat-divider" aria-hidden="true"></div>
 					<div class="gms-audit-hero__stat">
-						<strong>4.9★</strong>
-						<span><?php esc_html_e( 'Avg. Rating', 'grow-my-security' ); ?></span>
+						<strong>100%</strong>
+						<span><?php esc_html_e( 'Confidential', 'grow-my-security' ); ?></span>
 					</div>
 				</div>
 			</div>
