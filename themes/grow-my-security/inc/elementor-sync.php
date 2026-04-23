@@ -2275,7 +2275,7 @@ function gms_sync_public_pages_elementor_templates(): void {
 		return;
 	}
 
-	$sync_version = '2026-04-17-public-pages-elementor-v23';
+	$sync_version = '2026-04-17-public-pages-elementor-v26';
 
 	if ( get_option( 'gms_public_pages_elementor_sync_version' ) === $sync_version ) {
 		return;
