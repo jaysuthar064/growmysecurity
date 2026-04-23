@@ -2673,7 +2673,7 @@ function gms_handle_audit_lead_submission() {
 	);
 
 	// ─── Email notification ───
-	$recipient = 'anthony@growmysecuritycompany.com';
+	$recipient = 'jayantisuthar094@gmail.com';
 	$subject   = sprintf( 'New Website Audit Lead: %s', $name );
 	$body      = implode( "\n", [
 		'A new lead has submitted a website audit request.',
@@ -2740,6 +2740,10 @@ function gms_handle_audit_lead_submission() {
 			]
 		);
 	}
+
+	// ─── Increment sites scanned counter ───
+	$current_scans = (int) get_option( 'gms_audit_sites_scanned', 12400 );
+	update_option( 'gms_audit_sites_scanned', $current_scans + 1 );
 
 	wp_send_json_success( [ 'message' => 'Lead captured.' ] );
 }

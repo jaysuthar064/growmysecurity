@@ -71,7 +71,8 @@ $logo_url    = function_exists( 'gms_get_brand_asset_url' ) ? gms_get_brand_asse
 
 				<div class="gms-audit-hero__stats">
 					<div class="gms-audit-hero__stat">
-						<strong>12,400+</strong>
+						<?php $sites_scanned = get_option( 'gms_audit_sites_scanned', 12400 ); ?>
+						<strong><?php echo esc_html( number_format_i18n( $sites_scanned ) . '+' ); ?></strong>
 						<span><?php esc_html_e( 'Sites Scanned', 'grow-my-security' ); ?></span>
 					</div>
 					<div class="gms-audit-hero__stat-divider" aria-hidden="true"></div>
