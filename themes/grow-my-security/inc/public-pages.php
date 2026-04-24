@@ -297,6 +297,12 @@ function gms_get_primary_navigation_items(): array
 			'children' => $footer_groups['resources']['links'],
 		],
 		[
+			'slug' => 'commandgrid',
+			'label' => __('CommandGrid', 'grow-my-security'),
+			'url' => 'https://www.godaddy.com/reseller-program',
+			'has_caret' => false,
+		],
+		[
 			'slug' => 'contact',
 			'label' => __('Contact Us', 'grow-my-security'),
 			'url' => home_url('/contact-us/'),

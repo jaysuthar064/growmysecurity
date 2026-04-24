@@ -194,6 +194,7 @@ $nav_links = [
 		[ 'label' => 'Case Studies', 'url' => $case_studies_url ],
 		[ 'label' => 'FAQ', 'url' => $faq_url ],
 	]],
+	[ 'label' => 'CommandGrid', 'url' => 'https://www.godaddy.com/reseller-program', 'current' => false, 'chevron' => false, 'children' => [] ],
 	[ 'label' => 'Contact Us', 'url' => $contact_url, 'current' => false, 'chevron' => false, 'children' => [] ],
 ];
 $hero_slides = ! empty( $elementor_home_data['hero_slides'] ) ? $elementor_home_data['hero_slides'] : [

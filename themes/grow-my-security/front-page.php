@@ -192,6 +192,7 @@ $nav_links = [
 		[ 'label' => 'Case Studies', 'url' => $case_studies_url ],
 		[ 'label' => 'FAQ', 'url' => $faq_url ],
 	]],
+	[ 'label' => 'CommandGrid', 'url' => 'https://www.godaddy.com/reseller-program', 'current' => false, 'chevron' => false, 'children' => [] ],
 	[ 'label' => 'Contact Us', 'url' => $contact_url, 'current' => false, 'chevron' => false, 'children' => [] ],
 ];
 $elementor_home_data = function_exists('gms_get_theme_home_data_from_elementor') ? gms_get_theme_home_data_from_elementor() : [];
