@@ -33,7 +33,7 @@ $logo_url    = function_exists( 'gms_get_brand_asset_url' ) ? gms_get_brand_asse
 			<div class="gms-audit-hero">
 				<div class="gms-audit-hero__badge">
 					<span class="gms-audit-hero__badge-dot" aria-hidden="true"></span>
-					<span><?php esc_html_e( 'Free Security & Website Audit', 'grow-my-security' ); ?></span>
+					<span><?php esc_html_e( 'Website Audit', 'grow-my-security' ); ?></span>
 				</div>
 
 				<h1 id="gms-audit-hero-title" class="gms-audit-hero__title">
