@@ -1019,12 +1019,14 @@ body.home.admin-bar .gms-homepage-header {
   top: 0;
   right: 0;
   left: 0;
-  height: 220px;
+  height: 340px;
   background: linear-gradient(
     180deg,
     var(--gms-home-bg-deep) 0%,
-    rgba(0, 0, 0, 0.92) 18%,
-    rgba(58, 4, 4, 0.55) 62%,
+    rgba(0, 0, 0, 0.96) 14%,
+    rgba(16, 1, 1, 0.82) 32%,
+    rgba(52, 5, 5, 0.58) 56%,
+    rgba(102, 10, 10, 0.24) 82%,
     rgba(114, 10, 10, 0) 100%
   );
   pointer-events: none;
