@@ -1752,8 +1752,8 @@ function gms_render_homepage_footer(): void {
 	?>
 	<footer id="footer" class="gms-homepage-footer">
 		<div class="gms-homepage-shell">
-			<div class="gms-homepage-footer__grid" style="display: grid !important; grid-template-columns: 280px 110px 180px 220px 220px 110px !important; gap: 28px !important; justify-content: space-between !important;">
-				<div class="gms-homepage-footer__brand" style="display: flex !important; flex-direction: column !important; gap: 24px !important; justify-content: flex-start !important; align-items: flex-start !important; max-width: 400px !important;">
+			<div class="gms-homepage-footer__grid" style="display: var(--gms-homepage-footer-display, grid) !important; grid-template-columns: var(--gms-homepage-footer-columns, 280px 110px 180px 220px 220px 110px) !important; flex-direction: var(--gms-homepage-footer-direction, row) !important; align-items: var(--gms-homepage-footer-align, stretch) !important; gap: var(--gms-homepage-footer-gap, 28px) !important; justify-content: var(--gms-homepage-footer-justify, space-between) !important;">
+				<div class="gms-homepage-footer__brand" style="display: flex !important; flex-direction: column !important; gap: 24px !important; justify-content: flex-start !important; align-items: flex-start !important; max-width: var(--gms-homepage-footer-brand-max, 400px) !important;">
 					<a class="gms-homepage-brandmark gms-homepage-brandmark--footer" href="<?php echo esc_url( $home_url ); ?>" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 						<?php echo gms_get_logo_markup( 'footer' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</a>

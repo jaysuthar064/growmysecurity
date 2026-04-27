@@ -121,6 +121,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   var footerMobileQuery = typeof window.matchMedia === 'function' ? window.matchMedia('(max-width: 767px)') : null;
+  var footerNarrowQuery = typeof window.matchMedia === 'function' ? window.matchMedia('(max-width: 375px)') : null;
+  var footerGrid = document.querySelector('.gms-homepage-footer__grid');
   var footerItems = toArray(document.querySelectorAll('.gms-homepage-footer__column')).map(function (column) {
     return {
       button: column.querySelector('[data-footer-toggle]'),
@@ -176,8 +178,51 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
 
+    var syncFooterGridLayout = function () {
+      if (!footerGrid) {
+        return;
+      }
+
+      var shouldStack = footerNarrowQuery && footerNarrowQuery.matches;
+
+      footerGrid.style.setProperty('--gms-homepage-footer-columns', shouldStack ? 'minmax(0, 1fr)' : '');
+
+      if (shouldStack) {
+        footerGrid.style.setProperty('display', 'flex', 'important');
+        footerGrid.style.setProperty('flex-direction', 'column', 'important');
+        footerGrid.style.setProperty('align-items', 'stretch', 'important');
+        footerGrid.style.setProperty('justify-content', 'stretch', 'important');
+        footerGrid.style.setProperty('gap', '24px', 'important');
+      } else {
+        footerGrid.style.removeProperty('display');
+        footerGrid.style.removeProperty('flex-direction');
+        footerGrid.style.removeProperty('align-items');
+        footerGrid.style.removeProperty('justify-content');
+        footerGrid.style.removeProperty('gap');
+      }
+
+      toArray(footerGrid.children).forEach(function (child) {
+        if (shouldStack) {
+          child.style.setProperty('grid-column', '1 / -1', 'important');
+          child.style.setProperty('width', '100%', 'important');
+          child.style.setProperty('min-width', '0', 'important');
+          child.style.setProperty('max-width', '100%', 'important');
+          child.style.setProperty('box-sizing', 'border-box', 'important');
+          return;
+        }
+
+        child.style.removeProperty('grid-column');
+        child.style.removeProperty('width');
+        child.style.removeProperty('min-width');
+        child.style.removeProperty('max-width');
+        child.style.removeProperty('box-sizing');
+      });
+    };
+
     syncFooterState();
+    syncFooterGridLayout();
     addMediaListener(footerMobileQuery, syncFooterState);
+    addMediaListener(footerNarrowQuery, syncFooterGridLayout);
   }
 
   // Timeline Scroll Animation

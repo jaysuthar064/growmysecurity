@@ -3387,6 +3387,52 @@ body.home.admin-bar .gms-homepage-header {
   .gms-homepage-section-heading h2 {
     font-size: 1.5rem; /* ~24px general fallback */
   }
+
+  .gms-homepage-footer__grid {
+    --gms-homepage-footer-display: flex;
+    --gms-homepage-footer-direction: column;
+    --gms-homepage-footer-align: stretch;
+    --gms-homepage-footer-columns: minmax(0, 1fr);
+    --gms-homepage-footer-gap: 24px;
+    --gms-homepage-footer-justify: stretch;
+  }
+
+  .gms-homepage-footer__brand,
+  .gms-homepage-footer__column {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .gms-homepage-footer__brand {
+    --gms-homepage-footer-brand-max: 100%;
+    padding-right: 0;
+    max-width: 100% !important;
+  }
+
+  .gms-homepage-footer__toggle,
+  .gms-homepage-footer__panel,
+  .gms-homepage-footer__panel ul,
+  .gms-homepage-footer__subgroup ul {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .gms-homepage-footer__toggle {
+    gap: 12px !important;
+    padding-right: 0 !important;
+  }
+
+  .gms-homepage-footer__column a {
+    display: block;
+    width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
 }
 
 @media (max-width: 359px) {
