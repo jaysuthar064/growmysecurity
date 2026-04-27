@@ -1651,7 +1651,10 @@ function gms_render_homepage_footer(): void {
 						<a href="mailto:<?php echo esc_attr( $config['branding']['email'] ); ?>"><?php echo esc_html( $config['branding']['email'] ); ?></a>
 						<a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $config['branding']['phone'] ) ); ?>"><?php echo esc_html( $config['branding']['phone'] ); ?></a>
 					</div>
-					<div class="gms-badge"><?php esc_html_e( 'Veteran-led', 'grow-my-security' ); ?></div>
+					<div class="gms-badge-group">
+						<div class="gms-badge"><?php esc_html_e( 'Veteran-led', 'grow-my-security' ); ?></div>
+						<div class="gms-badge"><?php esc_html_e( 'Service-Disabled Veteran', 'grow-my-security' ); ?></div>
+					</div>
 					<div class="gms-homepage-footer__socials" aria-label="<?php esc_attr_e( 'Social media links', 'grow-my-security' ); ?>">
 						<?php foreach ( $footer_socials as $footer_social ) : ?>
 							<a class="gms-homepage-footer__social gms-homepage-footer__social--<?php echo esc_attr( $footer_social['slug'] ); ?>" href="<?php echo esc_url( $footer_social['url'] ); ?>" target="_blank" rel="noreferrer noopener" aria-label="<?php echo esc_attr( $footer_social['label'] ); ?>">
