@@ -133,10 +133,30 @@ class Faq_Widget extends GMS_Widget_Base {
 	}
 
 	protected function render_stacked_layout( array $settings, array $items ): void {
+		$current_post_id = get_queried_object_id();
+
+		if ( ! $current_post_id && isset( $GLOBALS['post'] ) && $GLOBALS['post'] instanceof \WP_Post ) {
+			$current_post_id = (int) $GLOBALS['post']->ID;
+		}
+
+		$request_path = '';
+
+		if ( isset( $_SERVER['REQUEST_URI'] ) ) {
+			$request_path = (string) wp_parse_url( wp_unslash( $_SERVER['REQUEST_URI'] ), PHP_URL_PATH );
+		}
+
+		$is_faq_page = ( $current_post_id > 0 && 'faq' === get_post_field( 'post_name', $current_post_id ) ) || '/faq' === untrailingslashit( $request_path );
+		$search_id   = 'gms-faq-search-' . $this->get_id();
 		?>
-		<section class="gms-widget gms-faq-stacked">
+		<section class="gms-widget gms-faq-stacked"<?php echo $is_faq_page ? ' data-faq-search-shell' : ''; ?>>
 			<?php $this->render_section_heading( $settings ); ?>
-			<div class="gms-faq-list" data-faq-accordion>
+			<?php if ( $is_faq_page ) : ?>
+				<div class="gms-approved-faq-search">
+					<label class="gms-approved-faq-search__label" for="<?php echo esc_attr( $search_id ); ?>"><?php esc_html_e( 'Search FAQs', 'grow-my-security' ); ?></label>
+					<input id="<?php echo esc_attr( $search_id ); ?>" class="gms-approved-faq-search__input" type="search" placeholder="<?php esc_attr_e( 'Type a keyword or question', 'grow-my-security' ); ?>" autocomplete="off" data-faq-search-input>
+				</div>
+			<?php endif; ?>
+			<div class="gms-faq-list" data-faq-accordion<?php echo $is_faq_page ? ' data-faq-search-list' : ''; ?>>
 				<?php foreach ( $items as $index => $item ) : ?>
 					<?php $is_open = 0 === $index; ?>
 					<div class="gms-faq-item<?php echo $is_open ? ' is-open' : ''; ?>">
@@ -145,6 +165,9 @@ class Faq_Widget extends GMS_Widget_Base {
 					</div>
 				<?php endforeach; ?>
 			</div>
+			<?php if ( $is_faq_page ) : ?>
+				<p class="gms-approved-faq-empty" hidden data-faq-search-empty aria-live="polite"><?php esc_html_e( 'No FAQs matched your search.', 'grow-my-security' ); ?></p>
+			<?php endif; ?>
 		</section>
 		<?php
 	}
@@ -217,4 +240,4 @@ class Faq_Widget extends GMS_Widget_Base {
 		</script>
 		<?php
 	}
-}
+}

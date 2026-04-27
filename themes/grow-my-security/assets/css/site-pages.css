@@ -469,6 +469,69 @@ body:not(.home) .gms-page-shell {
   margin-bottom: clamp(60px, 8vw, 120px);
 }
 
+.gms-approved-faq-search {
+  position: relative;
+  display: grid;
+  gap: 0.65rem;
+  max-width: 900px;
+  margin: 0 auto 1.5rem;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at top left, rgba(219, 0, 0, 0.16), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.gms-approved-faq-search__label {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.gms-approved-faq-search__input {
+  width: 100%;
+  min-height: 64px;
+  padding: 0 1.25rem 0 3.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23ffffff' stroke-opacity='.62' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='8.25' cy='8.25' r='5.25'/%3E%3Cpath d='M12.5%2012.5%20L17%2017'/%3E%3C/svg%3E") 1.3rem center / 18px 18px no-repeat,
+    linear-gradient(180deg, rgba(19, 13, 13, 0.92), rgba(38, 18, 17, 0.88));
+  color: #fff;
+  font: inherit;
+  font-size: 1.03rem;
+  font-weight: 500;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
+}
+
+.gms-approved-faq-search__input::placeholder {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.gms-approved-faq-search__input:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.gms-approved-faq-search__input:focus {
+  outline: none;
+  border-color: rgba(219, 0, 0, 0.42);
+  box-shadow: 0 0 0 4px rgba(219, 0, 0, 0.12), 0 14px 28px rgba(0, 0, 0, 0.18);
+  background-color: rgba(255, 255, 255, 0.06);
+  transform: translateY(-1px);
+}
+
+.gms-approved-faq-search__input::-webkit-search-cancel-button {
+  filter: invert(1) opacity(0.72);
+}
+
 .gms-faq-list {
   display: grid;
   gap: 1.25rem;
@@ -523,6 +586,14 @@ body:not(.home) .gms-page-shell {
   margin: 0;
 }
 
+.gms-approved-faq-empty {
+  max-width: 900px;
+  margin: 1rem auto 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.98rem;
+  text-align: center;
+}
+
 .gms-faq-question .gms-homepage-faq__icon {
   flex-shrink: 0;
   width: 24px;
@@ -554,4 +625,19 @@ body:not(.home) .gms-page-shell {
 .gms-faq-item.is-open .gms-faq-question .gms-homepage-faq__icon::after {
   transform: translate(-50%, -50%) rotate(90deg);
   opacity: 0;
+}
+
+@media (max-width: 767px) {
+  .gms-approved-faq-search {
+    padding: 0.85rem;
+    border-radius: 20px;
+  }
+
+  .gms-approved-faq-search__input {
+    min-height: 58px;
+    padding-left: 3.45rem;
+    border-radius: 16px;
+    font-size: 0.98rem;
+    background-position: 1.15rem center;
+  }
 }

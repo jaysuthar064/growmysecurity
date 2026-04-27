@@ -721,6 +721,7 @@ function gms_get_elementor_builder_markup_cache_key( int $post_id ): string {
 			'elementor_data'  => $raw_data,
 			'page_settings'   => $page_settings,
 			'theme_version'   => gms_theme_version(),
+			'markup_version'  => '2026-04-27-3',
 			'preview_context' => function_exists( 'gms_is_elementor_preview_request' ) && gms_is_elementor_preview_request(),
 		]
 	);
@@ -1346,6 +1347,116 @@ function gms_enqueue_assets() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'gms_enqueue_assets' );
+
+function gms_enqueue_faq_page_runtime_script() {
+	if ( is_front_page() ) {
+		return;
+	}
+
+	$script = <<<'JS'
+(() => {
+  const ensureFaqSearch = (faqShell, index) => {
+    if (!(faqShell instanceof HTMLElement)) {
+      return;
+    }
+
+    const faqList = faqShell.querySelector('.gms-faq-list');
+
+    if (!faqList) {
+      return;
+    }
+
+    faqShell.setAttribute('data-faq-search-shell', '');
+    faqList.setAttribute('data-faq-search-list', '');
+
+    let input = faqShell.querySelector('[data-faq-search-input]');
+    let emptyState = faqShell.querySelector('[data-faq-search-empty]');
+
+    if (!(input instanceof HTMLInputElement)) {
+      const searchId = `gms-faq-search-inline-${index + 1}`;
+      const searchWrap = document.createElement('div');
+      const searchLabel = document.createElement('label');
+      const searchInput = document.createElement('input');
+
+      searchWrap.className = 'gms-approved-faq-search';
+      searchLabel.className = 'gms-approved-faq-search__label';
+      searchLabel.htmlFor = searchId;
+      searchLabel.textContent = 'Search FAQs';
+
+      searchInput.id = searchId;
+      searchInput.className = 'gms-approved-faq-search__input';
+      searchInput.type = 'search';
+      searchInput.placeholder = 'Type a keyword or question';
+      searchInput.autocomplete = 'off';
+      searchInput.setAttribute('data-faq-search-input', '');
+
+      searchWrap.append(searchLabel, searchInput);
+      faqList.before(searchWrap);
+      input = searchInput;
+    }
+
+    if (!(emptyState instanceof HTMLElement)) {
+      emptyState = document.createElement('p');
+      emptyState.className = 'gms-approved-faq-empty';
+      emptyState.hidden = true;
+      emptyState.setAttribute('data-faq-search-empty', '');
+      emptyState.setAttribute('aria-live', 'polite');
+      emptyState.textContent = 'No FAQs matched your search.';
+      faqList.after(emptyState);
+    }
+
+    if (faqShell.dataset.gmsFaqSearchBound === 'true') {
+      return;
+    }
+
+    faqShell.dataset.gmsFaqSearchBound = 'true';
+
+    const items = Array.from(faqList.querySelectorAll('.gms-faq-item'));
+    const syncFaqSearch = () => {
+      const query = input.value.trim().toLowerCase();
+      let visibleCount = 0;
+
+      items.forEach((item) => {
+        const question = item.querySelector('.gms-faq-question')?.textContent ?? '';
+        const answer = item.querySelector('.gms-faq-answer')?.textContent ?? '';
+        const matches = !query || `${question} ${answer}`.toLowerCase().includes(query);
+
+        item.hidden = !matches;
+
+        if (matches) {
+          visibleCount += 1;
+        }
+      });
+
+      emptyState.hidden = visibleCount !== 0;
+    };
+
+    input.addEventListener('input', syncFaqSearch);
+    input.addEventListener('search', syncFaqSearch);
+  };
+
+  const initFaqSearch = (root = document) => {
+    root.querySelectorAll('.gms-approved-faq-shell, .gms-faq-stacked').forEach((faqShell, index) => {
+      ensureFaqSearch(faqShell, index);
+    });
+  };
+
+  initFaqSearch();
+  window.addEventListener('load', () => initFaqSearch(), { once: true });
+
+  if (window.elementorFrontend?.hooks) {
+    window.elementorFrontend.hooks.addAction('frontend/element_ready/gms-faq.default', ($scope) => {
+      if ($scope?.[0]) {
+        initFaqSearch($scope[0]);
+      }
+    });
+  }
+})();
+JS;
+
+	wp_add_inline_script( 'grow-my-security-script', $script );
+}
+add_action( 'wp_enqueue_scripts', 'gms_enqueue_faq_page_runtime_script', 20 );
 
 function gms_enqueue_layout_overrides() {
 	if ( is_front_page() ) {

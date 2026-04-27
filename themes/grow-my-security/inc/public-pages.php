@@ -1451,8 +1451,12 @@ function gms_render_faq_page_content(): void
 	$elementor_items = gms_get_faq_items_from_elementor();
 	$items_to_render = !empty($elementor_items) ? $elementor_items : gms_get_extended_faq_items();
 	?>
-	<section class="gms-approved-faq-shell">
-		<div class="gms-faq-list">
+	<section class="gms-approved-faq-shell" data-faq-search-shell>
+		<div class="gms-approved-faq-search">
+			<label class="gms-approved-faq-search__label" for="gms-faq-search"><?php esc_html_e('Search FAQs', 'grow-my-security'); ?></label>
+			<input id="gms-faq-search" class="gms-approved-faq-search__input" type="search" placeholder="<?php esc_attr_e('Type a keyword or question', 'grow-my-security'); ?>" autocomplete="off" data-faq-search-input>
+		</div>
+		<div class="gms-faq-list" data-faq-search-list>
 			<?php foreach ($items_to_render as $index => $faq_item): ?>
 				<div class="gms-faq-item <?php echo esc_attr(0 === $index ? 'is-open' : ''); ?>">
 					<button class="gms-faq-question" type="button"
@@ -1465,6 +1469,7 @@ function gms_render_faq_page_content(): void
 				</div>
 			<?php endforeach; ?>
 		</div>
+		<p class="gms-approved-faq-empty" hidden data-faq-search-empty aria-live="polite"><?php esc_html_e('No FAQs matched your search.', 'grow-my-security'); ?></p>
 		<p class="gms-approved-faq-footer">
 			<?php esc_html_e('Do you have anymore questions for us?', 'grow-my-security'); ?>
 			<a

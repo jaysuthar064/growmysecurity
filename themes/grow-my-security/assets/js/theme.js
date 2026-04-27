@@ -189,6 +189,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const syncFaqIcon = (button, isOpen) => {
+    if (button.querySelector('.gms-homepage-faq__icon')) {
+      return;
+    }
+
     let label = button.querySelector('.gms-faq-question__label');
 
     if (!label) {
@@ -214,15 +218,84 @@ document.addEventListener('DOMContentLoaded', () => {
     icon.textContent = isOpen ? '-' : '+';
   };
 
-  document.querySelectorAll('#gms-home-faq .gms-faq-list, .faq-section .gms-faq-list, .gms-service-detail__faq .gms-faq-list').forEach((faqList) => {
+  const normalizedPath = window.location.pathname.replace(/\/+$/, '') || '/';
+  const isFaqPage = normalizedPath === '/faq' || normalizedPath.endsWith('/faq');
+  const ensureFaqSearchShell = (faqShell, index = 0) => {
+    const faqList = faqShell.querySelector('.gms-faq-list');
+
+    if (!faqList) {
+      return;
+    }
+
+    faqShell.setAttribute('data-faq-search-shell', '');
+    faqList.setAttribute('data-faq-search-list', '');
+
+    if (!faqShell.querySelector('[data-faq-search-input]')) {
+      const searchId = `gms-faq-search-runtime-${index + 1}`;
+      const searchWrap = document.createElement('div');
+      const searchLabel = document.createElement('label');
+      const searchInput = document.createElement('input');
+
+      searchWrap.className = 'gms-approved-faq-search';
+      searchLabel.className = 'gms-approved-faq-search__label';
+      searchLabel.htmlFor = searchId;
+      searchLabel.textContent = 'Search FAQs';
+
+      searchInput.id = searchId;
+      searchInput.className = 'gms-approved-faq-search__input';
+      searchInput.type = 'search';
+      searchInput.placeholder = 'Type a keyword or question';
+      searchInput.autocomplete = 'off';
+      searchInput.setAttribute('data-faq-search-input', '');
+
+      searchWrap.append(searchLabel, searchInput);
+      faqList.before(searchWrap);
+    }
+
+    if (!faqShell.querySelector('[data-faq-search-empty]')) {
+      const emptyState = document.createElement('p');
+
+      emptyState.className = 'gms-approved-faq-empty';
+      emptyState.hidden = true;
+      emptyState.setAttribute('data-faq-search-empty', '');
+      emptyState.setAttribute('aria-live', 'polite');
+      emptyState.textContent = 'No FAQs matched your search.';
+
+      faqList.after(emptyState);
+    }
+  };
+
+  if (isFaqPage) {
+    document.querySelectorAll('.gms-approved-faq-shell, .gms-faq-stacked').forEach((faqShell, index) => {
+      ensureFaqSearchShell(faqShell, index);
+    });
+
+    if (window.elementorFrontend?.hooks) {
+      window.elementorFrontend.hooks.addAction('frontend/element_ready/gms-faq.default', ($scope) => {
+        if (!$scope?.[0]) {
+          return;
+        }
+
+        const faqShell = $scope[0].querySelector('.gms-faq-stacked');
+
+        if (faqShell) {
+          ensureFaqSearchShell(faqShell);
+        }
+      });
+    }
+  }
+
+  document.querySelectorAll('#gms-home-faq .gms-faq-list, .faq-section .gms-faq-list, .gms-service-detail__faq .gms-faq-list, .gms-approved-faq-shell .gms-faq-list').forEach((faqList) => {
     const items = faqList.querySelectorAll('.gms-faq-item');
 
     items.forEach((item) => {
       const button = item.querySelector('.gms-faq-question');
 
-      if (!button) {
+      if (!button || button.dataset.gmsFaqBound === 'true') {
         return;
       }
+
+      button.dataset.gmsFaqBound = 'true';
 
       const isInitiallyOpen = item.classList.contains('is-open');
       syncDisclosure(item, '.gms-faq-question', '.gms-faq-answer', isInitiallyOpen);
@@ -243,6 +316,42 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
     });
+  });
+
+  document.querySelectorAll('[data-faq-search-shell]').forEach((faqSearchShell) => {
+    const input = faqSearchShell.querySelector('[data-faq-search-input]');
+    const faqList = faqSearchShell.querySelector('[data-faq-search-list]');
+    const emptyState = faqSearchShell.querySelector('[data-faq-search-empty]');
+
+    if (!(input instanceof HTMLInputElement) || !faqList) {
+      return;
+    }
+
+    const items = Array.from(faqList.querySelectorAll('.gms-faq-item'));
+
+    const syncFaqSearch = () => {
+      const query = input.value.trim().toLowerCase();
+      let visibleCount = 0;
+
+      items.forEach((item) => {
+        const question = item.querySelector('.gms-faq-question__label, .gms-faq-question')?.textContent ?? '';
+        const answer = item.querySelector('.gms-faq-answer')?.textContent ?? '';
+        const matches = !query || `${question} ${answer}`.toLowerCase().includes(query);
+
+        item.hidden = !matches;
+
+        if (matches) {
+          visibleCount += 1;
+        }
+      });
+
+      if (emptyState) {
+        emptyState.hidden = visibleCount !== 0;
+      }
+    };
+
+    input.addEventListener('input', syncFaqSearch);
+    input.addEventListener('search', syncFaqSearch);
   });
 
   document.querySelectorAll('.gms-service-accordion').forEach((accordion) => {
