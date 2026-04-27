@@ -118,14 +118,18 @@
 .gms-service-detail-page.gms-service-premium .gms-service-premium__hero-grid,
 .gms-service-detail-page.gms-service-premium .gms-service-premium__split {
   display: grid;
-  grid-template-columns: minmax(0, 1.06fr) minmax(340px, 0.94fr);
-  gap: 36px;
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+  gap: clamp(28px, 2.6vw, 42px);
   align-items: center;
 }
 
 .gms-service-detail-page.gms-service-premium .gms-service-premium__hero-copy,
 .gms-service-detail-page.gms-service-premium .gms-service-premium__content-card {
   min-width: 0;
+}
+
+.gms-service-detail-page.gms-service-premium .gms-service-premium__hero-copy {
+  max-width: 760px;
 }
 
 .gms-service-detail-page.gms-service-premium .gms-service-premium__eyebrow {
@@ -157,13 +161,15 @@
 }
 
 .gms-service-detail-page.gms-service-premium h1 {
-  font-size: clamp(2.6rem, 5vw, 5rem);
-  line-height: 0.98;
-  max-width: 10ch;
+  font-size: clamp(2.6rem, 4.35vw, 4.5rem);
+  line-height: 1.03;
+  max-width: 14ch;
+  text-wrap: balance;
+  margin-bottom: 20px;
 }
 
 .gms-service-detail-page.gms-service-premium .gms-service-premium__hero-text {
-  margin: 22px 0 0;
+  margin: 0;
   max-width: 58ch;
   color: var(--gms-service-muted);
   font-size: 1.05rem;
