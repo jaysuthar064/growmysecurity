@@ -263,7 +263,6 @@ class Service_Detail_Widget extends GMS_Widget_Base {
 								<?php $this->render_line_items( (string) ( $settings['hero_badges'] ?? '' ), 'gms-service-premium__badges', 'gms-service-premium__badge' ); ?>
 								<div class="gms-service-premium__actions">
 									<?php $this->render_link( 'service-hero-primary-' . $this->get_id(), $settings['hero_primary_url'] ?? [], $settings['hero_primary_text'] ?? '', 'gms-button gms-service-premium__button' ); ?>
-									<?php $this->render_link( 'service-hero-secondary-' . $this->get_id(), $settings['hero_secondary_url'] ?? [], $settings['hero_secondary_text'] ?? '', 'gms-button-outline gms-service-premium__button gms-service-premium__button--ghost' ); ?>
 								</div>
 								<?php if ( ! empty( $settings['contact_phone'] ) ) : ?>
 									<div class="gms-service-premium__meta">

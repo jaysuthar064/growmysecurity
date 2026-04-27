@@ -250,7 +250,6 @@ class Industry_Detail_Widget extends GMS_Widget_Base {
 							<?php endif; ?>
 							<div class="gms-industry-hero__actions">
 								<?php $this->render_link( 'industry-hero-primary-' . $this->get_id(), $settings['hero_primary_url'] ?? [], (string) ( $settings['hero_primary_text'] ?? '' ), 'gms-button' ); ?>
-								<?php $this->render_link( 'industry-hero-secondary-' . $this->get_id(), $settings['hero_secondary_url'] ?? [], (string) ( $settings['hero_secondary_text'] ?? '' ), 'gms-button-outline' ); ?>
 							</div>
 						</div>
 						<div class="gms-industry-hero__media animate-up" style="animation-delay: 0.12s;">
@@ -398,7 +397,6 @@ class Industry_Detail_Widget extends GMS_Widget_Base {
 						<?php endif; ?>
 						<div class="gms-industry-cta__actions">
 							<?php $this->render_link( 'industry-cta-primary-' . $this->get_id(), $settings['cta_primary_url'] ?? [], (string) ( $settings['cta_primary_text'] ?? '' ), 'gms-button' ); ?>
-							<?php $this->render_link( 'industry-cta-secondary-' . $this->get_id(), $settings['cta_secondary_url'] ?? [], (string) ( $settings['cta_secondary_text'] ?? '' ), 'gms-button-outline' ); ?>
 						</div>
 					</div>
 				</div>

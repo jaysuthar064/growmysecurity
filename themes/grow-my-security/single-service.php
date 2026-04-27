@@ -125,7 +125,6 @@ $render_icon = static function ( string $icon ): string {
 					<p class="gms-industry-hero__lead"><?php echo esc_html( $data['hero']['subtext'] ?? '' ); ?></p>
 					<div class="gms-industry-hero__actions">
 						<a href="#cta" class="gms-button"><?php esc_html_e( 'Get Started', 'grow-my-security' ); ?></a>
-						<a href="#solutions" class="gms-button-outline"><?php esc_html_e( 'View Solutions', 'grow-my-security' ); ?></a>
 					</div>
 				</div>
 				<div class="gms-industry-hero__media animate-up" style="animation-delay: 0.12s;">
@@ -247,7 +246,6 @@ $render_icon = static function ( string $icon ): string {
 				<p><?php esc_html_e( 'Let us build a cleaner, more credible growth experience for your market so your next conversation starts with trust already in place.', 'grow-my-security' ); ?></p>
 				<div class="gms-industry-cta__actions">
 					<a href="<?php echo esc_url( home_url( '/contact-us/' ) ); ?>" class="gms-button"><?php esc_html_e( 'Get Started', 'grow-my-security' ); ?></a>
-					<a href="<?php echo esc_url( home_url( '/contact-us/' ) ); ?>" class="gms-button-outline"><?php esc_html_e( 'Contact Us', 'grow-my-security' ); ?></a>
 				</div>
 			</div>
 		</div>
