@@ -2868,8 +2868,8 @@ body.home.admin-bar .gms-homepage-header {
 }
 
 .gms-homepage-footer__grid {
-  grid-template-columns: 298px minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1.45fr) minmax(0, 0.9fr);
-  gap: 40px;
+  grid-template-columns: 280px 110px 180px 220px minmax(0, 1.25fr) 110px;
+  gap: 28px;
 }
 
 .gms-homepage-brandmark--footer .gms-logo-image {
@@ -2992,7 +2992,7 @@ body.home.admin-bar .gms-homepage-header {
   }
 
   .gms-homepage-footer__grid {
-    grid-template-columns: 280px repeat(4, minmax(0, 1fr));
+    grid-template-columns: 260px repeat(5, minmax(0, 1fr));
     gap: 28px;
   }
 }
@@ -3017,7 +3017,7 @@ body.home.admin-bar .gms-homepage-header {
   }
 
   .gms-homepage-footer__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .gms-homepage-footer__brand {

@@ -4496,6 +4496,27 @@ body.has-open-nav .gms-nav-backdrop {
   }
 }
 
+@media (min-width: 981px) {
+  body:not(.home) .gms-site-footer .gms-footer-grid {
+    grid-template-columns: 1.7fr 0.75fr 1.15fr 1.2fr 1.55fr 0.8fr !important;
+    align-items: start !important;
+    gap: 24px !important;
+  }
+
+  body:not(.home) .gms-site-footer .gms-footer-column__toggle {
+    margin-bottom: 16px !important;
+  }
+
+  body:not(.home) .gms-site-footer .gms-footer-links {
+    gap: 10px !important;
+  }
+
+  body[class] .gms-site-footer .gms-footer-grid > :not(:first-child) {
+    padding-top: 0 !important;
+    border-top: 0 !important;
+  }
+}
+
 @media (max-width: 820px) {
   .page-id-14 .gms-approved-media-panel--wide {
     width: min(100%, 408px);

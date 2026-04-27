@@ -278,7 +278,7 @@ function gms_get_primary_navigation_items(): array
 			'url' => home_url('/services/'),
 			'has_caret' => true,
 			'submenu_columns' => 2,
-			'children' => array_merge($footer_groups['services']['links'], $footer_groups['services']['sub_links'] ?? []),
+			'children' => array_merge($footer_groups['services']['links'], $footer_groups['ai-search']['links'] ?? []),
 		],
 		[
 			'slug' => 'industries',
@@ -403,8 +403,10 @@ function gms_get_footer_groups(): array
 				['label' => __('Brand Authority Development', 'grow-my-security'), 'url' => home_url('/services/brand-authority-development/')],
 				['label' => __('Sales Coaching', 'grow-my-security'), 'url' => home_url('/services/sales-coaching/')],
 			],
-			'subtitle' => __('AI Search & LLM Optimization', 'grow-my-security'),
-			'sub_links' => [
+		],
+		'ai-search' => [
+			'title' => __('AI Search & LLM Optimization', 'grow-my-security'),
+			'links' => [
 				['label' => __('AI Solutions', 'grow-my-security'), 'url' => home_url('/services/ai-solutions/')],
 				['label' => __('AEO (Answer Engine Optimization)', 'grow-my-security'), 'url' => home_url('/services/aeo/')],
 				['label' => __('GEO (Generative Engine Optimization)', 'grow-my-security'), 'url' => home_url('/services/geo/')],
