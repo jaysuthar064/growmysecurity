@@ -1006,8 +1006,34 @@ body.home.admin-bar .gms-homepage-header {
 }
 
 .gms-homepage-section--solution {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding: 178px 0 150px;
   background: linear-gradient(180deg, #720a0a 0%, #190d0b 100%);
+}
+
+.gms-homepage-section--solution::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 220px;
+  background: linear-gradient(
+    180deg,
+    var(--gms-home-bg-deep) 0%,
+    rgba(0, 0, 0, 0.92) 18%,
+    rgba(58, 4, 4, 0.55) 62%,
+    rgba(114, 10, 10, 0) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gms-homepage-section--solution > .gms-homepage-shell {
+  position: relative;
+  z-index: 1;
 }
 
 .gms-homepage-solution__lead {
