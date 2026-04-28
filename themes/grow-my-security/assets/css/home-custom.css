@@ -1229,7 +1229,7 @@ body.home.admin-bar .gms-homepage-header {
 .gms-homepage-solution__media::after {
   content: '';
   position: absolute;
-  bottom: 24px;
+  top: 24px;
   right: 24px;
   width: clamp(140px, 15vw, 180px);
   height: clamp(40px, 5vw, 54px);
