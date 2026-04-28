@@ -4106,26 +4106,41 @@ body.home.admin-bar .gms-homepage-header {
   justify-content: center;
   width: fit-content;
   margin-top: 24px;
-  padding: 6px 16px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
-  font-size: 11px;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.6);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
 }
 
 .gms-badge-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  align-items: flex-start;
+  gap: 12px;
+  align-items: center;
 }
 
 .gms-badge-group .gms-badge {
   margin-top: 0;
+}
+
+.gms-badge--logo {
+  flex: 0 0 auto;
+}
+
+.gms-badge__image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  border-radius: 16px;
+}
+
+.gms-badge__image--veteran-owned {
+  width: min(190px, 100%);
+}
+
+.gms-badge__image--sdvosb {
+  width: min(118px, 100%);
 }
 
 .gms-homepage-footer__brand {

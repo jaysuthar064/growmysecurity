@@ -41,10 +41,7 @@ $footer_socials = function_exists( 'gms_get_footer_social_links' ) ? gms_get_foo
 					<a href="mailto:<?php echo esc_attr( $config['branding']['email'] ); ?>"><?php echo esc_html( $config['branding']['email'] ); ?></a>
 					<a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $config['branding']['phone'] ) ); ?>"><?php echo esc_html( $config['branding']['phone'] ); ?></a>
 				</div>
-				<div class="gms-badge-group">
-					<div class="gms-badge"><?php esc_html_e( 'Veteran-led', 'grow-my-security' ); ?></div>
-					<div class="gms-badge"><?php esc_html_e( 'Service-Disabled Veteran', 'grow-my-security' ); ?></div>
-				</div>
+				<?php gms_render_footer_badges(); ?>
 				<div class="gms-footer-socials" aria-label="<?php esc_attr_e( 'Social media links', 'grow-my-security' ); ?>">
 					<?php foreach ( $footer_socials as $social ) : ?>
 						<a class="gms-footer-social gms-footer-social--<?php echo esc_attr( $social['slug'] ); ?>" href="<?php echo esc_url( $social['url'] ); ?>" target="_blank" rel="noreferrer noopener" aria-label="<?php echo esc_attr( $social['label'] ); ?>">

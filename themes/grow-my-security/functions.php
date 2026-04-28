@@ -1703,6 +1703,46 @@ function gms_get_logo_markup( $context = 'default' ) {
 	);
 }
 
+function gms_get_footer_badges(): array {
+	$assets_base = trailingslashit( get_template_directory_uri() ) . 'assets/images/';
+
+	return [
+		[
+			'alt'   => __( 'Veteran Owned Business badge', 'grow-my-security' ),
+			'class' => 'gms-badge__image gms-badge__image--veteran-owned',
+			'src'   => $assets_base . 'badge-1.png',
+		],
+		[
+			'alt'   => __( 'Service-Disabled Veteran-Owned Small Business badge', 'grow-my-security' ),
+			'class' => 'gms-badge__image gms-badge__image--sdvosb',
+			'src'   => $assets_base . 'badge-2.png',
+		],
+	];
+}
+
+function gms_render_footer_badges(): void {
+	$badges = gms_get_footer_badges();
+
+	if ( empty( $badges ) ) {
+		return;
+	}
+	?>
+	<div class="gms-badge-group" aria-label="<?php esc_attr_e( 'Business certification badges', 'grow-my-security' ); ?>">
+		<?php foreach ( $badges as $badge ) : ?>
+			<div class="gms-badge gms-badge--logo">
+				<img
+					class="<?php echo esc_attr( $badge['class'] ); ?>"
+					src="<?php echo esc_url( $badge['src'] ); ?>"
+					alt="<?php echo esc_attr( $badge['alt'] ); ?>"
+					loading="lazy"
+					decoding="async"
+				>
+			</div>
+		<?php endforeach; ?>
+	</div>
+	<?php
+}
+
 function gms_get_footer_social_links(): array {
 	return [
 		[
@@ -1762,10 +1802,7 @@ function gms_render_homepage_footer(): void {
 						<a href="mailto:<?php echo esc_attr( $config['branding']['email'] ); ?>"><?php echo esc_html( $config['branding']['email'] ); ?></a>
 						<a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $config['branding']['phone'] ) ); ?>"><?php echo esc_html( $config['branding']['phone'] ); ?></a>
 					</div>
-					<div class="gms-badge-group">
-						<div class="gms-badge"><?php esc_html_e( 'Veteran-led', 'grow-my-security' ); ?></div>
-						<div class="gms-badge"><?php esc_html_e( 'Service-Disabled Veteran', 'grow-my-security' ); ?></div>
-					</div>
+					<?php gms_render_footer_badges(); ?>
 					<div class="gms-homepage-footer__socials" aria-label="<?php esc_attr_e( 'Social media links', 'grow-my-security' ); ?>">
 						<?php foreach ( $footer_socials as $footer_social ) : ?>
 							<a class="gms-homepage-footer__social gms-homepage-footer__social--<?php echo esc_attr( $footer_social['slug'] ); ?>" href="<?php echo esc_url( $footer_social['url'] ); ?>" target="_blank" rel="noreferrer noopener" aria-label="<?php echo esc_attr( $footer_social['label'] ); ?>">
