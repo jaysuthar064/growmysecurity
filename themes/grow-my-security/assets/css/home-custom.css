@@ -419,6 +419,95 @@ body.home.has-open-nav .gms-nav-backdrop {
   }
 }
 
+@media (max-width: 480px) {
+  body.home .gms-header-inner {
+    gap: 10px;
+    width: calc(100% - 24px);
+    min-width: 0;
+  }
+
+  body.home .gms-logo {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  body.home .gms-site-header .gms-logo-image {
+    max-width: 200px;
+    max-height: 54px;
+  }
+
+  body.home .gms-header-actions {
+    flex: 0 0 auto;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  body.home .gms-audit-button {
+    min-width: 136px;
+    max-width: 136px;
+    min-height: 40px;
+    padding: 0 28px 0 12px;
+    overflow: hidden;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  body.home .gms-nav-toggle {
+    display: inline-flex !important;
+    flex: 0 0 24px;
+  }
+}
+
+@media (max-width: 375px) {
+  body.home .gms-header-inner {
+    gap: 6px;
+    width: calc(100% - 18px);
+  }
+
+  body.home .gms-site-header .gms-logo-image {
+    max-width: 150px;
+    max-height: 44px;
+  }
+
+  body.home .gms-header-actions {
+    gap: 6px;
+  }
+
+  body.home .gms-audit-button {
+    min-width: 112px;
+    max-width: 112px;
+    min-height: 36px;
+    padding: 0 10px;
+    font-size: 12px;
+  }
+
+  body.home .gms-audit-button::before {
+    display: none;
+  }
+
+  body.home .gms-audit-button::after {
+    display: none;
+  }
+
+  body.home .gms-nav-toggle {
+    flex-basis: 22px;
+    min-width: 22px;
+    width: 22px;
+  }
+
+  body.home .gms-nav-toggle span:nth-child(1) {
+    width: 22px;
+  }
+
+  body.home .gms-nav-toggle span:nth-child(2) {
+    width: 17px;
+  }
+
+  body.home .gms-nav-toggle span:nth-child(3) {
+    width: 12px;
+  }
+}
+
 body.home.has-homepage-nav-open {
   overflow: hidden;
 }
