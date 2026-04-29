@@ -1005,6 +1005,11 @@ body.home.admin-bar .gms-homepage-header {
   line-height: 1.05;
 }
 
+.gms-homepage-section--case-studies .gms-cs-card__link::after {
+  content: none !important;
+  display: none !important;
+}
+
 .gms-homepage-section--solution {
   position: relative;
   isolation: isolate;
