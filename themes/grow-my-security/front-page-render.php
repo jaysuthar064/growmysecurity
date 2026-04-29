@@ -197,6 +197,11 @@ $nav_links = [
 	[ 'label' => 'CommandGrid', 'url' => 'https://www.godaddy.com/reseller-program', 'current' => false, 'chevron' => false, 'children' => [] ],
 	[ 'label' => 'Contact Us', 'url' => $contact_url, 'current' => false, 'chevron' => false, 'children' => [] ],
 ];
+
+if ( function_exists( 'gms_get_primary_navigation_items' ) ) {
+	$nav_links = gms_get_primary_navigation_items();
+}
+
 $hero_slides = ! empty( $elementor_home_data['hero_slides'] ) ? $elementor_home_data['hero_slides'] : [
 	[
 		'label'          => 'Security Marketing Agency',
@@ -372,20 +377,6 @@ $services_media_url = $asset_url( 'home-services-media.png' );
 $use_elementor_homepage = function_exists( 'gms_should_use_elementor_builder_on_theme_route' ) && gms_should_use_elementor_builder_on_theme_route( get_post( get_queried_object_id() ) );
 ?>
 <div class="gms-homepage">
-	<header class="gms-homepage-header" role="banner">
-		<div class="gms-homepage-shell gms-homepage-header__inner">
-			<a class="gms-homepage-brandmark" href="<?php echo esc_url( $home_url ); ?>" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>"><?php echo $logo_markup( 'header' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
-			<nav id="gms-homepage-nav" class="gms-homepage-nav" aria-label="<?php esc_attr_e( 'Primary navigation', 'grow-my-security' ); ?>" data-home-nav>
-				<ul class="gms-homepage-nav__list"><?php foreach ( $nav_links as $link ) : ?>
-					<li class="gms-homepage-nav__item">
-						<a href="<?php echo esc_url( $link['url'] ); ?>"<?php echo $link['current'] ? ' aria-current="page"' : ''; ?>><span><?php echo esc_html( $link['label'] ); ?></span></a>
-					</li>
-				<?php endforeach; ?></ul>
-			</nav>
-			<div class="gms-homepage-header__actions"><a class="gms-homepage-button gms-homepage-button--primary gms-homepage-button--compact" href="<?php echo esc_url( home_url( '/website-audit/' ) ); ?>"><span><?php esc_html_e( 'Website Audit', 'grow-my-security' ); ?></span><span class="gms-homepage-button__arrow" aria-hidden="true"></span></a><button class="gms-homepage-nav-toggle" type="button" aria-expanded="false" aria-controls="gms-homepage-nav" aria-label="<?php esc_attr_e( 'Toggle navigation', 'grow-my-security' ); ?>" data-home-nav-toggle><span></span><span></span><span></span></button></div>
-		</div>
-	</header>
-	<div class="gms-homepage-nav-backdrop" hidden data-home-nav-backdrop></div>
 	<?php if ( function_exists( 'gms_render_submission_notice' ) ) : ob_start(); gms_render_submission_notice(); $notice_html = ob_get_clean(); if ( '' !== trim( $notice_html ) ) : ?><div class="gms-homepage-notice"><?php echo $notice_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div><?php endif; endif; ?>
 	<?php if ( $use_elementor_homepage ) : ?>
 		<main class="gms-homepage-content gms-homepage-content--elementor">
