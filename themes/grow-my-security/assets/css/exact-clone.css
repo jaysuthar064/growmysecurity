@@ -5086,6 +5086,10 @@ body.has-open-nav .gms-nav-backdrop {
   padding-top: 0;
 }
 
+.gms-approved-page--resources .gms-approved-resource-toolbar {
+  padding-top: 18px;
+}
+
 @media (max-width: 820px) {
   .gms-approved-page--resources .gms-approved-intro__grid {
     padding-bottom: 28px;

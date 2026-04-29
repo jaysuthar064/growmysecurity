@@ -1161,7 +1161,7 @@ function gms_render_about_page_content(): void
 			'support_html' => sprintf(
 				'<p>%1$s</p><a class="gms-button" href="%2$s">%3$s</a>',
 				esc_html__('Grow My Security Company offers fresh and grounded leadership for security brands that need more visible trust, more consistent authority, and better commercial momentum.', 'grow-my-security'),
-				esc_url('#gms-about-origin'),
+				esc_url('https://meetings.hubspot.com/rumore/grow-my-security-company-?uuid=fa51c8d1-f823-42df-91ac-85496638ef83'),
 				esc_html__('Meet Founder', 'grow-my-security')
 			),
 		]
