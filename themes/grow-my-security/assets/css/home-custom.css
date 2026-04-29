@@ -2420,6 +2420,10 @@ body.home.admin-bar .gms-homepage-header {
 .gms-homepage-journal__card a {
   display: grid;
   gap: 10px;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 220ms ease;
+  will-change: transform;
 }
 
 .gms-homepage-journal__card img {
@@ -2428,6 +2432,7 @@ body.home.admin-bar .gms-homepage-header {
   object-fit: cover;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
+  transition: border-color 220ms ease, box-shadow 220ms ease, filter 220ms ease;
 }
 
 .gms-homepage-journal__meta {
@@ -2442,6 +2447,7 @@ body.home.admin-bar .gms-homepage-header {
   background: rgba(255, 255, 255, 0.1);
   font-size: 14px;
   font-weight: 500;
+  transition: background 220ms ease, border-color 220ms ease, color 220ms ease;
 }
 
 .gms-homepage-journal__card h3 {
@@ -2449,6 +2455,32 @@ body.home.admin-bar .gms-homepage-header {
   font-size: 24px;
   font-weight: 700;
   line-height: 1.25;
+  transition: color 220ms ease, text-shadow 220ms ease;
+}
+
+.gms-homepage-journal__card:hover a,
+.gms-homepage-journal__card:focus-within a {
+  transform: translateY(-6px);
+}
+
+.gms-homepage-journal__card:hover img,
+.gms-homepage-journal__card:focus-within img {
+  border-color: rgba(239, 32, 20, 0.45);
+  box-shadow: 0 18px 38px rgba(239, 32, 20, 0.16);
+  filter: brightness(1.06) contrast(1.04);
+}
+
+.gms-homepage-journal__card:hover .gms-homepage-journal__meta,
+.gms-homepage-journal__card:focus-within .gms-homepage-journal__meta {
+  border-color: rgba(239, 32, 20, 0.42);
+  background: rgba(239, 32, 20, 0.14);
+  color: #fff;
+}
+
+.gms-homepage-journal__card:hover h3,
+.gms-homepage-journal__card:focus-within h3 {
+  color: #ff3b32;
+  text-shadow: 0 0 18px rgba(239, 32, 20, 0.22);
 }
 
 .gms-homepage-quote {
