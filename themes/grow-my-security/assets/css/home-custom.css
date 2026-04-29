@@ -2696,6 +2696,30 @@ body.home.admin-bar .gms-homepage-header {
   line-height: 1.45;
 }
 
+.gms-homepage-footer__brand p {
+  max-width: 430px;
+  text-align: left;
+  text-align-last: left;
+}
+
+.gms-homepage-footer__column a {
+  transition: color 0.24s ease, opacity 0.24s ease;
+}
+
+.gms-homepage-footer__column a:hover,
+.gms-homepage-footer__column a:focus-visible {
+  color: var(--gms-home-accent);
+  opacity: 1;
+}
+
+.gms-homepage-footer__panel a:hover,
+.gms-homepage-footer__panel a:focus-visible,
+.gms-homepage-footer__subgroup a:hover,
+.gms-homepage-footer__subgroup a:focus-visible {
+  color: var(--gms-home-accent) !important;
+  opacity: 1 !important;
+}
+
 .gms-homepage-footer__socials {
   display: flex;
   flex-wrap: wrap;
@@ -2870,6 +2894,35 @@ body.home.admin-bar .gms-homepage-header {
 .gms-homepage-footer__grid {
   grid-template-columns: 280px 110px 180px 220px minmax(0, 1.25fr) 110px;
   gap: 28px;
+}
+
+@media (min-width: 1500px) {
+  .gms-homepage-footer > .gms-homepage-shell {
+    --gms-home-gutter: clamp(36px, 4vw, 72px);
+    --gms-home-shell: 1560px;
+  }
+
+  .gms-homepage-footer__grid {
+    --gms-homepage-footer-columns: 340px 110px 190px 240px 260px 110px;
+    --gms-homepage-footer-gap: 20px;
+    --gms-homepage-footer-brand-max: 340px;
+  }
+
+  .gms-homepage-footer__brand p {
+    max-width: 340px;
+  }
+}
+
+@media (min-width: 1700px) {
+  .gms-homepage-footer__grid {
+    --gms-homepage-footer-columns: 420px 120px 220px 270px 280px 110px;
+    --gms-homepage-footer-gap: 20px;
+    --gms-homepage-footer-brand-max: 430px;
+  }
+
+  .gms-homepage-footer__brand p {
+    max-width: 430px;
+  }
 }
 
 .gms-homepage-brandmark--footer .gms-logo-image {
@@ -4114,7 +4167,7 @@ body.home.admin-bar .gms-homepage-header {
 
 .gms-badge-group {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 12px;
   align-items: center;
 }
@@ -4143,8 +4196,33 @@ body.home.admin-bar .gms-homepage-header {
   width: min(118px, 100%);
 }
 
+.gms-homepage-footer__brand .gms-badge-group {
+  display: inline-grid !important;
+  grid-template-columns: 165px 98px !important;
+  column-gap: 6px !important;
+  row-gap: 0 !important;
+  align-items: center !important;
+  justify-content: start !important;
+  justify-items: start !important;
+  width: 269px !important;
+  max-width: 100% !important;
+}
+
+.gms-homepage-footer__brand .gms-badge {
+  width: auto !important;
+  margin-top: 0 !important;
+}
+
+.gms-homepage-footer__brand .gms-badge__image--veteran-owned {
+  width: 165px !important;
+}
+
+.gms-homepage-footer__brand .gms-badge__image--sdvosb {
+  width: 98px !important;
+}
+
 .gms-homepage-footer__brand {
-  padding-right: 120px;
+  padding-right: 0;
 }
 
 .gms-homepage-footer__socials .gms-homepage-footer__social {
