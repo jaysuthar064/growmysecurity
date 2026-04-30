@@ -5312,6 +5312,12 @@ body.gms-approved-route--contact .gms-approved-intro__main>.gms-eyebrow,
 }
 
 /* About page – gap between banner image and section content */
+body.gms-approved-route--podcast .gms-approved-section__intro>.gms-eyebrow {
+  width: max-content;
+  min-width: 224px;
+  padding-inline: 18px;
+}
+
 .gms-approved-page--about figure.gms-approved-media-panel--wide {
   margin-bottom: 40px !important;
 }
