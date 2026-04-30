@@ -510,10 +510,6 @@ $use_elementor_homepage = function_exists( 'gms_should_use_elementor_builder_on_
 					<div class="gms-homepage-guarantee__body">
 						<h3><span><?php echo esc_html( $guarantee_item['accent'] ); ?></span><?php echo esc_html( $guarantee_item['title'] ); ?></h3>
 						<p><?php echo esc_html( $guarantee_item['copy'] ); ?></p>
-						<a class="gms-homepage-guarantee__link" href="<?php echo esc_url( $guarantee_item['url'] ); ?>">
-							<span><?php echo esc_html( $guarantee_item['cta'] ); ?></span>
-							<span class="gms-homepage-button__arrow" aria-hidden="true"></span>
-						</a>
 					</div>
 				</article>
 			<?php endforeach; ?>

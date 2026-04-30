@@ -1994,6 +1994,10 @@ body.home.admin-bar .gms-homepage-header {
   color: var(--gms-home-accent);
 }
 
+body.home .gms-homepage-section--guarantee .gms-homepage-guarantee__link {
+  display: none !important;
+}
+
 @media (max-width: 991px) {
   .gms-homepage-guarantee__timeline {
     padding-left: 70px;

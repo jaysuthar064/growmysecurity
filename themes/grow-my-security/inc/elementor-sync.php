@@ -2059,32 +2059,24 @@ function gms_get_home_elementor_sync_template(): array {
 						'accent'    => 'Clear Positioning',
 						'title'     => 'in a Crowded Market',
 						'text'      => 'We help you articulate what you do, who you are for, and why you are different without jargon or overclaiming. Your buyers should understand your value in seconds.',
-						'link_text' => 'Learn More',
-						'link_url'  => [ 'url' => home_url( '/positioning/' ) ],
 						'icon'      => 'shield',
 					],
 					[
 						'accent'    => 'Trust-First Brand',
 						'title'     => 'Presence',
 						'text'      => 'From messaging and content to design and digital touchpoints, we ensure your brand looks, sounds, and feels credible across every channel where buyers research you.',
-						'link_text' => 'See How This Works',
-						'link_url'  => [ 'url' => home_url( '/presence/' ) ],
 						'icon'      => 'users',
 					],
 					[
 						'accent'    => 'Buyer-Aligned Demand',
 						'title'     => 'Generation',
 						'text'      => 'We focus on attracting decision-makers who are already searching for solutions like yours, guiding them with the right information at each stage of their journey.',
-						'link_text' => 'Explore More',
-						'link_url'  => [ 'url' => home_url( '/demand/' ) ],
 						'icon'      => 'target',
 					],
 					[
 						'accent'    => 'Consistency Over',
 						'title'     => 'Campaigns',
 						'text'      => 'Instead of disconnected tactics, we build a repeatable system that compounds visibility, authority, and inbound demand over time.',
-						'link_text' => 'Get Started',
-						'link_url'  => [ 'url' => home_url( '/contact-us/' ) ],
 						'icon'      => 'link',
 					],
 				],
@@ -2616,7 +2608,7 @@ function gms_sync_public_pages_elementor_templates(): void {
 		return;
 	}
 
-	$sync_version = '2026-04-17-public-pages-elementor-v26';
+	$sync_version = '2026-04-30-public-pages-elementor-v27';
 
 	if ( get_option( 'gms_public_pages_elementor_sync_version' ) === $sync_version ) {
 		return;

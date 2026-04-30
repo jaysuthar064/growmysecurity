@@ -126,6 +126,7 @@ class Process_Timeline_Widget extends GMS_Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings();
 		$items    = $settings['items'] ?? [];
+		$hide_links_on_home = is_front_page() && 'Our Guarantee' === trim( (string) ( $settings['eyebrow'] ?? '' ) );
 
 		if ( empty( $items ) ) {
 			return;
@@ -151,7 +152,7 @@ class Process_Timeline_Widget extends GMS_Widget_Base {
 							<div class="gms-homepage-guarantee__body">
 								<h3><span><?php echo esc_html( $item['accent'] ?? '' ); ?></span><?php echo esc_html( $item['title'] ?? '' ); ?></h3>
 								<p><?php echo esc_html( $item['text'] ?? '' ); ?></p>
-								<?php if ( ! empty( $item['link_text'] ) && $this->has_valid_link( $item['link_url'] ?? [] ) ) : ?>
+								<?php if ( ! $hide_links_on_home && ! empty( $item['link_text'] ) && $this->has_valid_link( $item['link_url'] ?? [] ) ) : ?>
 									<?php $this->add_render_attribute( 'process-link-' . $this->get_id() . '-' . $index, 'class', 'gms-homepage-guarantee__link' ); ?>
 									<?php $this->add_link_attributes( 'process-link-' . $this->get_id() . '-' . $index, $item['link_url'] ); ?>
 									<a <?php echo $this->get_render_attribute_string( 'process-link-' . $this->get_id() . '-' . $index ); ?>><span><?php echo esc_html( $item['link_text'] ); ?></span><span class="gms-homepage-button__arrow" aria-hidden="true"></span></a>
