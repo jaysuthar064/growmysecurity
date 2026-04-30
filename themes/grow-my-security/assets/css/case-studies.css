@@ -483,7 +483,7 @@ body.elementor-editor-active .elementor-section.elementor-section-boxed:has(.gms
 
 .gms-floating-badge[data-pos="1"] { top: 10%; left: -10%; animation-delay: 0s; }
 .gms-floating-badge[data-pos="2"] { bottom: 15%; right: -5%; animation-delay: 1s; }
-.gms-floating-badge[data-pos="3"] { top: 40%; right: -15%; animation-delay: 2.5s; }
+.gms-floating-badge[data-pos="3"] { top: 40%; right: 16px; animation-delay: 2.5s; }
 
 .gms-floating-badge span:first-child {
     font-weight: 800;
