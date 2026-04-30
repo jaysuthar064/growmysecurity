@@ -658,16 +658,6 @@ body.elementor-editor-active .elementor-section.elementor-section-boxed:has(.gms
     box-shadow: 0 8px 20px rgba(239, 32, 20, 0.3);
 }
 
-.gms-cs-card__link::after {
-    content: '\2192'; /* Arrow symbol */
-    font-size: 16px;
-    transition: transform 0.3s ease;
-}
-
-.gms-cs-card__link:hover::after {
-    transform: translateX(4px);
-}
-
 /* No Posts Message */
 .gms-no-posts {
     grid-column: 1 / -1;
