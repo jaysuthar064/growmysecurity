@@ -5952,6 +5952,10 @@ body.gms-approved-route--press .gms-posts-section__actions {
   justify-content: center;
 }
 
+body.gms-approved-route--press .gms-approved-media-panel--wide + .gms-approved-section {
+  margin-top: clamp(28px, 3vw, 44px);
+}
+
 .gms-editorial-post-hero--press .gms-approved-intro__grid {
   grid-template-columns: minmax(0, 1.18fr) minmax(360px, 0.82fr);
   gap: clamp(36px, 4.6vw, 64px);
