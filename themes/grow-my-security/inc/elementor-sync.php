@@ -745,6 +745,48 @@ function gms_get_press_media_posts_for_sync(): array {
 	return $posts;
 }
 
+function gms_get_podcast_posts_for_sync(): array {
+	$config      = gms_get_demo_config();
+	$posts_by_id = [];
+	$category_id = (int) get_cat_ID( 'Podcast' );
+
+	if ( $category_id > 0 ) {
+		$category_posts = get_posts(
+			[
+				'post_type'           => 'post',
+				'post_status'         => 'publish',
+				'posts_per_page'      => -1,
+				'orderby'             => 'date',
+				'order'               => 'DESC',
+				'ignore_sticky_posts' => true,
+				'cat'                 => $category_id,
+			]
+		);
+
+		foreach ( $category_posts as $post ) {
+			if ( $post instanceof WP_Post ) {
+				$posts_by_id[ (int) $post->ID ] = $post;
+			}
+		}
+	}
+
+	foreach ( (array) ( $config['podcasts'] ?? [] ) as $item ) {
+		$slug = trim( (string) ( $item['slug'] ?? '' ) );
+
+		if ( '' === $slug ) {
+			continue;
+		}
+
+		$post = get_page_by_path( $slug, OBJECT, 'post' );
+
+		if ( $post instanceof WP_Post ) {
+			$posts_by_id[ (int) $post->ID ] = $post;
+		}
+	}
+
+	return array_values( $posts_by_id );
+}
+
 function gms_get_press_post_blueprint( WP_Post $post ): array {
 	$excerpt    = wp_strip_all_tags( (string) ( get_the_excerpt( $post ) ?: __( 'A visibility-focused press feature for security companies building trust, authority, and better demand quality.', 'grow-my-security' ) ) );
 	$defaults   = [
@@ -1063,6 +1105,269 @@ function gms_get_press_post_elementor_template( WP_Post $post ): array {
 	);
 }
 
+function gms_get_podcast_post_blueprint( WP_Post $post ): array {
+	$excerpt  = wp_strip_all_tags( (string) ( get_the_excerpt( $post ) ?: __( 'A podcast conversation about authority, trust, positioning, and how security companies can earn buyer confidence before the first sales call.', 'grow-my-security' ) ) );
+	$defaults = [
+		'hero_eyebrow'         => __( 'Podcast Episode', 'grow-my-security' ),
+		'hero_description'     => $excerpt,
+		'snapshot_title'       => __( 'Turn the conversation into a trust asset buyers can revisit', 'grow-my-security' ),
+		'snapshot_description' => __( 'Podcast visibility works best when it does more than create awareness. The conversation should make the company easier to understand, easier to trust, and easier to choose.', 'grow-my-security' ),
+		'snapshot_supporting'  => __( 'Long-form audio gives buyers a deeper signal than a short ad or generic post. They hear the thinking, the judgment, and the point of view behind the brand.', 'grow-my-security' ),
+		'snapshot_highlight'   => __( 'The goal is not just to be heard. It is to make the expertise reusable across the website, sales process, and every trust-building touchpoint.', 'grow-my-security' ),
+		'snapshot_values'      => [
+			[
+				'title' => __( 'Authority In Their Own Voice', 'grow-my-security' ),
+				'text'  => __( 'Buyers hear how the team thinks, not only what the company sells.', 'grow-my-security' ),
+			],
+			[
+				'title' => __( 'Positioning That Travels', 'grow-my-security' ),
+				'text'  => __( 'A strong episode creates language that can support sales pages, social proof, and follow-up content.', 'grow-my-security' ),
+			],
+			[
+				'title' => __( 'Trust Before the Form Fill', 'grow-my-security' ),
+				'text'  => __( 'The right conversation gives serious prospects another proof point before they reach out.', 'grow-my-security' ),
+			],
+		],
+		'article_heading'      => __( 'Episode Notes & Trust Takeaways', 'grow-my-security' ),
+		'article_sections'     => [
+			[
+				'heading' => __( 'Why this episode matters', 'grow-my-security' ),
+				'body'    => __( 'Security buyers usually want confidence before contact. A focused podcast conversation helps them hear the company perspective, understand the problem more clearly, and decide whether the brand belongs in the shortlist.', 'grow-my-security' ),
+			],
+			[
+				'heading' => __( 'How to reuse the conversation', 'grow-my-security' ),
+				'body'    => __( 'The best episodes become more than a single media appearance. Teams can turn the core ideas into website proof, sales enablement, clips, emails, and follow-up content that keeps reinforcing authority.', 'grow-my-security' ),
+			],
+			[
+				'heading' => __( 'What listeners should do next', 'grow-my-security' ),
+				'body'    => __( 'After listening, prospects should have a clear next step: explore the company point of view, compare the approach with their current growth system, and start a conversation when they are ready.', 'grow-my-security' ),
+			],
+		],
+		'process_title'        => __( 'How to Turn the Episode Into Pipeline', 'grow-my-security' ),
+		'process_description'  => __( 'A podcast appearance becomes more valuable when the strongest ideas are packaged into the wider trust system around the website, sales process, and brand story.', 'grow-my-security' ),
+		'process_items'        => [
+			[
+				'accent' => __( 'Extract ', 'grow-my-security' ),
+				'title'  => __( 'the strongest ideas', 'grow-my-security' ),
+				'text'   => __( 'Pull the clearest points of view from the conversation so the episode has a commercial role beyond the recording.', 'grow-my-security' ),
+				'icon'   => 'target',
+			],
+			[
+				'accent' => __( 'Publish ', 'grow-my-security' ),
+				'title'  => __( 'the proof in useful places', 'grow-my-security' ),
+				'text'   => __( 'Use the episode across the site, social channels, emails, and sales follow-up so the authority compounds.', 'grow-my-security' ),
+				'icon'   => 'users',
+			],
+			[
+				'accent' => __( 'Connect ', 'grow-my-security' ),
+				'title'  => __( 'the conversation to a next step', 'grow-my-security' ),
+				'text'   => __( 'Make it easy for interested buyers to move from listening to a relevant service, resource, or strategy call.', 'grow-my-security' ),
+				'icon'   => 'shield',
+			],
+		],
+		'cta_title'            => __( 'Want Podcast Visibility That Builds Trust?', 'grow-my-security' ),
+		'cta_description'      => __( 'We help security companies turn expertise, interviews, and guest conversations into authority assets that support pipeline.', 'grow-my-security' ),
+	];
+	$map      = [
+		'building-trust-in-security-marketing' => [
+			'hero_description'     => __( 'A conversation about authority, trust, and buyer confidence in complex security markets.', 'grow-my-security' ),
+			'snapshot_title'       => __( 'Why trust is the real conversion layer in security marketing', 'grow-my-security' ),
+			'snapshot_description' => __( 'In crowded security markets, the first conversion often happens before a form fill. Buyers start trusting the company when the expertise feels clear, calm, and commercially relevant.', 'grow-my-security' ),
+			'snapshot_supporting'  => __( 'Podcast conversations give brands room to show judgment and nuance. That makes the thinking behind the company more visible than a short landing page claim can.', 'grow-my-security' ),
+			'snapshot_highlight'   => __( 'The strongest episodes make expertise feel tangible, repeatable, and easy for a buyer to remember.', 'grow-my-security' ),
+		],
+	];
+
+	return array_replace_recursive( $defaults, $map[ $post->post_name ] ?? [] );
+}
+
+function gms_get_podcast_post_sidebar_html( WP_Post $post, array $blueprint ): string {
+	$read_time = max( 1, (int) ceil( str_word_count( wp_strip_all_tags( get_post_field( 'post_content', $post ) ) ) / 220 ) );
+	$themes    = array_map(
+		static function ( array $item ): string {
+			return (string) ( $item['title'] ?? '' );
+		},
+		array_slice( (array) ( $blueprint['snapshot_values'] ?? [] ), 0, 3 )
+	);
+
+	ob_start();
+	?>
+	<div class="gms-editorial-post-sidebar">
+		<div class="gms-editorial-post-sidebar__panel">
+			<span class="gms-editorial-post-sidebar__label"><?php esc_html_e( 'Episode Type', 'grow-my-security' ); ?></span>
+			<strong><?php esc_html_e( 'Podcast Feature', 'grow-my-security' ); ?></strong>
+		</div>
+		<div class="gms-editorial-post-sidebar__panel">
+			<span class="gms-editorial-post-sidebar__label"><?php esc_html_e( 'Published', 'grow-my-security' ); ?></span>
+			<strong><?php echo esc_html( get_the_date( 'F j, Y', $post ) ); ?></strong>
+		</div>
+		<div class="gms-editorial-post-sidebar__panel">
+			<span class="gms-editorial-post-sidebar__label"><?php esc_html_e( 'Episode Notes', 'grow-my-security' ); ?></span>
+			<strong><?php echo esc_html( sprintf( _n( '%d minute read', '%d minute read', $read_time, 'grow-my-security' ), $read_time ) ); ?></strong>
+		</div>
+		<?php if ( ! empty( $themes ) ) : ?>
+			<div class="gms-editorial-post-sidebar__panel gms-editorial-post-sidebar__panel--list">
+				<span class="gms-editorial-post-sidebar__label"><?php esc_html_e( 'What This Supports', 'grow-my-security' ); ?></span>
+				<ul>
+					<?php foreach ( $themes as $theme ) : ?>
+						<?php if ( '' === trim( $theme ) ) { continue; } ?>
+						<li><?php echo esc_html( $theme ); ?></li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+		<?php endif; ?>
+		<div class="gms-editorial-post-sidebar__callout">
+			<h3><?php esc_html_e( 'Want to turn conversations into authority?', 'grow-my-security' ); ?></h3>
+			<p><?php echo esc_html( (string) ( $blueprint['cta_description'] ?? __( 'We help security companies turn expertise into trust-building content buyers can act on.', 'grow-my-security' ) ) ); ?></p>
+			<div class="gms-editorial-post-sidebar__actions">
+				<a class="gms-button" href="<?php echo esc_url( gms_internal_link( '/contact-us/', home_url( '/' ) ) ); ?>"><?php esc_html_e( 'Book a Strategy Call', 'grow-my-security' ); ?></a>
+				<a class="gms-button-outline" href="<?php echo esc_url( gms_internal_link( '/podcast/', home_url( '/' ) ) ); ?>"><?php esc_html_e( 'Back to Podcast', 'grow-my-security' ); ?></a>
+			</div>
+		</div>
+	</div>
+	<?php
+
+	return trim( (string) ob_get_clean() );
+}
+
+function gms_get_podcast_post_related_items( int $post_id, int $limit = 3 ): array {
+	$posts = array_values(
+		array_filter(
+			gms_get_podcast_posts_for_sync(),
+			static function ( $post ) use ( $post_id ): bool {
+				return $post instanceof WP_Post && (int) $post->ID !== $post_id;
+			}
+		)
+	);
+
+	return gms_get_resource_post_grid_items_from_posts( array_slice( $posts, 0, $limit ) );
+}
+
+function gms_get_podcast_post_elementor_template( WP_Post $post ): array {
+	$blueprint = gms_get_podcast_post_blueprint( $post );
+	$hero_image = gms_get_resource_post_feature_media_url( $post );
+
+	if ( '' === $hero_image ) {
+		$hero_image = function_exists( 'gms_get_generated_asset_url' )
+			? (string) gms_get_generated_asset_url( 'podcast-episode-1.png', gms_asset( 'assets/images/resources.png' ) )
+			: gms_asset( 'assets/images/resources.png' );
+		$hero_image = gms_get_elementor_safe_media_url( $hero_image );
+	}
+
+	$related       = gms_get_podcast_post_related_items( (int) $post->ID, 3 );
+	$contact_url   = gms_get_elementor_safe_internal_url( home_url( '/contact-us/' ) );
+	$podcast_url   = gms_get_elementor_safe_internal_url( home_url( '/podcast/' ) );
+	$services_url  = gms_get_elementor_safe_internal_url( home_url( '/services/' ) );
+	$cta_image     = gms_get_elementor_safe_media_url( gms_asset( 'assets/images/security-dashboard-visual.png' ) );
+	$story_bullets = implode(
+		"\n",
+		array_map(
+			static function ( array $item ): string {
+				return (string) ( $item['text'] ?? '' );
+			},
+			array_slice( (array) ( $blueprint['snapshot_values'] ?? [] ), 0, 3 )
+		)
+	);
+	$story_chips   = implode(
+		"\n",
+		array_map(
+			static function ( array $item ): string {
+				return (string) ( $item['title'] ?? '' );
+			},
+			array_slice( (array) ( $blueprint['snapshot_values'] ?? [] ), 0, 3 )
+		)
+	);
+
+	return gms_page_template(
+		(string) $post->post_title,
+		[
+			gms_section_node( [ gms_column_node( [ gms_widget_node( 'gms-page-hero', [
+				'variant'        => 'detail',
+				'alignment'      => 'left',
+				'eyebrow'        => (string) ( $blueprint['hero_eyebrow'] ?? __( 'Podcast Episode', 'grow-my-security' ) ),
+				'title'          => (string) $post->post_title,
+				'description'    => (string) ( $blueprint['hero_description'] ?? '' ),
+				'art_image'      => [ 'url' => (string) $hero_image ],
+				'primary_text'   => __( 'Book a Strategy Call', 'grow-my-security' ),
+				'primary_url'    => [ 'url' => $contact_url ],
+				'secondary_text' => __( 'Back to Podcast', 'grow-my-security' ),
+				'secondary_url'  => [ 'url' => $podcast_url ],
+			], 'podcast-post-hero-' . $post->ID ) ], 'podcast-post-hero-col-' . $post->ID ) ], 'podcast-post-hero-sec-' . $post->ID, [ 'css_classes' => 'gms-editorial-post-hero gms-editorial-post-hero--podcast' ] ),
+			gms_section_node( [ gms_column_node( [ gms_widget_node( 'gms-story', [
+				'layout'          => 'media-content',
+				'eyebrow'         => __( 'Episode Strategy', 'grow-my-security' ),
+				'title'           => (string) ( $blueprint['snapshot_title'] ?? (string) $post->post_title ),
+				'description'     => (string) ( $blueprint['snapshot_description'] ?? '' ),
+				'image'           => [ 'url' => (string) $hero_image ],
+				'supporting_text' => (string) ( $blueprint['snapshot_supporting'] ?? '' ),
+				'copy_secondary'  => (string) ( $blueprint['article_sections'][0]['body'] ?? '' ),
+				'highlight_text'  => (string) ( $blueprint['snapshot_highlight'] ?? '' ),
+				'bullets'         => $story_bullets,
+				'chips'           => $story_chips,
+				'button_text'     => __( 'Explore Services', 'grow-my-security' ),
+				'button_url'      => [ 'url' => $services_url ],
+			], 'podcast-post-story-' . $post->ID ) ], 'podcast-post-story-col-' . $post->ID ) ], 'podcast-post-story-sec-' . $post->ID, [ 'css_classes' => 'gms-editorial-post-story gms-editorial-post-story--podcast' ] ),
+			gms_section_node(
+				[
+					gms_column_node(
+						[
+							gms_widget_node(
+								'text-editor',
+								[
+									'editor' => gms_get_resource_blog_article_html( $post, $blueprint ),
+								],
+								'podcast-post-article-copy-' . $post->ID
+							),
+						],
+						'podcast-post-article-copy-col-' . $post->ID,
+						64
+					),
+					gms_column_node(
+						[
+							gms_widget_node(
+								'text-editor',
+								[
+									'editor' => gms_get_podcast_post_sidebar_html( $post, $blueprint ),
+								],
+								'podcast-post-article-sidebar-' . $post->ID
+							),
+						],
+						'podcast-post-article-sidebar-col-' . $post->ID,
+						36
+					),
+				],
+				'podcast-post-article-shell-' . $post->ID,
+				[
+					'css_classes' => 'gms-editorial-post-shell gms-editorial-post-shell--podcast',
+				]
+			),
+			gms_section_node( [ gms_column_node( [ gms_widget_node( 'gms-process-timeline', [
+				'eyebrow'     => __( 'How to Use It', 'grow-my-security' ),
+				'title'       => (string) ( $blueprint['process_title'] ?? __( 'How to Turn the Episode Into Pipeline', 'grow-my-security' ) ),
+				'description' => (string) ( $blueprint['process_description'] ?? '' ),
+				'items'       => (array) ( $blueprint['process_items'] ?? [] ),
+			], 'podcast-post-process-' . $post->ID ) ], 'podcast-post-process-col-' . $post->ID ) ], 'podcast-post-process-sec-' . $post->ID, [ 'css_classes' => 'gms-editorial-post-process gms-editorial-post-process--podcast' ] ),
+			gms_section_node( [ gms_column_node( [ gms_widget_node( 'gms-post-grid', [
+				'eyebrow'          => __( 'Related Episodes', 'grow-my-security' ),
+				'title'            => __( 'Keep Exploring Podcast Conversations', 'grow-my-security' ),
+				'description'      => __( 'More conversations, commentary, and authority-building perspective for security companies that want stronger trust in the market.', 'grow-my-security' ),
+				'items'            => $related,
+				'card_button_text' => __( 'Listen to Episode', 'grow-my-security' ),
+				'button_text'      => __( 'View All Episodes', 'grow-my-security' ),
+				'button_url'       => [ 'url' => $podcast_url ],
+			], 'podcast-post-related-' . $post->ID ) ], 'podcast-post-related-col-' . $post->ID ) ], 'podcast-post-related-sec-' . $post->ID, [ 'css_classes' => 'gms-editorial-post-related gms-editorial-post-related--podcast' ] ),
+			gms_section_node( [ gms_column_node( [ gms_widget_node( 'gms-cta-banner', [
+				'eyebrow'     => __( 'Podcast Strategy', 'grow-my-security' ),
+				'title'       => (string) ( $blueprint['cta_title'] ?? __( 'Want Podcast Visibility That Builds Trust?', 'grow-my-security' ) ),
+				'description' => (string) ( $blueprint['cta_description'] ?? '' ),
+				'button_text' => __( 'Start the Conversation', 'grow-my-security' ),
+				'button_url'  => [ 'url' => $contact_url ],
+				'image'       => [ 'url' => $cta_image ],
+			], 'podcast-post-cta-' . $post->ID ) ], 'podcast-post-cta-col-' . $post->ID ) ], 'podcast-post-cta-sec-' . $post->ID, [ 'css_classes' => 'gms-editorial-post-cta gms-editorial-post-cta--podcast' ] ),
+		]
+	);
+}
+
 function gms_get_resource_blog_elementor_template( WP_Post $post ): array {
 	$blueprint  = gms_get_resource_blog_blueprint( $post );
 	$hero_image = gms_get_resource_post_feature_media_url( $post );
@@ -1239,6 +1544,42 @@ function gms_sync_press_media_posts_elementor_content(): void {
 	}
 }
 add_action( 'init', 'gms_sync_press_media_posts_elementor_content', 28 );
+
+function gms_sync_podcast_posts_elementor_content(): void {
+	$sync_version = '2026-04-30-podcast-posts-v2';
+	$updated      = false;
+
+	foreach ( gms_get_podcast_posts_for_sync() as $post ) {
+		if ( ! ( $post instanceof WP_Post ) ) {
+			continue;
+		}
+
+		$current_version = (string) get_post_meta( $post->ID, '_gms_podcast_post_sync_version', true );
+		$has_elementor   = function_exists( 'gms_post_has_elementor_content' ) && gms_post_has_elementor_content( (int) $post->ID );
+
+		if ( $current_version === $sync_version && $has_elementor ) {
+			continue;
+		}
+
+		if ( '' === $current_version && $has_elementor ) {
+			update_post_meta( $post->ID, '_gms_podcast_post_sync_version', $sync_version );
+			continue;
+		}
+
+		$template = gms_get_podcast_post_elementor_template( $post );
+
+		if ( gms_sync_elementor_template_to_page( $post, $template ) ) {
+			$updated = true;
+		}
+
+		update_post_meta( $post->ID, '_gms_podcast_post_sync_version', $sync_version );
+	}
+
+	if ( $updated && class_exists( '\\Elementor\\Plugin' ) && isset( \Elementor\Plugin::$instance->files_manager ) ) {
+		\Elementor\Plugin::$instance->files_manager->clear_cache();
+	}
+}
+add_action( 'init', 'gms_sync_podcast_posts_elementor_content', 29 );
 
 function gms_sync_resources_grid_widget_items(): void {
 	if ( function_exists( 'gms_should_skip_runtime_elementor_sync' ) && gms_should_skip_runtime_elementor_sync() ) {
