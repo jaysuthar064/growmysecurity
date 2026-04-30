@@ -727,6 +727,28 @@
   justify-content: center;
 }
 
+@media (min-width: 821px) {
+  body.gms-approved-route--podcast .gms-approved-section__content .gms-approved-value-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    align-items: stretch;
+  }
+
+  body.gms-approved-route--podcast .gms-approved-section__content .gms-approved-value-card {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0;
+  }
+}
+
+body.gms-approved-route--podcast .gms-approved-section__content > p {
+  margin-bottom: 10px;
+}
+
+body.gms-approved-route--podcast .gms-approved-section__content > p + p {
+  margin-top: 0;
+}
+
 @media (min-width: 1181px) {
   .gms-approved-page--services .gms-approved-cta {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
