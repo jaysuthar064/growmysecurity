@@ -3253,6 +3253,17 @@ button[type="submit"]:focus-visible,
     font-size: 1.5rem;
   }
 }
+
+@media (max-width: 480px) {
+  .gms-legal-page .gms-legal-container {
+    margin-top: 28px;
+    padding-top: 24px;
+  }
+
+  .gms-legal-page .gms-legal-content h2:first-child {
+    margin-top: 0 !important;
+  }
+}
 /* Elementor split hero video support */
 .gms-hero-art--video {
   width: 100%;
