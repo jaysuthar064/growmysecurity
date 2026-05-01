@@ -126,7 +126,7 @@ class Contact_Form_Widget extends GMS_Widget_Base {
 						<div class="gms-homepage-quote__details">
 							<?php foreach ( $details as $detail ) : ?>
 								<?php if ( '' === trim( (string) $detail['value'] ) ) { continue; } ?>
-								<div class="gms-homepage-quote__detail"><div class="gms-homepage-quote__detail-icon" aria-hidden="true"><?php echo $detail['icon']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div><div><p><?php echo esc_html( $detail['label'] ); ?></p><h3><?php echo esc_html( $detail['value'] ); ?></h3></div></div>
+								<div class="gms-homepage-quote__detail"><div class="gms-homepage-quote__detail-icon" aria-hidden="true"><?php echo $detail['icon']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div><div><p><?php echo esc_html( $detail['label'] ); ?></p><h3><?php if ( 'Phone' === $detail['label'] ) : ?><a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', (string) $detail['value'] ) ); ?>"><?php echo esc_html( $detail['value'] ); ?></a><?php elseif ( 'Email' === $detail['label'] ) : ?><a href="mailto:<?php echo esc_attr( $detail['value'] ); ?>"><?php echo esc_html( $detail['value'] ); ?></a><?php else : ?><?php echo esc_html( $detail['value'] ); ?><?php endif; ?></h3></div></div>
 							<?php endforeach; ?>
 						</div>
 					</div>

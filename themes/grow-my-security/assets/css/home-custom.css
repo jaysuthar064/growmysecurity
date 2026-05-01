@@ -3075,6 +3075,15 @@ body.home .gms-homepage-section--guarantee .gms-homepage-guarantee__link {
   line-height: 1.3;
 }
 
+.gms-homepage-quote__detail h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.gms-homepage-quote__detail h3 a:hover {
+  text-decoration: underline;
+}
+
 .gms-homepage-quote__form-card {
   padding: 30px;
   border: 1px solid rgba(255, 255, 255, 0.5);
