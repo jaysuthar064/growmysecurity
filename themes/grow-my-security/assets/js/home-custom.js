@@ -118,6 +118,64 @@ document.addEventListener('DOMContentLoaded', function () {
   initSingleAccordion('[data-services-accordion]', '.gms-homepage-service', '[data-service-trigger]', '[data-service-panel]');
   initSingleAccordion('[data-faq-accordion]', '.gms-homepage-faq__item', '[data-faq-trigger]', '[data-faq-panel]');
 
+  toArray(document.querySelectorAll('.gms-homepage-quote__form-card')).forEach(function (card) {
+    var nameInput = card.querySelector('input[name="full_name"]');
+    var emailInput = card.querySelector('input[name="email"]');
+    var phoneInput = card.querySelector('input[name="phone"]');
+    var cta = card.querySelector('.gms-homepage-button--primary');
+
+    if (nameInput) {
+      nameInput.required = true;
+      nameInput.minLength = 2;
+      nameInput.maxLength = 80;
+      nameInput.pattern = "[A-Za-z .'-]{2,80}";
+      nameInput.title = 'Use letters only for your name.';
+      nameInput.addEventListener('input', function () {
+        nameInput.value = nameInput.value.replace(/[^A-Za-z .'-]/g, '');
+      });
+    }
+
+    if (emailInput) {
+      emailInput.type = 'email';
+      emailInput.required = true;
+      emailInput.placeholder = 'name@company.com';
+      emailInput.maxLength = 120;
+    }
+
+    if (phoneInput) {
+      phoneInput.type = 'tel';
+      phoneInput.required = true;
+      phoneInput.inputMode = 'numeric';
+      phoneInput.pattern = '[0-9]{10}';
+      phoneInput.maxLength = 10;
+      phoneInput.placeholder = '10 digit phone number';
+      phoneInput.title = 'Enter exactly 10 digits.';
+      phoneInput.addEventListener('input', function () {
+        phoneInput.value = phoneInput.value.replace(/\D/g, '').slice(0, 10);
+        phoneInput.setCustomValidity(phoneInput.value.length === 10 ? '' : 'Enter exactly 10 digits.');
+      });
+    }
+
+    if (cta) {
+      cta.addEventListener('click', function (event) {
+        var fields = [nameInput, emailInput, phoneInput].filter(Boolean);
+
+        if (phoneInput) {
+          phoneInput.setCustomValidity(phoneInput.value.length === 10 ? '' : 'Enter exactly 10 digits.');
+        }
+
+        var invalidField = fields.find(function (field) {
+          return typeof field.checkValidity === 'function' && !field.checkValidity();
+        });
+
+        if (invalidField) {
+          event.preventDefault();
+          invalidField.reportValidity();
+        }
+      });
+    }
+  });
+
 
 
   var footerMobileQuery = typeof window.matchMedia === 'function' ? window.matchMedia('(max-width: 767px)') : null;
