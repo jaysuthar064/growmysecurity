@@ -714,7 +714,7 @@ $use_elementor_homepage = function_exists( 'gms_should_use_elementor_builder_on_
 						</div>
 						<div class="gms-homepage-faq__trust-strip">
 							<div class="gms-homepage-faq__trust-stat">
-								<span class="gms-homepage-faq__trust-number">200+</span>
+								<span class="gms-homepage-faq__trust-number">2000+</span>
 								<span class="gms-homepage-faq__trust-label"><?php esc_html_e( 'Security Brands Served', 'grow-my-security' ); ?></span>
 							</div>
 							<div class="gms-homepage-faq__trust-stat">
