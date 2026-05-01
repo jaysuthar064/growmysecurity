@@ -2527,7 +2527,7 @@ function gms_get_public_page_elementor_templates(): array {
 					'email_note' => 'We respect your inbox. No spam, ever.',
 					'call_heading' => 'Need To Move Fast?',
 					'call_text' => 'Book a call directly',
-					'call_url' => [ 'url' => 'https://meetings.hubspot.com/rumore/grow-my-security-company-?uuid=fa51c8d1-f823-42df-91ac-85496638ef83' ],
+					'call_url' => [ 'url' => home_url( '/contact-us/' ) ],
 				], 'contact-page-sync' ) ], 'contact-page-sync-col' ) ], 'contact-page-sync-sec' ),
 			]
 		),

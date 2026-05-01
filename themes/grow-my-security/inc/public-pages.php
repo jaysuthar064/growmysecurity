@@ -1028,7 +1028,7 @@ function gms_render_service_detail_content(array $service): void
 				<h3><?php esc_html_e('Contact with us for any advice', 'grow-my-security'); ?></h3>
 				<p><?php esc_html_e('Need to move fast? Talk to an expert.', 'grow-my-security'); ?></p>
 				<a
-					href="https://meetings.hubspot.com/rumore/grow-my-security-company-?uuid=fa51c8d1-f823-42df-91ac-85496638ef83" target="_blank" rel="noopener noreferrer"><?php echo esc_html($config['branding']['phone']); ?></a>
+					href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', (string) $config['branding']['phone'])); ?>"><?php echo esc_html($config['branding']['phone']); ?></a>
 			</div>
 		</aside>
 		<div class="gms-service-detail__content">
@@ -1161,7 +1161,7 @@ function gms_render_about_page_content(): void
 			'support_html' => sprintf(
 				'<p>%1$s</p><a class="gms-button" href="%2$s">%3$s</a>',
 				esc_html__('Grow My Security Company offers fresh and grounded leadership for security brands that need more visible trust, more consistent authority, and better commercial momentum.', 'grow-my-security'),
-				esc_url('https://meetings.hubspot.com/rumore/grow-my-security-company-?uuid=fa51c8d1-f823-42df-91ac-85496638ef83'),
+				esc_url(home_url('/contact-us/')),
 				esc_html__('Meet Founder', 'grow-my-security')
 			),
 		]
@@ -1243,7 +1243,7 @@ function gms_get_contact_page_defaults(): array
 		'call_heading'  => __('Need To Move Fast?', 'grow-my-security'),
 		'call_text'     => __('Book a call directly', 'grow-my-security'),
 		'call_url'      => [
-			'url' => 'https://meetings.hubspot.com/rumore/grow-my-security-company-?uuid=fa51c8d1-f823-42df-91ac-85496638ef83',
+			'url' => home_url('/contact-us/'),
 		],
 	];
 }
@@ -1294,15 +1294,17 @@ function gms_render_contact_page_layout(array $settings = []): void
 	);
 	?>
 	<section class="gms-approved-contact-shell">
-		<div class="gms-approved-contact-form">
+		<form class="gms-approved-contact-form" method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+			<input type="hidden" name="action" value="gms_contact_form">
+			<?php wp_nonce_field('gms_contact_form', 'gms_contact_nonce'); ?>
 			<div class="gms-approved-form-grid">
 				<label>
 					<span><?php esc_html_e('Full Name', 'grow-my-security'); ?></span>
-					<input type="text" name="full_name" placeholder="e.g. Jane Doe" autocomplete="name">
+					<input type="text" name="full_name" placeholder="e.g. Jane Doe" autocomplete="name" required>
 				</label>
 				<label>
 					<span><?php esc_html_e('Email Address', 'grow-my-security'); ?></span>
-					<input type="email" name="email" placeholder="e.g. jane@company.com" autocomplete="email">
+					<input type="email" name="email" placeholder="e.g. jane@company.com" autocomplete="email" required>
 				</label>
 				<label>
 					<span><?php esc_html_e('Company Name', 'grow-my-security'); ?></span>
@@ -1346,9 +1348,8 @@ function gms_render_contact_page_layout(array $settings = []): void
 				<input type="checkbox" name="bot_check" value="1">
 				<span><?php esc_html_e('I\'m not a robot', 'grow-my-security'); ?></span>
 			</label>
-			<a class="gms-button" style="text-decoration: none; text-align: center;"
-				href="https://meetings.hubspot.com/rumore/grow-my-security-company-?uuid=fa51c8d1-f823-42df-91ac-85496638ef83"><?php echo esc_html($submit_text); ?></a>
-		</div>
+			<button class="gms-button" type="submit"><?php echo esc_html($submit_text); ?></button>
+		</form>
 		<aside class="gms-approved-contact-aside">
 			<?php if ('' !== trim($response_note)) : ?>
 				<div class="gms-approved-contact-note">

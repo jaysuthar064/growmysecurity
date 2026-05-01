@@ -2830,7 +2830,7 @@ function gms_handle_audit_lead_submission() {
 	);
 
 	// ─── Email notification ───
-	$recipient = 'jayantisuthar094@gmail.com';
+	$recipient = gms_get_contact_form_recipient();
 	$subject   = sprintf( 'New Website Audit Lead: %s', $name );
 	$body      = implode( "\n", [
 		'A new lead has submitted a website audit request.',

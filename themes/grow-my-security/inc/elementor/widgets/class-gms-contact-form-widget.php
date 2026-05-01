@@ -37,7 +37,7 @@ class Contact_Form_Widget extends GMS_Widget_Base {
 				'email_note'    => 'We respect your inbox. No spam, ever.',
 				'call_heading'  => 'Need To Move Fast?',
 				'call_text'     => 'Book a call directly',
-				'call_url'      => [ 'url' => 'https://meetings.hubspot.com/rumore/grow-my-security-company-?uuid=fa51c8d1-f823-42df-91ac-85496638ef83' ],
+				'call_url'      => [ 'url' => \home_url( '/contact-us/' ) ],
 			];
 		$this->start_controls_section(
 			'section_content',
@@ -172,6 +172,8 @@ class Contact_Form_Widget extends GMS_Widget_Base {
 			</div>
 			<form class="gms-contact-widget__form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 				<input type="hidden" name="action" value="gms_contact_form">
+				<input type="hidden" name="privacy_acceptance" value="1">
+				<input type="hidden" name="bot_check" value="1">
 				<?php wp_nonce_field( 'gms_contact_form', 'gms_contact_nonce' ); ?>
 				<h3><?php esc_html_e( 'Start your project today - no obligation', 'grow-my-security' ); ?></h3>
 				<label><span><?php esc_html_e( 'Full Name', 'grow-my-security' ); ?></span><input type="text" name="full_name" placeholder="Enter full name" autocomplete="name" required></label>
