@@ -482,11 +482,11 @@ body.home.has-open-nav .gms-nav-backdrop {
   }
 
   body.home .gms-audit-button::before {
-    display: none;
+    display: none !important;
   }
 
   body.home .gms-audit-button::after {
-    display: none;
+    display: none !important;
   }
 
   body.home .gms-nav-toggle {
