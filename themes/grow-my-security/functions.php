@@ -1853,7 +1853,7 @@ if ( ! function_exists( 'gms_get_smtp_settings' ) ) {
 		// Temporary fallback values for local Studio/testing runtimes that do not
 		// load this workspace's wp-config.php credentials.
 		$fallback_settings = [
-			'enabled'    => true,
+			'enabled'    => false,
 			'host'       => 'smtp.gmail.com',
 			'port'       => 587,
 			'auth'       => true,
@@ -2048,6 +2048,10 @@ if ( ! function_exists( 'gms_filter_wp_mail_from' ) ) {
 	function gms_filter_wp_mail_from( string $default_email ): string {
 		$settings = gms_get_smtp_settings();
 
+		if ( ! $settings['enabled'] ) {
+			return $default_email;
+		}
+
 		return '' !== $settings['from_email'] ? $settings['from_email'] : $default_email;
 	}
 }
@@ -2056,6 +2060,10 @@ add_filter( 'wp_mail_from', 'gms_filter_wp_mail_from' );
 if ( ! function_exists( 'gms_filter_wp_mail_from_name' ) ) {
 	function gms_filter_wp_mail_from_name( string $default_name ): string {
 		$settings = gms_get_smtp_settings();
+
+		if ( ! $settings['enabled'] ) {
+			return $default_name;
+		}
 
 		return '' !== $settings['from_name'] ? $settings['from_name'] : $default_name;
 	}
