@@ -249,6 +249,10 @@ button[type="submit"]:hover {
   background: #fff;
 }
 
+.gms-mobile-submenu-toggle {
+  display: none;
+}
+
 .gms-page-shell {
   padding: 32px 0 var(--gms-section-gap);
 }

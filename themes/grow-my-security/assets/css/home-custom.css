@@ -4911,3 +4911,144 @@ body.home .gms-homepage-section--guarantee .gms-homepage-guarantee__link {
 }
 
 
+@media (max-width: 480px) {
+  body.home .gms-nav-list > .menu-item-has-children {
+    position: relative !important;
+  }
+
+  body.home .gms-nav-list > .menu-item-has-children > a {
+    padding-right: 54px !important;
+  }
+
+  body.home .gms-nav-list > .menu-item-has-children > a::after,
+  body.home .gms-nav-list > .menu-item-has-children.is-submenu-open > a::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  body.home .gms-mobile-submenu-toggle {
+    position: absolute;
+    top: 9px;
+    right: 10px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 1px solid rgba(239, 32, 20, 0.72);
+    border-radius: 999px;
+    background: linear-gradient(180deg, rgba(239, 32, 20, 0.34), rgba(239, 32, 20, 0.16));
+    box-shadow: 0 0 18px rgba(239, 32, 20, 0.18);
+  }
+
+  body.home .gms-mobile-submenu-toggle span {
+    width: 9px;
+    height: 9px;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform 0.18s ease;
+  }
+
+  body.home .gms-nav-list > .menu-item-has-children.is-submenu-open > .gms-mobile-submenu-toggle span {
+    transform: translateY(2px) rotate(-135deg);
+  }
+
+  body.home.has-open-nav {
+    overflow: hidden;
+  }
+
+  body.home .gms-nav-backdrop {
+    inset: var(--gms-admin-bar-offset, 0px) 0 0 !important;
+    background: rgba(4, 2, 2, 0.72);
+  }
+
+  body.home .gms-primary-nav,
+  body.home .gms-primary-nav.is-open,
+  body.home.has-open-nav .gms-primary-nav {
+    position: fixed !important;
+    top: var(--gms-admin-bar-offset, 0px) !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: auto !important;
+    width: min(86vw, 320px) !important;
+    height: 100svh !important;
+    max-height: none !important;
+    padding: calc(var(--gms-site-header-height, 72px) + 22px) 18px 28px !important;
+    overflow-y: auto !important;
+    border: 0 !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 0 !important;
+    background:
+      radial-gradient(circle at top right, rgba(239, 32, 20, 0.24), transparent 34%),
+      linear-gradient(180deg, rgba(28, 11, 10, 0.99) 0%, rgba(10, 4, 4, 0.99) 100%) !important;
+    box-shadow: -24px 0 60px rgba(0, 0, 0, 0.45) !important;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none !important;
+    transform: translateX(100%);
+  }
+
+  body.home .gms-primary-nav.is-open,
+  body.home.has-open-nav .gms-primary-nav {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto !important;
+    transform: translateX(0);
+  }
+
+  body.home .gms-nav-list {
+    display: grid !important;
+    gap: 10px !important;
+  }
+
+  body.home .gms-nav-list a {
+    min-height: 46px !important;
+    padding: 10px 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    color: #fff !important;
+    font-size: 0.92rem !important;
+    text-decoration: none;
+  }
+
+  body.home .gms-nav-caret {
+    display: none !important;
+  }
+
+  body.home .gms-nav-submenu,
+  body.home .gms-nav-submenu--columns-2 {
+    position: static !important;
+    display: none !important;
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 8px 0 10px !important;
+    padding: 0 0 0 10px !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: none !important;
+  }
+
+  body.home .gms-nav-list > .menu-item-has-children.is-submenu-open > .gms-nav-submenu {
+    display: grid !important;
+  }
+
+  body.home .gms-nav-submenu a {
+    min-height: 40px !important;
+    padding: 9px 10px !important;
+    border-left: 2px solid rgba(239, 32, 20, 0.65) !important;
+    border-radius: 10px !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    color: rgba(255, 255, 255, 0.82) !important;
+    font-size: 0.82rem !important;
+  }
+}

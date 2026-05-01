@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (navToggle && nav) {
     const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    const phoneNavQuery = window.matchMedia('(max-width: 480px)');
     let restoreFocusTarget = null;
 
     const getNavFocusables = () => {
@@ -118,6 +119,33 @@ document.addEventListener('DOMContentLoaded', () => {
       openNav();
     });
 
+    nav.querySelectorAll('.menu-item-has-children').forEach((item) => {
+      const link = item.querySelector(':scope > a');
+      const submenu = item.querySelector(':scope > .gms-nav-submenu');
+
+      if (!link || !submenu) {
+        return;
+      }
+
+      const toggle = document.createElement('button');
+      toggle.className = 'gms-mobile-submenu-toggle';
+      toggle.type = 'button';
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', `Toggle ${link.textContent.trim()} submenu`);
+      toggle.innerHTML = '<span aria-hidden="true"></span>';
+
+      link.after(toggle);
+
+      toggle.addEventListener('click', () => {
+        if (!phoneNavQuery.matches) {
+          return;
+        }
+
+        const isOpen = item.classList.toggle('is-submenu-open');
+        toggle.setAttribute('aria-expanded', String(isOpen));
+      });
+    });
+
     navBackdrop?.addEventListener('click', () => {
       closeNav({ restoreFocus: false });
     });
@@ -170,6 +198,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     nav.querySelectorAll('a[href]').forEach((link) => {
       link.addEventListener('click', () => {
+        if (phoneNavQuery.matches) {
+          return;
+        }
+
         closeNav({ restoreFocus: false });
       });
     });
