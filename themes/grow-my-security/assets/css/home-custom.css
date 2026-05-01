@@ -225,12 +225,39 @@ body.home .gms-header-actions {
 }
 
 body.home .gms-audit-button {
+  position: relative;
   min-width: 168px;
   min-height: 42px;
+  padding: 13px 42px 13px 20px;
   color: #fff;
   border-radius: 6px;
   background: linear-gradient(180deg, #f21d15 0%, #df0b05 100%);
   box-shadow: 0 14px 34px rgba(239, 32, 20, 0.35);
+  font-size: 16px;
+  line-height: 1;
+}
+
+body.home .gms-audit-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  width: 11px;
+  height: 1.5px;
+  background: currentColor;
+  transform: translateY(-50%);
+}
+
+body.home .gms-audit-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  width: 6px;
+  height: 6px;
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+  transform: translateY(-50%) rotate(45deg);
 }
 
 body.home .gms-nav-backdrop {
