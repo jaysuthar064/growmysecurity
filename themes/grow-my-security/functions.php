@@ -2105,7 +2105,7 @@ add_action( 'wp_mail_succeeded', 'gms_handle_wp_mail_succeeded' );
 
 if ( ! function_exists( 'gms_get_contact_form_recipient' ) ) {
 	function gms_get_contact_form_recipient(): string {
-		$test_recipient = defined( 'GMS_CONTACT_TEST_RECIPIENT' ) ? sanitize_email( (string) GMS_CONTACT_TEST_RECIPIENT ) : 'tony.as.dr.doom300@gmail.com';
+		$test_recipient = defined( 'GMS_CONTACT_TEST_RECIPIENT' ) ? sanitize_email( (string) GMS_CONTACT_TEST_RECIPIENT ) : 'anthony@growmysecuritycompany.com';
 
 		if ( is_email( $test_recipient ) ) {
 			return $test_recipient;
