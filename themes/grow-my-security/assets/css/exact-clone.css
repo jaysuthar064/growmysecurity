@@ -296,6 +296,16 @@
   color-scheme: dark;
 }
 
+.gms-approved-contact-form select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 54px;
+  background-image: url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9l6 6 6-6' stroke='%23fff7f4' stroke-width='2.35' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 24px center;
+  background-size: 18px 18px;
+}
+
 .gms-approved-contact-form select option,
 .gms-contact-widget select option {
   color: #1a1211;
@@ -318,6 +328,26 @@
   width: 18px;
   min-height: 18px;
   padding: 0;
+}
+
+.gms-approved-contact-form .gms-form-field-error,
+.gms-contact-widget__form .gms-form-field-error {
+  margin: 0;
+  color: #ff8a80;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.gms-approved-contact-form :is(input, select, textarea).is-invalid,
+.gms-contact-widget__form :is(input, select, textarea).is-invalid {
+  border-color: rgba(255, 58, 45, 0.9) !important;
+  box-shadow: 0 0 0 3px rgba(239, 32, 20, 0.16) !important;
+}
+
+.gms-approved-contact-form label.is-invalid > span,
+.gms-contact-widget__form label.is-invalid > span {
+  color: #ffb2aa;
 }
 
 .gms-approved-contact-aside {

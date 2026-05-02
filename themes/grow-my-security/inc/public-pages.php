@@ -1300,7 +1300,7 @@ function gms_render_contact_page_layout(array $settings = []): void
 			<div class="gms-approved-form-grid">
 				<label>
 					<span><?php esc_html_e('Full Name', 'grow-my-security'); ?></span>
-					<input type="text" name="full_name" placeholder="e.g. Jane Doe" autocomplete="name" required>
+					<input type="text" name="full_name" placeholder="e.g. Jane Doe" autocomplete="name" minlength="2" required>
 				</label>
 				<label>
 					<span><?php esc_html_e('Email Address', 'grow-my-security'); ?></span>
@@ -1308,11 +1308,11 @@ function gms_render_contact_page_layout(array $settings = []): void
 				</label>
 				<label>
 					<span><?php esc_html_e('Company Name', 'grow-my-security'); ?></span>
-					<input type="text" name="company_name" placeholder="e.g. Acme Corp" autocomplete="organization">
+					<input type="text" name="company_name" placeholder="e.g. Acme Corp" autocomplete="organization" minlength="2" required>
 				</label>
 				<label>
 					<span><?php esc_html_e('Industry', 'grow-my-security'); ?></span>
-					<select name="industry">
+					<select name="industry" required>
 						<option value=""><?php esc_html_e('Select Industry', 'grow-my-security'); ?></option>
 						<?php foreach ($config['industries'] as $industry): ?>
 							<option value="<?php echo esc_attr($industry); ?>"><?php echo esc_html($industry); ?></option>
@@ -1323,11 +1323,11 @@ function gms_render_contact_page_layout(array $settings = []): void
 			<label>
 				<span><?php esc_html_e('How did you hear about Grow My Security Company?', 'grow-my-security'); ?></span>
 				<input type="text" name="referral_source"
-					placeholder="<?php esc_attr_e('Found on Google search, Facebook, YouTube, Referral...', 'grow-my-security'); ?>">
+					placeholder="<?php esc_attr_e('Found on Google search, Facebook, YouTube, Referral...', 'grow-my-security'); ?>" required>
 			</label>
 			<label>
 				<span><?php esc_html_e('Service you\'re interested in', 'grow-my-security'); ?></span>
-				<select name="service_interest">
+				<select name="service_interest" required>
 					<option value=""><?php esc_html_e('Select Services', 'grow-my-security'); ?></option>
 					<?php foreach ($config['services'] as $service): ?>
 						<option value="<?php echo esc_attr($service['title']); ?>">
@@ -1341,11 +1341,11 @@ function gms_render_contact_page_layout(array $settings = []): void
 					placeholder="<?php esc_attr_e('Enter any details you\'d like to share with us...', 'grow-my-security'); ?>"></textarea>
 			</label>
 			<label class="gms-approved-checkbox">
-				<input type="checkbox" name="privacy_acceptance" value="1">
+				<input type="checkbox" name="privacy_acceptance" value="1" required>
 				<span><?php esc_html_e('By submitting this form you agree to our privacy policy', 'grow-my-security'); ?></span>
 			</label>
 			<label class="gms-approved-checkbox gms-approved-checkbox--bot">
-				<input type="checkbox" name="bot_check" value="1">
+				<input type="checkbox" name="bot_check" value="1" required>
 				<span><?php esc_html_e('I\'m not a robot', 'grow-my-security'); ?></span>
 			</label>
 			<button class="gms-button" type="submit"><?php echo esc_html($submit_text); ?></button>

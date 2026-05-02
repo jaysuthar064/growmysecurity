@@ -750,6 +750,147 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  const contactValidationForms = document.querySelectorAll('.gms-approved-contact-form, .gms-contact-widget__form');
+
+  if (contactValidationForms.length) {
+    const phonePattern = /^[0-9]+$/;
+
+    const getFieldLabel = (field) => {
+      const label = field.closest('label');
+      const labelText = label?.querySelector('span')?.textContent || 'This field';
+
+      return labelText.replace(/\s*\(Optional\)\s*/i, '').replace(/\s+/g, ' ').trim() || 'This field';
+    };
+
+    const getFieldErrorMessage = (field) => {
+      const label = getFieldLabel(field);
+      const value = (field.value || '').trim();
+
+      if (field.name === 'phone' && value && !phonePattern.test(value)) {
+        return 'Phone should contain numbers only.';
+      }
+
+      if (field.validity.valueMissing) {
+        if (field.type === 'checkbox') {
+          return 'This confirmation is required.';
+        }
+
+        return `${label} is required.`;
+      }
+
+      if (field.validity.typeMismatch && field.type === 'email') {
+        return 'Enter a valid email address.';
+      }
+
+      if (field.validity.tooShort) {
+        return `${label} is too short.`;
+      }
+
+      if (field.validity.patternMismatch) {
+        return field.name === 'phone' ? 'Phone should contain numbers only.' : `${label} has an invalid format.`;
+      }
+
+      return '';
+    };
+
+    const clearFieldError = (field) => {
+      const label = field.closest('label');
+      const error = label?.querySelector('.gms-form-field-error');
+
+      field.classList.remove('is-invalid');
+      field.removeAttribute('aria-invalid');
+      field.removeAttribute('aria-describedby');
+      field.setCustomValidity('');
+
+      if (label) {
+        label.classList.remove('is-invalid');
+      }
+
+      if (error) {
+        error.hidden = true;
+        error.textContent = '';
+      }
+    };
+
+    const showFieldError = (field, message) => {
+      const label = field.closest('label');
+
+      if (!label) {
+        return;
+      }
+
+      let error = label.querySelector('.gms-form-field-error');
+
+      if (!error) {
+        error = document.createElement('p');
+        error.className = 'gms-form-field-error';
+        error.id = `gms-contact-error-${Math.random().toString(36).slice(2, 9)}`;
+        label.append(error);
+      }
+
+      field.classList.add('is-invalid');
+      field.setAttribute('aria-invalid', 'true');
+      field.setAttribute('aria-describedby', error.id);
+      label.classList.add('is-invalid');
+      error.textContent = message;
+      error.hidden = false;
+    };
+
+    const validateField = (field) => {
+      if (field.disabled || field.type === 'hidden') {
+        return true;
+      }
+
+      field.setCustomValidity('');
+
+      if (field.name === 'phone') {
+        const value = (field.value || '').trim();
+        field.setCustomValidity(value && !phonePattern.test(value) ? 'Phone should contain numbers only.' : '');
+      }
+
+      const message = getFieldErrorMessage(field);
+
+      if (message) {
+        showFieldError(field, message);
+        return false;
+      }
+
+      clearFieldError(field);
+      return true;
+    };
+
+    contactValidationForms.forEach((form) => {
+      form.noValidate = true;
+
+      form.querySelectorAll('input, select, textarea').forEach((field) => {
+        field.addEventListener('input', () => clearFieldError(field));
+        field.addEventListener('change', () => validateField(field));
+        field.addEventListener('blur', () => {
+          if ((field.value || field.checked) && !field.validity.valid) {
+            validateField(field);
+          }
+        });
+      });
+
+      form.addEventListener('submit', (event) => {
+        const fields = Array.from(form.querySelectorAll('input, select, textarea'));
+        let firstInvalid = null;
+
+        fields.forEach((field) => {
+          if (!validateField(field) && !firstInvalid) {
+            firstInvalid = field;
+          }
+        });
+
+        if (firstInvalid) {
+          event.preventDefault();
+          firstInvalid.focus({ preventScroll: true });
+          firstInvalid.scrollIntoView({ block: 'center', behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+        }
+      });
+    });
+  }
+
   // --- Legal Page Enhancements ---
   const legalProgress = document.getElementById('legal-progress');
   const legalContent = document.querySelector('.gms-legal-content');
