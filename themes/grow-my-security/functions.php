@@ -1752,7 +1752,7 @@ function gms_get_footer_social_links(): array {
 		[
 			'label' => __( 'LinkedIn', 'grow-my-security' ),
 			'slug'  => 'linkedin',
-			'url'   => 'https://www.linkedin.com/in/anthonyrumore/',
+			'url'   => 'https://www.linkedin.com/company/grow-my-security-company/?viewAsMember=true',
 			'icon'  => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 8.7A1.55 1.55 0 1 1 6.59 5.6a1.55 1.55 0 0 1 .01 3.1ZM5.3 9.9h2.6v8.8H5.3V9.9Zm4.24 0h2.49v1.2h.04c.35-.65 1.2-1.34 2.47-1.34 2.64 0 3.13 1.74 3.13 4v4.94h-2.6v-4.38c0-1.04-.02-2.39-1.46-2.39-1.46 0-1.69 1.14-1.69 2.31v4.46h-2.6V9.9Z" fill="currentColor"/></svg>',
 		],
 		[
