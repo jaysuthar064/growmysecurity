@@ -276,6 +276,21 @@ function gms_get_resource_blog_posts_for_sync( int $limit = -1 ): array {
 	return get_posts( $args );
 }
 
+function gms_get_demo_resource_blog_post_slugs(): array {
+	$config = gms_get_demo_config();
+	$slugs  = [];
+
+	foreach ( (array) ( $config['blog_posts'] ?? [] ) as $item ) {
+		$slug = trim( (string) ( $item['slug'] ?? '' ) );
+
+		if ( '' !== $slug ) {
+			$slugs[] = $slug;
+		}
+	}
+
+	return array_values( array_unique( $slugs ) );
+}
+
 function gms_get_press_media_grid_items( array $items ): array {
 	$output = [];
 
@@ -1492,9 +1507,14 @@ function gms_sync_resource_blog_posts_elementor_content(): void {
 
 	$sync_version = '2026-04-18-resource-blog-posts-v4';
 	$updated      = false;
+	$demo_slugs   = gms_get_demo_resource_blog_post_slugs();
 
 	foreach ( gms_get_resource_blog_posts_for_sync() as $post ) {
 		if ( ! ( $post instanceof WP_Post ) ) {
+			continue;
+		}
+
+		if ( ! in_array( $post->post_name, $demo_slugs, true ) ) {
 			continue;
 		}
 
@@ -1617,7 +1637,7 @@ function gms_sync_resources_grid_widget_items(): void {
 			) {
 				$existing_items = (array) ( $node['settings']['items'] ?? [] );
 
-				if ( $force_sync || count( $existing_items ) < count( $sync_items ) ) {
+				if ( $force_sync || $existing_items !== $sync_items ) {
 					$node['settings']['items'] = $sync_items;
 
 					if ( empty( $node['settings']['card_button_text'] ) ) {

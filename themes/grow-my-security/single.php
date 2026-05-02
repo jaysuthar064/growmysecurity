@@ -36,6 +36,106 @@ $is_elementor_single = function_exists( 'gms_post_has_elementor_content' ) ? gms
 		$tag_names         = wp_get_post_tags( $current_post->ID, [ 'fields' => 'names' ] );
 		$category_link     = $primary_category ? get_category_link( $primary_category ) : home_url( '/resources-insights/' );
 		$category_label    = $primary_category ? $primary_category->name : __( 'Resources', 'grow-my-security' );
+		$is_resource_blog  = ! $is_press_context && ! $is_podcast;
+
+		if ( $is_resource_blog ) :
+			$blueprint = function_exists( 'gms_get_resource_blog_blueprint' ) ? gms_get_resource_blog_blueprint( $current_post ) : [];
+			$article_heading = (string) ( $blueprint['article_heading'] ?? __( 'Article', 'grow-my-security' ) );
+			ob_start();
+			?>
+			<div class="gms-approved-search-panel">
+				<p class="gms-approved-toolbar-note"><?php echo esc_html( $excerpt ); ?></p>
+				<div class="gms-approved-meta-strip">
+					<span><?php echo esc_html( get_the_date( 'M j, Y', $current_post ) ); ?></span>
+					<span><?php echo esc_html( sprintf( _n( '%d min read', '%d min read', $read_time, 'grow-my-security' ), $read_time ) ); ?></span>
+					<?php if ( $primary_category ) : ?>
+						<span><?php echo esc_html( $primary_category->name ); ?></span>
+					<?php endif; ?>
+				</div>
+			</div>
+			<?php
+			$support_html = ob_get_clean();
+			?>
+			<div class="gms-page-shell gms-approved-page gms-approved-page--single gms-approved-page--seo-blog">
+				<div class="gms-container gms-approved-stack">
+					<?php if ( function_exists( 'gms_render_internal_intro' ) ) : ?>
+						<?php
+						gms_render_internal_intro(
+							[
+								'eyebrow'      => $eyebrow,
+								'title'        => get_the_title( $current_post ),
+								'modifier'     => 'single',
+								'support_html' => $support_html,
+							]
+						);
+						?>
+					<?php endif; ?>
+
+					<?php if ( '' !== $hero_image ) : ?>
+						<figure class="gms-seo-blog-hero gms-approved-article__hero">
+							<img src="<?php echo esc_url( $hero_image ); ?>" alt="<?php echo esc_attr( get_the_title( $current_post ) ); ?>" decoding="async" loading="eager" fetchpriority="high">
+						</figure>
+					<?php endif; ?>
+
+					<section class="gms-editorial-post-shell gms-seo-blog-shell">
+						<div class="gms-seo-blog-grid">
+							<article <?php post_class( 'gms-editorial-post-article gms-seo-blog-article' ); ?>>
+								<div class="gms-editorial-post-article__meta">
+									<span><?php echo esc_html( $category_label ); ?></span>
+									<span><?php echo esc_html( get_the_date( 'M j, Y', $current_post ) ); ?></span>
+									<span><?php echo esc_html( sprintf( _n( '%d min read', '%d min read', $read_time, 'grow-my-security' ), $read_time ) ); ?></span>
+								</div>
+								<h2><?php echo esc_html( $article_heading ); ?></h2>
+								<div class="gms-seo-blog-content gms-rich-text">
+									<?php if ( '' !== trim( (string) get_post_field( 'post_content', $current_post ) ) ) : ?>
+										<?php the_content(); ?>
+									<?php else : ?>
+										<?php echo wp_kses_post( wpautop( $excerpt ) ); ?>
+									<?php endif; ?>
+									<?php wp_link_pages(); ?>
+								</div>
+							</article>
+
+							<?php if ( function_exists( 'gms_get_resource_blog_sidebar_html' ) ) : ?>
+								<?php echo wp_kses_post( gms_get_resource_blog_sidebar_html( $current_post, $blueprint ) ); ?>
+							<?php endif; ?>
+						</div>
+					</section>
+
+					<?php if ( ! empty( $related_posts ) ) : ?>
+						<section class="gms-approved-editorial-section gms-related-posts gms-editorial-post-related">
+							<div class="gms-related-posts__header">
+								<div>
+									<div class="gms-eyebrow"><?php esc_html_e( 'More Insights', 'grow-my-security' ); ?></div>
+									<h2><?php esc_html_e( 'Keep exploring the journal.', 'grow-my-security' ); ?></h2>
+								</div>
+								<a class="gms-button-outline" href="<?php echo esc_url( home_url( '/resources-insights/' ) ); ?>"><?php esc_html_e( 'View All Posts', 'grow-my-security' ); ?></a>
+							</div>
+							<div class="gms-post-grid-widget gms-post-grid-widget--approved">
+								<?php foreach ( $related_posts as $related_post ) : ?>
+									<?php gms_render_post_card( $related_post ); ?>
+								<?php endforeach; ?>
+							</div>
+						</section>
+					<?php endif; ?>
+
+					<?php if ( function_exists( 'gms_render_money_cta' ) ) : ?>
+						<?php
+						gms_render_money_cta(
+							[
+								'title'  => __( 'Ready to build trust that drives revenue?', 'grow-my-security' ),
+								'copy'   => __( 'You bring the expertise, we will turn it into visibility, credibility, and pipeline momentum.', 'grow-my-security' ),
+								'button' => __( 'Schedule a Free Consultation', 'grow-my-security' ),
+								'url'    => home_url( '/contact-us/' ),
+							]
+						);
+						?>
+					<?php endif; ?>
+				</div>
+			</div>
+			<?php
+			continue;
+		endif;
 
 		ob_start();
 		?>
