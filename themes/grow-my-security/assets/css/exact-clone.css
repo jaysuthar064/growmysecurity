@@ -6538,6 +6538,19 @@ body.gms-approved-route--industries .gms-approved-intro--industries-banner .gms-
   justify-content: center !important;
 }
 
+@media (min-width: 768px) and (max-width: 1180px) {
+  body.gms-approved-route--industries .gms-approved-intro--industries-banner .gms-page-hero__actions--banner .gms-button,
+  body.gms-approved-route--industries .gms-approved-intro--industries-banner .gms-page-hero__actions--banner .gms-button-outline {
+    width: min(100%, 320px) !important;
+    max-width: 320px !important;
+    min-width: 0 !important;
+    min-height: 54px !important;
+    height: auto !important;
+    flex: 0 0 auto !important;
+    align-self: center !important;
+  }
+}
+
 
 
 
