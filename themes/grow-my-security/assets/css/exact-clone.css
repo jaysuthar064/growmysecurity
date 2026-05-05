@@ -8622,6 +8622,25 @@ body.has-open-nav .gms-nav-backdrop {
     border-left: 0 !important;
   }
 
+  body.gms-approved-route--about .gms-approved-page--about .gms-approved-media-panel--wide {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  body.gms-approved-route--about .gms-approved-page--about .gms-approved-section__intro {
+    display: grid !important;
+    justify-items: center !important;
+    text-align: center !important;
+  }
+
+  body.gms-approved-route--about .gms-approved-page--about .gms-approved-section__intro > .gms-eyebrow,
+  body.gms-approved-route--about .gms-approved-page--about .gms-approved-section__intro h2 {
+    justify-self: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+  }
+
   body.gms-approved-route--press .gms-posts-section__actions {
     display: flex !important;
     justify-content: center !important;
