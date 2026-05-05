@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-  var footerMobileQuery = typeof window.matchMedia === 'function' ? window.matchMedia('(max-width: 767px)') : null;
+  var footerMobileQuery = typeof window.matchMedia === 'function' ? window.matchMedia('(max-width: 980px)') : null;
   var footerNarrowQuery = typeof window.matchMedia === 'function' ? window.matchMedia('(max-width: 375px)') : null;
   var footerGrid = document.querySelector('.gms-homepage-footer__grid');
   var footerItems = toArray(document.querySelectorAll('.gms-homepage-footer__column')).map(function (column) {
