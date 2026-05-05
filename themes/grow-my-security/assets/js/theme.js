@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (navToggle && nav) {
     const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
-    const phoneNavQuery = window.matchMedia('(max-width: 480px)');
+    const phoneNavQuery = window.matchMedia('(max-width: 980px)');
     let restoreFocusTarget = null;
 
     const getNavFocusables = () => {
