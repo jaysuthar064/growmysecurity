@@ -8231,3 +8231,34 @@ body.has-open-nav .gms-nav-backdrop {
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
     0 14px 30px rgba(239, 32, 20, 0.14);
 }
+
+/* Match shared page-section pills on media, podcast, and about pages. */
+body.gms-approved-route--press .gms-approved-section__intro>.gms-eyebrow,
+body.gms-approved-route--press .gms-section-heading>.gms-eyebrow,
+body.gms-approved-route--podcast .gms-approved-section__intro>.gms-eyebrow,
+body.gms-approved-route--podcast .gms-section-heading>.gms-eyebrow,
+body.gms-approved-route--about .gms-approved-section__intro>.gms-eyebrow,
+body.gms-approved-route--about .gms-section-heading>.gms-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-width: 0;
+  height: auto;
+  min-height: 38px;
+  padding: 8px 22px;
+  border: 1px solid rgba(239, 32, 20, 0.36);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at top left, rgba(239, 32, 20, 0.22), transparent 48%),
+    linear-gradient(180deg, rgba(69, 17, 15, 0.76), rgba(28, 10, 10, 0.92));
+  color: #ff3b31;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 14px 30px rgba(239, 32, 20, 0.14);
+}
