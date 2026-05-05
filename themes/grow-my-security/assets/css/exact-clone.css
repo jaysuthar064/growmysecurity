@@ -8510,6 +8510,32 @@ body.has-open-nav .gms-nav-backdrop {
   }
 }
 
+@media (min-width: 768px) and (max-width: 1180px) {
+  body.gms-approved-route--resources .gms-approved-page--resources .gms-post-grid-widget.gms-post-grid-widget--approved,
+  .page-id-17 .gms-post-grid-widget.gms-post-grid-widget--approved {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    justify-content: stretch !important;
+    gap: 24px !important;
+  }
+
+  body.gms-approved-route--resources .gms-approved-page--resources .gms-post-grid-widget.gms-post-grid-widget--approved > *,
+  body.gms-approved-route--resources .gms-approved-page--resources .gms-post-card,
+  .page-id-17 .gms-post-grid-widget.gms-post-grid-widget--approved > *,
+  .page-id-17 .gms-post-grid-widget--approved .gms-post-card {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+  }
+
+  body.gms-approved-route--resources .gms-approved-page--resources .gms-post-grid-widget--approved .gms-post-card__media,
+  .page-id-17 .gms-post-grid-widget--approved .gms-post-card__media {
+    width: 100% !important;
+    height: clamp(220px, 28vw, 300px) !important;
+    min-height: clamp(220px, 28vw, 300px) !important;
+    aspect-ratio: 16 / 10 !important;
+  }
+}
+
 @media (max-width: 375px) {
   .gms-site-header .gms-audit-button {
     width: 116px !important;
