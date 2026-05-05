@@ -56,7 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (navToggle && nav) {
     const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
-    const phoneNavQuery = window.matchMedia('(max-width: 980px)');
+    const mobileNavMaxWidth = body.classList.contains('home') ? 1100 : 980;
+    const phoneNavQuery = window.matchMedia(`(max-width: ${mobileNavMaxWidth}px)`);
     let restoreFocusTarget = null;
 
     const getNavFocusables = () => {
@@ -191,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     window.addEventListener('resize', () => {
-      if (window.innerWidth > 980 && nav.classList.contains('is-open')) {
+      if (window.innerWidth > mobileNavMaxWidth && nav.classList.contains('is-open')) {
         closeNav({ restoreFocus: false });
       }
     }, { passive: true });
