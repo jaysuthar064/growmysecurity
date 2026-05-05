@@ -62,7 +62,28 @@ body.elementor-editor-active .elementor-section.elementor-section-boxed:has(.gms
 }
 
 .gms-cs-single-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   justify-self: center;
+  width: fit-content;
+  min-height: 38px;
+  margin-bottom: 18px;
+  padding: 8px 22px;
+  border: 1px solid rgba(239, 32, 20, 0.42);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at top left, rgba(239, 32, 20, 0.24), transparent 48%),
+    linear-gradient(180deg, rgba(71, 16, 16, 0.78), rgba(31, 10, 10, 0.9));
+  color: #ff3b31;
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 14px 34px rgba(239, 32, 20, 0.16);
 }
 
 /* Grid Container */
