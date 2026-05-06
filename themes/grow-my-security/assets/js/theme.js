@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (navToggle && nav) {
     const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
-    const mobileNavMaxWidth = body.classList.contains('home') || body.classList.contains('gms-approved-route--services') || body.classList.contains('gms-approved-route--podcast') || body.classList.contains('gms-approved-route--press') || body.classList.contains('gms-approved-route--about') ? 1100 : 980;
+    const mobileNavMaxWidth = body.classList.contains('home') || body.classList.contains('single-post') || body.classList.contains('gms-approved-route--services') || body.classList.contains('gms-approved-route--podcast') || body.classList.contains('gms-approved-route--press') || body.classList.contains('gms-approved-route--about') ? 1100 : 980;
     const phoneNavQuery = window.matchMedia(`(max-width: ${mobileNavMaxWidth}px)`);
     let restoreFocusTarget = null;
 
