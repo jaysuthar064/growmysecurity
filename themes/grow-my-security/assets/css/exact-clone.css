@@ -9212,6 +9212,7 @@ body.has-open-nav .gms-nav-backdrop {
     flex-wrap: wrap !important;
     gap: 12px !important;
     align-items: center !important;
+    justify-content: center !important;
   }
 
   body.single-post .gms-editorial-post-sidebar__actions .gms-button,
