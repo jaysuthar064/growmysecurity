@@ -4259,6 +4259,34 @@ body.home .gms-homepage-section--guarantee .gms-homepage-guarantee__link {
     font-size: 0.875rem;
   }
 
+  .gms-homepage-section--faq .gms-homepage-faq__actions {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .gms-homepage-section--faq .gms-homepage-faq__actions .gms-homepage-button {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    min-height: 3rem;
+    padding: 0.75rem 0.875rem !important;
+    gap: 0.5rem;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .gms-homepage-section--faq .gms-homepage-faq__actions .gms-homepage-button > span:first-child {
+    min-width: 0;
+  }
+
+  .gms-homepage-section--faq .gms-homepage-faq__actions .gms-homepage-button__arrow {
+    width: 0.75rem;
+    height: 0.75rem;
+    flex-basis: 0.75rem;
+  }
+
   .gms-homepage-service__trigger {
     font-size: 1.75rem;
   }
