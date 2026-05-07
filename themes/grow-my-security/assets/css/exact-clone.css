@@ -9207,6 +9207,12 @@ body.has-open-nav .gms-nav-backdrop {
     justify-content: center !important;
   }
 
+  body.single-post .gms-editorial-post-sidebar__callout,
+  body.single-post .gms-editorial-post-sidebar__callout h3,
+  body.single-post .gms-editorial-post-sidebar__callout p {
+    text-align: center !important;
+  }
+
   body.single-post .gms-editorial-post-sidebar__actions {
     display: flex !important;
     flex-wrap: wrap !important;
