@@ -7865,6 +7865,78 @@ body.gms-approved-route--services .gms-approved-page--services .gms-service-tile
   }
 }
 
+@media (max-width: 359px) {
+  body.gms-approved-route--podcast .gms-approved-intro {
+    overflow-x: clip !important;
+  }
+
+  body.gms-approved-route--podcast .gms-approved-intro__grid,
+  body.gms-approved-route--podcast .gms-approved-intro__main,
+  body.gms-approved-route--podcast .gms-approved-intro__lede,
+  body.gms-approved-route--podcast .gms-page-hero__actions,
+  body.gms-approved-route--podcast .gms-approved-media-panel {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  body.gms-approved-route--podcast .gms-approved-intro__main {
+    justify-items: center !important;
+    margin-inline: auto !important;
+    text-align: center !important;
+  }
+
+  body.gms-approved-route--podcast .gms-approved-intro__main h1 {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    font-size: clamp(2rem, 11vw, 2.35rem) !important;
+    line-height: 1.06 !important;
+    letter-spacing: -0.04em !important;
+    overflow-wrap: break-word !important;
+  }
+
+  body.gms-approved-route--podcast .gms-approved-intro__lede {
+    padding-left: 0 !important;
+    border-left: 0 !important;
+  }
+
+  body.gms-approved-route--podcast .gms-approved-intro__lede p {
+    width: 100% !important;
+    max-width: 100% !important;
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    overflow-wrap: break-word !important;
+  }
+
+  body.gms-approved-route--podcast .gms-page-hero__actions {
+    display: grid !important;
+    gap: 12px !important;
+    justify-items: stretch !important;
+  }
+
+  body.gms-approved-route--podcast .gms-page-hero__actions .gms-button,
+  body.gms-approved-route--podcast .gms-page-hero__actions .gms-button-outline {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    padding-inline: 16px !important;
+  }
+
+  body.gms-approved-route--podcast .gms-approved-media-panel {
+    margin-inline: auto !important;
+    overflow: hidden !important;
+  }
+
+  body.gms-approved-route--podcast .gms-approved-media-panel img {
+    width: 100% !important;
+    max-width: 100% !important;
+    object-fit: cover !important;
+  }
+}
+
 @media (max-width: 375px) {
   body.home .gms-site-footer {
     overflow-x: clip !important;
