@@ -35,6 +35,15 @@
   margin: 0 !important;
 }
 
+body.single-gms_case_study .gms-cs-single-elementor,
+body.single-gms_case_study .gms-cs-single-elementor > .elementor,
+body.single-gms_case_study .gms-cs-single-elementor .elementor-section:has(.gms-cs-report),
+body.single-gms_case_study .gms-cs-single-elementor .elementor-column:has(.gms-cs-report) > .elementor-widget-wrap,
+body.single-gms_case_study .gms-cs-single-elementor .elementor-widget:has(.gms-cs-report) > .elementor-widget-container {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
 body.elementor-editor-active .elementor-section.elementor-section-boxed:has(.gms-case-studies-page) > .elementor-container,
 body.elementor-editor-active .elementor-section.elementor-section-boxed:has(.gms-cs-report) > .elementor-container {
   width: 100% !important;
