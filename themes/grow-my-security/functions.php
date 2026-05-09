@@ -2168,6 +2168,146 @@ if ( ! function_exists( 'gms_handle_local_mail_probe' ) ) {
 }
 add_action( 'init', 'gms_handle_local_mail_probe', 1 );
 
+if ( ! function_exists( 'gms_get_turnstile_site_key' ) ) {
+	function gms_get_turnstile_site_key(): string {
+		return defined( 'GMS_TURNSTILE_SITE_KEY' ) ? trim( (string) GMS_TURNSTILE_SITE_KEY ) : '';
+	}
+}
+
+if ( ! function_exists( 'gms_get_turnstile_secret_key' ) ) {
+	function gms_get_turnstile_secret_key(): string {
+		return defined( 'GMS_TURNSTILE_SECRET_KEY' ) ? trim( (string) GMS_TURNSTILE_SECRET_KEY ) : '';
+	}
+}
+
+if ( ! function_exists( 'gms_turnstile_is_enabled' ) ) {
+	function gms_turnstile_is_enabled(): bool {
+		return '' !== gms_get_turnstile_site_key() && '' !== gms_get_turnstile_secret_key();
+	}
+}
+
+if ( ! function_exists( 'gms_enqueue_turnstile_assets' ) ) {
+	function gms_enqueue_turnstile_assets(): void {
+		$site_key = gms_get_turnstile_site_key();
+
+		if ( '' === $site_key || is_admin() ) {
+			return;
+		}
+
+		wp_enqueue_script(
+			'gms-turnstile',
+			'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit',
+			[],
+			null,
+			true
+		);
+		wp_script_add_data( 'gms-turnstile', 'strategy', 'defer' );
+
+		wp_add_inline_script(
+			'gms-turnstile',
+			'(() => {
+				const siteKey = ' . wp_json_encode( $site_key ) . ';
+				const renderForms = () => {
+					document.querySelectorAll("form").forEach((form) => {
+						const action = form.querySelector("input[name=\"action\"][value=\"gms_contact_form\"]");
+
+						if (!action) {
+							return;
+						}
+
+						let holder = form.querySelector(".gms-turnstile-field");
+
+						if (!holder) {
+							holder = document.createElement("div");
+							holder.className = "gms-turnstile-field";
+							const submit = form.querySelector("button[type=\"submit\"], input[type=\"submit\"]");
+							const target = submit && submit.parentElement && submit.parentElement !== form ? submit.parentElement : submit;
+
+							if (target) {
+								form.insertBefore(holder, target);
+							} else {
+								form.appendChild(holder);
+							}
+						}
+
+						if (window.turnstile && !holder.dataset.gmsTurnstileWidgetId) {
+							holder.dataset.gmsTurnstileWidgetId = window.turnstile.render(holder, {
+								sitekey: siteKey,
+								theme: "dark"
+							});
+						}
+					});
+				};
+
+				document.addEventListener("DOMContentLoaded", renderForms);
+				window.addEventListener("load", renderForms);
+				setTimeout(renderForms, 800);
+				setTimeout(renderForms, 1800);
+			})();'
+		);
+
+		wp_add_inline_style(
+			'grow-my-security-style',
+			'.gms-turnstile-field{margin:18px 0;min-height:65px}.gms-turnstile-field iframe{max-width:100%}'
+		);
+	}
+}
+add_action( 'wp_enqueue_scripts', 'gms_enqueue_turnstile_assets', 30 );
+
+if ( ! function_exists( 'gms_verify_turnstile_response' ) ) {
+	function gms_verify_turnstile_response() {
+		if ( ! gms_turnstile_is_enabled() ) {
+			return true;
+		}
+
+		$token = sanitize_text_field( wp_unslash( $_POST['cf-turnstile-response'] ?? '' ) );
+
+		if ( '' === $token ) {
+			return new WP_Error( 'gms_turnstile_missing', 'Turnstile response missing.' );
+		}
+
+		$response = wp_remote_post(
+			'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+			[
+				'timeout' => 10,
+				'body'    => [
+					'secret'   => gms_get_turnstile_secret_key(),
+					'response' => $token,
+					'remoteip' => sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) ),
+				],
+			]
+		);
+
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		$body = json_decode( (string) wp_remote_retrieve_body( $response ), true );
+
+		if ( is_array( $body ) && ! empty( $body['success'] ) ) {
+			return true;
+		}
+
+		return new WP_Error( 'gms_turnstile_failed', 'Turnstile verification failed.' );
+	}
+}
+
+if ( ! function_exists( 'gms_contact_submission_looks_like_spam' ) ) {
+	function gms_contact_submission_looks_like_spam( string $full_name, string $email, string $message ): bool {
+		$combined = strtolower( $full_name . ' ' . $email . ' ' . $message );
+
+		if ( preg_match( '#https?://|www\.|[a-z0-9.-]+\.(?:org|com|net|xyz|top|site|click|info|shop)/#i', $full_name ) ) {
+			return true;
+		}
+
+		if ( preg_match( '/\b(coinbase|bitcoin|crypto|blockchain|dollars|wallet|usdt|graph\.org)\b/i', $combined ) ) {
+			return true;
+		}
+
+		return false;
+	}
+}
+
 if ( ! function_exists( 'gms_handle_contact_form_submission' ) ) {
 	function gms_handle_contact_form_submission() {
 		$redirect = wp_get_referer() ?: home_url( '/contact-us/' );
@@ -2183,6 +2323,27 @@ if ( ! function_exists( 'gms_handle_contact_form_submission' ) ) {
 				[
 					'event'  => 'contact_invalid_nonce',
 					'mailer' => gms_is_smtp_ready() ? 'smtp' : 'default',
+				]
+			);
+			wp_safe_redirect( add_query_arg( 'gms_contact', 'error', $redirect ) );
+			exit;
+		}
+
+		$turnstile_result = gms_verify_turnstile_response();
+
+		if ( is_wp_error( $turnstile_result ) ) {
+			gms_store_contact_mail_state(
+				[
+					'event'  => 'contact_turnstile_failed',
+					'mailer' => gms_is_smtp_ready() ? 'smtp' : 'default',
+					'error'  => $turnstile_result->get_error_code(),
+				]
+			);
+			gms_write_mail_debug_log(
+				[
+					'event'  => 'contact_turnstile_failed',
+					'mailer' => gms_is_smtp_ready() ? 'smtp' : 'default',
+					'error'  => $turnstile_result->get_error_code(),
 				]
 			);
 			wp_safe_redirect( add_query_arg( 'gms_contact', 'error', $redirect ) );
@@ -2226,6 +2387,27 @@ if ( ! function_exists( 'gms_handle_contact_form_submission' ) ) {
 					'valid_phone'        => $phone_is_valid,
 					'privacy_accepted'   => $privacy_acceptance,
 					'bot_check_confirmed'=> $bot_check,
+				]
+			);
+			wp_safe_redirect( add_query_arg( 'gms_contact', 'error', $redirect ) );
+			exit;
+		}
+
+		if ( gms_contact_submission_looks_like_spam( $full_name, $email, $message ) ) {
+			gms_store_contact_mail_state(
+				[
+					'event'     => 'contact_spam_blocked',
+					'mailer'    => gms_is_smtp_ready() ? 'smtp' : 'default',
+					'full_name' => $full_name,
+					'email'     => $email,
+				]
+			);
+			gms_write_mail_debug_log(
+				[
+					'event'     => 'contact_spam_blocked',
+					'mailer'    => gms_is_smtp_ready() ? 'smtp' : 'default',
+					'full_name' => $full_name,
+					'email'     => $email,
 				]
 			);
 			wp_safe_redirect( add_query_arg( 'gms_contact', 'error', $redirect ) );
@@ -4784,16 +4966,6 @@ function gms_enqueue_case_study_assets() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'gms_enqueue_case_study_assets' );
-
-function gms_render_leadconnector_chat_widget(): void {
-	if ( is_admin() ) {
-		return;
-	}
-	?>
-	<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="69fe2dd54c428b70419207e2"></script>
-	<?php
-}
-add_action( 'wp_footer', 'gms_render_leadconnector_chat_widget', 99 );
 
 /**
  * Supreme Nuclear Fix: All-in-one Head Injection with MutationObserver.
