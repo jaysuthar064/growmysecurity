@@ -4785,6 +4785,16 @@ function gms_enqueue_case_study_assets() {
 }
 add_action( 'wp_enqueue_scripts', 'gms_enqueue_case_study_assets' );
 
+function gms_render_leadconnector_chat_widget(): void {
+	if ( is_admin() ) {
+		return;
+	}
+	?>
+	<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="69fe2dd54c428b70419207e2"></script>
+	<?php
+}
+add_action( 'wp_footer', 'gms_render_leadconnector_chat_widget', 99 );
+
 /**
  * Supreme Nuclear Fix: All-in-one Head Injection with MutationObserver.
  */
