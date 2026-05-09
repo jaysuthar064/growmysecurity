@@ -1708,7 +1708,7 @@ function gms_get_footer_badges(): array {
 		[
 			'alt'   => __( 'Veteran Owned Business badge', 'grow-my-security' ),
 			'class' => 'gms-badge__image gms-badge__image--veteran-owned',
-			'src'   => $assets_base . 'badge-1.png',
+			'src'   => $assets_base . 'badge-new.png',
 		],
 		[
 			'alt'   => __( 'Service-Disabled Veteran-Owned Small Business badge', 'grow-my-security' ),
