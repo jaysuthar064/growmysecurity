@@ -283,6 +283,58 @@ document.addEventListener('DOMContentLoaded', function () {
     addMediaListener(footerNarrowQuery, syncFooterGridLayout);
   }
 
+  var problemItems = toArray(document.querySelectorAll('.gms-homepage-problem__item'));
+  var problemList = document.querySelector('.gms-homepage-problem__list');
+
+  if (problemList && problemItems.length) {
+    var updateProblemProgress = function () {
+      var listRect = problemList.getBoundingClientRect();
+      var windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      var scrollStart = windowHeight * 0.69;
+      var scrollEnd = windowHeight * 0.24;
+      var progress = 0;
+
+      if (listRect.top < scrollStart) {
+        progress = (scrollStart - listRect.top) / Math.max(1, listRect.height + (scrollStart - scrollEnd));
+      }
+
+      if (listRect.bottom < scrollEnd) {
+        progress = 1;
+      }
+
+      progress = Math.max(0, Math.min(1, progress));
+      problemList.style.setProperty('--problem-progress', (progress * 100) + '%');
+    };
+
+    var syncProblemDots = function () {
+      var listRect = problemList.getBoundingClientRect();
+      var progressPx = (parseFloat(getComputedStyle(problemList).getPropertyValue('--problem-progress')) || 0) / 100 * listRect.height;
+
+      problemItems.forEach(function (item) {
+        var marker = item.querySelector('.gms-homepage-problem__marker');
+
+        if (!marker) {
+          return;
+        }
+
+        var markerRect = marker.getBoundingClientRect();
+        var markerCenter = markerRect.top - listRect.top + (markerRect.height / 2);
+
+        item.classList.toggle('is-active', progressPx >= markerCenter);
+      });
+    };
+
+    var updateProblemAnimation = function () {
+      updateProblemProgress();
+      syncProblemDots();
+    };
+
+    window.addEventListener('scroll', updateProblemAnimation, { passive: true });
+    window.addEventListener('resize', updateProblemAnimation);
+    updateProblemProgress();
+    syncProblemDots();
+  }
+
   // Timeline Scroll Animation
   var timeline = document.querySelector('.gms-homepage-guarantee__timeline');
   var timelineSteps = toArray(document.querySelectorAll('.gms-homepage-guarantee__step'));
