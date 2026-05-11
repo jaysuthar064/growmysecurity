@@ -180,6 +180,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var footerMobileQuery = typeof window.matchMedia === 'function' ? window.matchMedia('(max-width: 980px)') : null;
   var footerNarrowQuery = typeof window.matchMedia === 'function' ? window.matchMedia('(max-width: 375px)') : null;
+  var footerMidMobileQuery = typeof window.matchMedia === 'function' ? window.matchMedia('(min-width: 360px) and (max-width: 430px)') : null;
   var footerGrid = document.querySelector('.gms-homepage-footer__grid');
   var footerItems = toArray(document.querySelectorAll('.gms-homepage-footer__column')).map(function (column) {
     return {
@@ -241,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
-      var shouldStack = footerNarrowQuery && footerNarrowQuery.matches;
+      var shouldStack = (footerNarrowQuery && footerNarrowQuery.matches) || (footerMidMobileQuery && footerMidMobileQuery.matches);
 
       footerGrid.style.setProperty('--gms-homepage-footer-columns', shouldStack ? 'minmax(0, 1fr)' : '');
 
@@ -281,6 +282,7 @@ document.addEventListener('DOMContentLoaded', function () {
     syncFooterGridLayout();
     addMediaListener(footerMobileQuery, syncFooterState);
     addMediaListener(footerNarrowQuery, syncFooterGridLayout);
+    addMediaListener(footerMidMobileQuery, syncFooterGridLayout);
   }
 
   var problemItems = toArray(document.querySelectorAll('.gms-homepage-problem__item'));
