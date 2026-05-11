@@ -133,6 +133,11 @@ $logo_url    = function_exists( 'gms_get_brand_asset_url' ) ? gms_get_brand_asse
 					<span class="gms-audit-field__error" data-error-for="website_url"></span>
 				</div>
 
+				<?php if ( function_exists( 'gms_get_turnstile_site_key' ) && '' !== gms_get_turnstile_site_key() ) : ?>
+					<div class="gms-audit-turnstile" id="gms-audit-turnstile" data-sitekey="<?php echo esc_attr( gms_get_turnstile_site_key() ); ?>"></div>
+					<span class="gms-audit-field__error gms-audit-field__error--turnstile" id="gms-audit-turnstile-error"></span>
+				<?php endif; ?>
+
 				<button type="submit" class="gms-audit-lead-form__submit" id="gms-audit-lead-submit">
 					<span class="gms-audit-lead-form__submit-text"><?php esc_html_e( 'Start My Free Audit', 'grow-my-security' ); ?></span>
 					<span class="gms-audit-lead-form__submit-icon" aria-hidden="true">→</span>

@@ -2991,6 +2991,17 @@ function gms_handle_audit_lead_submission() {
 		wp_send_json_error( [ 'message' => 'Invalid security token.' ], 403 );
 	}
 
+	$turnstile_result = gms_verify_turnstile_response();
+
+	if ( is_wp_error( $turnstile_result ) ) {
+		gms_write_mail_debug_log( [
+			'event'  => 'audit_turnstile_failed',
+			'mailer' => gms_is_smtp_ready() ? 'smtp' : 'default',
+			'error'  => $turnstile_result->get_error_code(),
+		] );
+		wp_send_json_error( [ 'message' => 'Verification failed. Please try again.' ], 403 );
+	}
+
 	$name        = sanitize_text_field( wp_unslash( $_POST['name']        ?? '' ) );
 	$email       = sanitize_email( wp_unslash( $_POST['email']            ?? '' ) );
 	$company     = sanitize_text_field( wp_unslash( $_POST['company']     ?? '' ) );

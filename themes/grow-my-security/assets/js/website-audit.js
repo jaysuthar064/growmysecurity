@@ -18,6 +18,9 @@
 	var leadForm = document.getElementById('gms-audit-lead-form');
 	var leadSubmit = document.getElementById('gms-audit-lead-submit');
 	var leadSubmitText = leadSubmit ? leadSubmit.querySelector('.gms-audit-lead-form__submit-text') : null;
+	var turnstileHolder = document.getElementById('gms-audit-turnstile');
+	var turnstileError = document.getElementById('gms-audit-turnstile-error');
+	var turnstileWidgetId = null;
 
 	var progressBar = document.getElementById('gms-audit-progress-bar');
 	var progressPct = document.getElementById('gms-audit-progress-percent');
@@ -54,6 +57,24 @@
 		try { var p=new URL(v); return ['http:','https:'].indexOf(p.protocol)!==-1 && p.hostname.indexOf('.')!==-1; } catch(e) { return false; }
 	}
 	function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v||'').trim()); }
+	function renderTurnstile() {
+		if (!turnstileHolder || !window.turnstile || turnstileWidgetId !== null) return;
+		turnstileWidgetId = window.turnstile.render(turnstileHolder, {
+			sitekey: turnstileHolder.dataset.sitekey,
+			theme: 'dark'
+		});
+	}
+	function getTurnstileToken() {
+		if (!turnstileHolder) return '';
+		if (window.turnstile && turnstileWidgetId !== null) return window.turnstile.getResponse(turnstileWidgetId) || '';
+		var input = leadForm ? leadForm.querySelector('[name="cf-turnstile-response"]') : null;
+		return input ? String(input.value || '') : '';
+	}
+	function resetTurnstile() {
+		if (window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
+	}
+	window.addEventListener('load', renderTurnstile);
+	window.setTimeout(renderTurnstile, 800);
 
 	function showStep(step) {
 		[stepHero,stepLoader,stepResults].forEach(function(n){ if(n){n.classList.remove('is-active');n.hidden=true;} });
@@ -231,6 +252,9 @@
 		var rawUrl=urlEl?String(urlEl.value||'').trim():'';
 		var normalized=normalizeUrl(rawUrl);
 		if(!normalized||!isValidUrl(normalized)){valid=false;if(urlEl){urlEl.classList.add('is-invalid');var ue=urlEl.parentElement.querySelector('.gms-audit-field__error');if(ue) ue.textContent='Valid website URL is required';}}
+		if(turnstileError) turnstileError.textContent='';
+		var turnstileToken=getTurnstileToken();
+		if(turnstileHolder&&!turnstileToken){valid=false;if(turnstileError){turnstileError.textContent='Please complete the verification.';turnstileError.style.display='block';}}
 		if(!valid) return;
 
 		state.currentUrl=normalized;
@@ -244,8 +268,18 @@
 		fd.append('email',String(emailEl.value||'').trim());
 		fd.append('company',companyEl?String(companyEl.value||'').trim():'');
 		fd.append('website_url',state.currentUrl);
+		if(turnstileToken) fd.append('cf-turnstile-response',turnstileToken);
 
-		fetch(ajaxUrl,{method:'POST',body:fd,credentials:'same-origin'}).catch(function(){return null;}).finally(function(){closeModal();runInitialAudit();});
+		fetch(ajaxUrl,{method:'POST',body:fd,credentials:'same-origin'})
+			.then(parseJsonResponse)
+			.then(function(json){if(!json||!json.success){throw new Error(json&&json.data&&json.data.message?json.data.message:'Verification failed.');}})
+			.then(function(){closeModal();runInitialAudit();})
+			.catch(function(error){
+				if(turnstileError){turnstileError.textContent=error&&error.message?error.message:'Verification failed. Please try again.';turnstileError.style.display='block';}
+				if(leadSubmit) leadSubmit.disabled=false;
+				if(leadSubmitText) leadSubmitText.textContent='Start My Free Audit';
+				resetTurnstile();
+			});
 	}
 
 	function handleStrategyToggle(next) {
@@ -263,6 +297,8 @@
 		clearLoaderTimers();closeModal();
 		if(urlError){urlError.textContent='';urlError.hidden=true;}
 		if(leadForm) leadForm.reset();
+		if(turnstileError){turnstileError.textContent='';turnstileError.style.display='';}
+		resetTurnstile();
 		if(leadSubmit) leadSubmit.disabled=false;
 		if(leadSubmitText) leadSubmitText.textContent='Start My Free Audit';
 		document.querySelectorAll('.gms-audit-score-card__arc').forEach(function(a){a.style.stroke='rgba(255,255,255,0.18)';a.style.strokeDashoffset='326.73';});

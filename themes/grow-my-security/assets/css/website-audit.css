@@ -534,6 +534,21 @@
 	display: block;
 }
 
+.gms-audit-turnstile {
+	margin: 4px 0 12px;
+	min-height: 65px;
+}
+
+.gms-audit-turnstile iframe {
+	max-width: 100%;
+}
+
+.gms-audit-field__error--turnstile {
+	display: block;
+	margin-top: -6px;
+	margin-bottom: 8px;
+}
+
 /* URL Preview */
 .gms-audit-field__url-display {
 	display: flex;
