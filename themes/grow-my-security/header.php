@@ -48,7 +48,7 @@ if ( function_exists( 'elementor_theme_do_location' ) && elementor_theme_do_loca
 
 			<div class="gms-header-actions">
 				<a class="gms-audit-button" href="<?php echo esc_url( home_url( '/website-audit/' ) ); ?>">
-					<?php esc_html_e( 'Website Audit', 'grow-my-security' ); ?>
+					<?php esc_html_e( 'CommandView', 'grow-my-security' ); ?>
 				</a>
 
 				<button class="gms-nav-toggle" type="button" aria-expanded="false" aria-controls="gms-primary-nav" aria-label="<?php esc_attr_e( 'Toggle navigation', 'grow-my-security' ); ?>">
