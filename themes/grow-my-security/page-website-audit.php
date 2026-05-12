@@ -42,7 +42,7 @@ $audit_logo_url = get_theme_file_uri( 'assets/images/website-audit-logo-back-rem
 				</h1>
 
 				<p class="gms-audit-hero__subtitle">
-					<?php esc_html_e( 'Uncover hidden security vulnerabilities, performance bottlenecks, and SEO gaps that cost you traffic and trust. Our AI-powered scanner delivers actionable insights in under 60 seconds.', 'grow-my-security' ); ?>
+					<?php esc_html_e( 'Uncover security, performance, and SEO issues that may be costing you traffic, trust, and leads. Get a fast website scan with clear, practical recommendations you can act on right away.', 'grow-my-security' ); ?>
 				</p>
 
 				<button type="button" class="gms-audit-hero__cta-btn" id="gms-audit-start-btn">
