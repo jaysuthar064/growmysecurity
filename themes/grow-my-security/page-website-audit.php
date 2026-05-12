@@ -15,6 +15,7 @@ if ( function_exists( 'gms_render_elementor_content_fallback' ) && gms_render_el
 
 $contact_url = home_url( '/contact-us/' );
 $logo_url    = function_exists( 'gms_get_brand_asset_url' ) ? gms_get_brand_asset_url( 'logo' ) : get_theme_file_uri( 'assets/images/logo.png' );
+$audit_logo_url = get_theme_file_uri( 'assets/images/website-audit-logo-back-remove.png' );
 ?>
 
 <div class="gms-audit-page" id="gms-audit-app" data-ajax-url="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" data-lead-nonce="<?php echo esc_attr( wp_create_nonce( 'gms_audit_lead' ) ); ?>" data-audit-nonce="<?php echo esc_attr( wp_create_nonce( 'gms_audit_fetch' ) ); ?>" data-default-strategy="desktop" data-contact-url="<?php echo esc_url( $contact_url ); ?>">
@@ -31,9 +32,8 @@ $logo_url    = function_exists( 'gms_get_brand_asset_url' ) ? gms_get_brand_asse
 	<section class="gms-audit-step gms-audit-step--hero is-active" id="gms-audit-step-hero" aria-labelledby="gms-audit-hero-title">
 		<div class="gms-audit-container">
 			<div class="gms-audit-hero">
-				<div class="gms-audit-hero__badge">
-					<span class="gms-audit-hero__badge-dot" aria-hidden="true"></span>
-					<span><?php esc_html_e( 'CommandView', 'grow-my-security' ); ?></span>
+				<div class="gms-audit-hero__logo" aria-label="<?php esc_attr_e( 'Website Audit', 'grow-my-security' ); ?>">
+					<img src="<?php echo esc_url( $audit_logo_url ); ?>" alt="<?php esc_attr_e( 'Website Audit', 'grow-my-security' ); ?>" loading="eager" decoding="async">
 				</div>
 
 				<h1 id="gms-audit-hero-title" class="gms-audit-hero__title">

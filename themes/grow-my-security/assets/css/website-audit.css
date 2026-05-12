@@ -150,6 +150,21 @@
 	gap: 28px;
 }
 
+/* Hero logo */
+.gms-audit-hero__logo {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: min(240px, 72vw);
+}
+
+.gms-audit-hero__logo img {
+	display: block;
+	width: 220px;
+	max-width: 100%;
+	height: auto;
+}
+
 /* Badge */
 .gms-audit-hero__badge {
 	display: inline-flex;
