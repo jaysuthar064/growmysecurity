@@ -2953,6 +2953,33 @@ button[type="submit"]:focus-visible,
   }
 }
 
+@media (max-width: 1100px) {
+  .gms-nav-list>.menu-item--home {
+    order: 1;
+  }
+
+  .gms-nav-list>.menu-item--commandgrid {
+    display: flex !important;
+    order: 2;
+  }
+
+  .gms-nav-list>.menu-item--services {
+    order: 3;
+  }
+
+  .gms-nav-list>.menu-item--industries {
+    order: 4;
+  }
+
+  .gms-nav-list>.menu-item--resources {
+    order: 5;
+  }
+
+  .gms-nav-list>.menu-item--contact {
+    order: 6;
+  }
+}
+
 @media (max-width: 820px) {
   .gms-page-shell {
     padding-top: 16px;

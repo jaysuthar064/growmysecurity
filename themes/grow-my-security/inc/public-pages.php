@@ -317,6 +317,9 @@ function gms_render_theme_primary_nav(): void
 
 	foreach (gms_get_primary_navigation_items() as $item) {
 		$item_classes = ['menu-item'];
+		if (!empty($item['slug'])) {
+			$item_classes[] = 'menu-item--' . sanitize_html_class($item['slug']);
+		}
 		$children = array_values(
 			array_filter(
 				$item['children'] ?? [],
