@@ -2541,7 +2541,7 @@ function gms_get_public_page_elementor_templates(): array {
 					'address'     => $config['branding']['address'] ?? 'Chicago, IL, United States',
 					'hours'       => 'Monday-Friday, 09:00AM - 06:00PM',
 					'submit_text' => 'Start the Conversation',
-					'response_note' => 'We respond to all inquiries within 1 business day',
+					'response_note' => 'We respond to all inquiries within 1 business day. Share your goals, timeline, and current marketing challenges, and our team will review the details before reaching out with the next best step.',
 					'panel_image' => [ 'url' => gms_asset( 'assets/images/contact-us-panel-visual.png' ) ],
 					'email_heading' => 'Prefer Email?',
 					'email_note' => 'We respect your inbox. No spam, ever.',

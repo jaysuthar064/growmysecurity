@@ -31,7 +31,7 @@ class Contact_Form_Widget extends GMS_Widget_Base {
 		$contact_defaults = \function_exists( 'gms_get_contact_page_defaults' )
 			? \gms_get_contact_page_defaults()
 			: [
-				'response_note' => 'We respond to all inquiries within 1 business day',
+				'response_note' => 'We respond to all inquiries within 1 business day. Share your goals, timeline, and current marketing challenges, and our team will review the details before reaching out with the next best step.',
 				'panel_image'   => [ 'url' => \get_theme_file_uri( 'assets/images/contact-us-panel-visual.png' ) ],
 				'email_heading' => 'Prefer Email?',
 				'email_note'    => 'We respect your inbox. No spam, ever.',

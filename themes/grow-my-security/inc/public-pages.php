@@ -1237,7 +1237,7 @@ function gms_get_contact_page_defaults(): array
 		'description'   => __('Let\'s build a stronger pipeline for your security business, secure, scalable, and measurable.', 'grow-my-security'),
 		'submit_text'   => __('Start the Conversation', 'grow-my-security'),
 		'email'         => (string) ($config['branding']['email'] ?? ''),
-		'response_note' => __('We respond to all inquiries within 1 business day', 'grow-my-security'),
+		'response_note' => __('We respond to all inquiries within 1 business day. Share your goals, timeline, and current marketing challenges, and our team will review the details before reaching out with the next best step.', 'grow-my-security'),
 		'panel_image'   => [
 			'url' => get_theme_file_uri('assets/images/contact-us-panel-visual.png'),
 		],
@@ -1280,6 +1280,9 @@ function gms_render_contact_page_layout(array $settings = []): void
 	$submit_text   = (string) ($settings['submit_text'] ?? '');
 	$email         = trim((string) ($settings['email'] ?? ''));
 	$response_note = (string) ($settings['response_note'] ?? '');
+	if ('We respond to all inquiries within 1 business day' === trim($response_note)) {
+		$response_note = __('We respond to all inquiries within 1 business day. Share your goals, timeline, and current marketing challenges, and our team will review the details before reaching out with the next best step.', 'grow-my-security');
+	}
 	$email_heading = (string) ($settings['email_heading'] ?? '');
 	$email_note    = (string) ($settings['email_note'] ?? '');
 	$call_heading  = (string) ($settings['call_heading'] ?? '');

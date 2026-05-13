@@ -356,10 +356,12 @@
 
 .gms-approved-contact-aside {
   display: grid;
-  gap: 18px;
+  align-content: start;
+  gap: 12px;
 }
 
 .gms-approved-contact-note {
+  align-self: start;
   padding-left: 14px;
   border-left: 2px solid rgba(239, 32, 20, 0.58);
 }
