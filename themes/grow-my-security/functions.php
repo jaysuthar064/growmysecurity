@@ -2502,6 +2502,34 @@ if ( ! function_exists( 'gms_contact_submission_looks_like_spam' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gms_normalize_us_phone_number' ) ) {
+	function gms_normalize_us_phone_number( string $phone ): string {
+		$digits = preg_replace( '/\D+/', '', $phone );
+		$digits = is_string( $digits ) ? $digits : '';
+
+		if ( 11 === strlen( $digits ) && 0 === strpos( $digits, '1' ) ) {
+			$digits = substr( $digits, 1 );
+		}
+
+		return $digits;
+	}
+}
+
+if ( ! function_exists( 'gms_format_us_phone_number' ) ) {
+	function gms_format_us_phone_number( string $digits ): string {
+		if ( 10 !== strlen( $digits ) ) {
+			return $digits;
+		}
+
+		return sprintf(
+			'(%s) %s-%s',
+			substr( $digits, 0, 3 ),
+			substr( $digits, 3, 3 ),
+			substr( $digits, 6 )
+		);
+	}
+}
+
 if ( ! function_exists( 'gms_handle_contact_form_submission' ) ) {
 	function gms_handle_contact_form_submission() {
 		$redirect = wp_get_referer() ?: home_url( '/contact-us/' );
@@ -2554,7 +2582,10 @@ if ( ! function_exists( 'gms_handle_contact_form_submission' ) ) {
 		$privacy_acceptance = ! empty( $_POST['privacy_acceptance'] );
 		$bot_check          = ! empty( $_POST['bot_check'] );
 		$message            = sanitize_textarea_field( wp_unslash( $_POST['message'] ?? '' ) );
-		$phone_is_valid     = '' === $phone || (bool) preg_match( '/^[0-9]+$/', $phone );
+		$phone_required     = ! empty( $_POST['contact_phone_required'] );
+		$phone_digits       = gms_normalize_us_phone_number( $phone );
+		$phone_chars_valid  = '' === $phone || (bool) preg_match( '/^[0-9\s().+\-]+$/', $phone );
+		$phone_is_valid     = $phone_chars_valid && ( $phone_required ? 10 === strlen( $phone_digits ) : ( '' === $phone || 10 === strlen( $phone_digits ) ) );
 		$company_is_valid   = ! array_key_exists( 'company_name', $_POST ) || '' !== $company_name;
 		$industry_is_valid  = ! array_key_exists( 'industry', $_POST ) || '' !== $industry;
 		$referral_is_valid  = ! array_key_exists( 'referral_source', $_POST ) || '' !== $referral_source;
@@ -2568,6 +2599,7 @@ if ( ! function_exists( 'gms_handle_contact_form_submission' ) ) {
 					'has_full_name'       => '' !== $full_name,
 					'valid_email'         => is_email( $email ),
 					'valid_phone'         => $phone_is_valid,
+					'phone_required'      => $phone_required,
 					'privacy_accepted'    => $privacy_acceptance,
 					'bot_check_confirmed' => $bot_check,
 				]
@@ -2579,12 +2611,17 @@ if ( ! function_exists( 'gms_handle_contact_form_submission' ) ) {
 					'has_full_name'      => '' !== $full_name,
 					'valid_email'        => is_email( $email ),
 					'valid_phone'        => $phone_is_valid,
+					'phone_required'     => $phone_required,
 					'privacy_accepted'   => $privacy_acceptance,
 					'bot_check_confirmed'=> $bot_check,
 				]
 			);
 			wp_safe_redirect( add_query_arg( 'gms_contact', 'error', $redirect ) );
 			exit;
+		}
+
+		if ( '' !== $phone_digits ) {
+			$phone = gms_format_us_phone_number( $phone_digits );
 		}
 
 		if ( gms_contact_submission_looks_like_spam( $full_name, $email, $message ) ) {

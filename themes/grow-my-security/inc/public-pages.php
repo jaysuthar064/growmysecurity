@@ -1299,6 +1299,7 @@ function gms_render_contact_page_layout(array $settings = []): void
 	<section class="gms-approved-contact-shell">
 		<form class="gms-approved-contact-form" method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
 			<input type="hidden" name="action" value="gms_contact_form">
+			<input type="hidden" name="contact_phone_required" value="1">
 			<?php wp_nonce_field('gms_contact_form', 'gms_contact_nonce'); ?>
 			<div class="gms-approved-form-grid">
 				<label>
@@ -1310,10 +1311,14 @@ function gms_render_contact_page_layout(array $settings = []): void
 					<input type="email" name="email" placeholder="e.g. jane@company.com" autocomplete="email" required>
 				</label>
 				<label>
+					<span><?php esc_html_e('Phone Number', 'grow-my-security'); ?></span>
+					<input type="tel" name="phone" placeholder="e.g. (555) 123-4567" autocomplete="tel" inputmode="tel" pattern="[0-9\s().+\-]{10,20}" title="<?php esc_attr_e('Enter a valid U.S. phone number, e.g. (555) 123-4567.', 'grow-my-security'); ?>" data-us-phone="1" required>
+				</label>
+				<label>
 					<span><?php esc_html_e('Company Name', 'grow-my-security'); ?></span>
 					<input type="text" name="company_name" placeholder="e.g. Acme Corp" autocomplete="organization" minlength="2" required>
 				</label>
-				<label>
+				<label class="gms-approved-form-field--wide">
 					<span><?php esc_html_e('Industry', 'grow-my-security'); ?></span>
 					<select name="industry" required>
 						<option value=""><?php esc_html_e('Select Industry', 'grow-my-security'); ?></option>

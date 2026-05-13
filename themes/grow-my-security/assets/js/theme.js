@@ -754,7 +754,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const contactValidationForms = document.querySelectorAll('.gms-approved-contact-form, .gms-contact-widget__form');
 
   if (contactValidationForms.length) {
-    const phonePattern = /^[0-9]+$/;
+    const phonePattern = /^[0-9\s().+-]+$/;
+    const getPhoneDigits = (value) => String(value || '').replace(/\D/g, '').replace(/^1(?=\d{10}$)/, '');
 
     const getFieldLabel = (field) => {
       const label = field.closest('label');
@@ -767,8 +768,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const label = getFieldLabel(field);
       const value = (field.value || '').trim();
 
-      if (field.name === 'phone' && value && !phonePattern.test(value)) {
-        return 'Phone should contain numbers only.';
+      if (field.name === 'phone' && value && (!phonePattern.test(value) || getPhoneDigits(value).length !== 10)) {
+        return 'Enter a valid U.S. phone number, e.g. (555) 123-4567.';
       }
 
       if (field.validity.valueMissing) {
@@ -788,7 +789,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (field.validity.patternMismatch) {
-        return field.name === 'phone' ? 'Phone should contain numbers only.' : `${label} has an invalid format.`;
+        return field.name === 'phone' ? 'Enter a valid U.S. phone number, e.g. (555) 123-4567.' : `${label} has an invalid format.`;
       }
 
       return '';
@@ -846,7 +847,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (field.name === 'phone') {
         const value = (field.value || '').trim();
-        field.setCustomValidity(value && !phonePattern.test(value) ? 'Phone should contain numbers only.' : '');
+        field.setCustomValidity(value && (!phonePattern.test(value) || getPhoneDigits(value).length !== 10) ? 'Enter a valid U.S. phone number, e.g. (555) 123-4567.' : '');
       }
 
       const message = getFieldErrorMessage(field);
@@ -864,7 +865,22 @@ document.addEventListener('DOMContentLoaded', () => {
       form.noValidate = true;
 
       form.querySelectorAll('input, select, textarea').forEach((field) => {
-        field.addEventListener('input', () => clearFieldError(field));
+        field.addEventListener('input', () => {
+          if (field.matches('[data-us-phone]')) {
+            const digits = getPhoneDigits(field.value).slice(0, 10);
+            const area = digits.slice(0, 3);
+            const prefix = digits.slice(3, 6);
+            const line = digits.slice(6, 10);
+
+            field.value = digits.length > 6
+              ? `(${area}) ${prefix}-${line}`
+              : digits.length > 3
+                ? `(${area}) ${prefix}`
+                : area ? `(${area}` : '';
+          }
+
+          clearFieldError(field);
+        });
         field.addEventListener('change', () => validateField(field));
         field.addEventListener('blur', () => {
           if ((field.value || field.checked) && !field.validity.valid) {

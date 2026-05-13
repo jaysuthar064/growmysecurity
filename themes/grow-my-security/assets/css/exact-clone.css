@@ -264,6 +264,10 @@
   gap: 14px;
 }
 
+.gms-approved-form-field--wide {
+  grid-column: 1 / -1;
+}
+
 .gms-approved-contact-form label {
   display: grid;
   gap: 8px;
