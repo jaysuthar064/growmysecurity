@@ -2502,6 +2502,20 @@ function gms_handle_newsletter_form_submission(): void
 		]
 	);
 
+	if (function_exists('gms_send_leadconnector_webhook')) {
+		gms_send_leadconnector_webhook(
+			[
+				'form_type' => 'newsletter',
+				'email' => $email,
+				'source' => $source,
+				'page_url' => esc_url_raw($redirect),
+				'email_sent' => (bool) $sent,
+				'email_recipient' => $recipient,
+			],
+			'newsletter_form'
+		);
+	}
+
 	wp_safe_redirect(add_query_arg('gms_subscribe', $sent ? 'success' : 'error', $redirect));
 	exit;
 }

@@ -2530,6 +2530,69 @@ if ( ! function_exists( 'gms_format_us_phone_number' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gms_get_leadconnector_webhook_url' ) ) {
+	function gms_get_leadconnector_webhook_url(): string {
+		$url = defined( 'GMS_LEADCONNECTOR_WEBHOOK_URL' )
+			? (string) GMS_LEADCONNECTOR_WEBHOOK_URL
+			: 'https://services.leadconnectorhq.com/hooks/7UlEPu2me0zsuao2Ld1W/webhook-trigger/94667797-06ab-47d4-8144-4812805f8818';
+
+		return esc_url_raw( $url );
+	}
+}
+
+if ( ! function_exists( 'gms_send_leadconnector_webhook' ) ) {
+	function gms_send_leadconnector_webhook( array $payload, string $event ): bool {
+		$webhook_url = gms_get_leadconnector_webhook_url();
+
+		if ( '' === $webhook_url ) {
+			return false;
+		}
+
+		$payload = array_merge(
+			[
+				'event'        => $event,
+				'source_site'  => home_url( '/' ),
+				'submitted_at' => current_time( 'c' ),
+			],
+			$payload
+		);
+
+		$response = wp_remote_post(
+			$webhook_url,
+			[
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'body'    => wp_json_encode( $payload ),
+				'timeout' => 5,
+			]
+		);
+
+		if ( is_wp_error( $response ) ) {
+			gms_write_mail_debug_log(
+				[
+					'event' => 'leadconnector_webhook_failed',
+					'type'  => $event,
+					'error' => $response->get_error_message(),
+				]
+			);
+
+			return false;
+		}
+
+		$status_code = (int) wp_remote_retrieve_response_code( $response );
+		$sent        = $status_code >= 200 && $status_code < 400;
+
+		gms_write_mail_debug_log(
+			[
+				'event'       => $sent ? 'leadconnector_webhook_sent' : 'leadconnector_webhook_failed',
+				'type'        => $event,
+				'status_code' => $status_code,
+			]
+		);
+
+		return $sent;
+	}
+}
+
 if ( ! function_exists( 'gms_handle_contact_form_submission' ) ) {
 	function gms_handle_contact_form_submission() {
 		$redirect = wp_get_referer() ?: home_url( '/contact-us/' );
@@ -2698,6 +2761,26 @@ if ( ! function_exists( 'gms_handle_contact_form_submission' ) ) {
 				'full_name'   => $full_name,
 				'email'       => $email,
 			]
+		);
+
+		gms_send_leadconnector_webhook(
+			[
+				'form_type'        => $phone_required ? 'contact_us' : 'contact_or_quote',
+				'name'             => $full_name,
+				'full_name'        => $full_name,
+				'email'            => $email,
+				'phone'            => $phone,
+				'company'          => $company_name,
+				'industry'         => $industry,
+				'referral_source'  => $referral_source,
+				'service_interest' => $service_interest,
+				'message'          => $message,
+				'page_url'         => esc_url_raw( $redirect ),
+				'ip_address'       => sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) ),
+				'email_sent'       => (bool) $sent,
+				'email_recipient'  => $recipient,
+			],
+			'contact_form'
 		);
 
 		wp_safe_redirect( add_query_arg( 'gms_contact', $sent ? 'success' : 'error', $redirect ) );
@@ -3309,6 +3392,21 @@ function gms_handle_audit_lead_submission() {
 	}
 
 	// ─── Optional webhook ───
+	gms_send_leadconnector_webhook(
+		[
+			'form_type'       => 'website_audit',
+			'name'            => $name,
+			'full_name'       => $name,
+			'email'           => $email,
+			'company'         => $company,
+			'website_url'     => $website_url,
+			'ip_address'      => $ip_address,
+			'email_sent'      => (bool) $sent,
+			'email_recipient' => $recipient,
+		],
+		'website_audit'
+	);
+
 	$webhook_url = get_theme_mod( 'gms_audit_webhook_url', '' );
 	if ( '' !== $webhook_url ) {
 		wp_remote_post(
