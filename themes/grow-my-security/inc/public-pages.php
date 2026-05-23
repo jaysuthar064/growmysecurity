@@ -1303,6 +1303,7 @@ function gms_render_contact_page_layout(array $settings = []): void
 		<form class="gms-approved-contact-form" method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
 			<input type="hidden" name="action" value="gms_contact_form">
 			<input type="hidden" name="contact_phone_required" value="1">
+			<input type="hidden" name="contact_message_required" value="1">
 			<?php wp_nonce_field('gms_contact_form', 'gms_contact_nonce'); ?>
 			<div class="gms-approved-form-grid">
 				<label>
@@ -1347,9 +1348,9 @@ function gms_render_contact_page_layout(array $settings = []): void
 				</select>
 			</label>
 			<label>
-				<span><?php esc_html_e('Message (Optional)', 'grow-my-security'); ?></span>
+				<span><?php esc_html_e('Message', 'grow-my-security'); ?></span>
 				<textarea name="message"
-					placeholder="<?php esc_attr_e('Enter any details you\'d like to share with us...', 'grow-my-security'); ?>"></textarea>
+					placeholder="<?php esc_attr_e('Enter any details you\'d like to share with us...', 'grow-my-security'); ?>" required></textarea>
 			</label>
 			<label class="gms-approved-checkbox">
 				<input type="checkbox" name="privacy_acceptance" value="1" required>

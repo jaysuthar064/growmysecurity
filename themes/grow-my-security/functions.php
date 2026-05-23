@@ -2645,7 +2645,8 @@ if ( ! function_exists( 'gms_handle_contact_form_submission' ) ) {
 		$privacy_acceptance = ! empty( $_POST['privacy_acceptance'] );
 		$bot_check          = ! empty( $_POST['bot_check'] );
 		$message            = sanitize_textarea_field( wp_unslash( $_POST['message'] ?? '' ) );
-		$phone_required     = ! empty( $_POST['contact_phone_required'] );
+		$phone_required     = ! empty( $_POST['contact_phone_required'] ) || array_key_exists( 'phone', $_POST );
+		$message_required   = ! empty( $_POST['contact_message_required'] ) || array_key_exists( 'message', $_POST );
 		$phone_digits       = gms_normalize_us_phone_number( $phone );
 		$phone_chars_valid  = '' === $phone || (bool) preg_match( '/^[0-9\s().+\-]+$/', $phone );
 		$phone_is_valid     = $phone_chars_valid && ( $phone_required ? 10 === strlen( $phone_digits ) : ( '' === $phone || 10 === strlen( $phone_digits ) ) );
@@ -2653,8 +2654,9 @@ if ( ! function_exists( 'gms_handle_contact_form_submission' ) ) {
 		$industry_is_valid  = ! array_key_exists( 'industry', $_POST ) || '' !== $industry;
 		$referral_is_valid  = ! array_key_exists( 'referral_source', $_POST ) || '' !== $referral_source;
 		$service_is_valid   = ! array_key_exists( 'service_interest', $_POST ) || '' !== $service_interest;
+		$message_is_valid   = ! $message_required || '' !== trim( $message );
 
-		if ( '' === $full_name || ! is_email( $email ) || ! $phone_is_valid || ! $company_is_valid || ! $industry_is_valid || ! $referral_is_valid || ! $service_is_valid || ! $privacy_acceptance || ! $bot_check ) {
+		if ( '' === $full_name || ! is_email( $email ) || ! $phone_is_valid || ! $company_is_valid || ! $industry_is_valid || ! $referral_is_valid || ! $service_is_valid || ! $message_is_valid || ! $privacy_acceptance || ! $bot_check ) {
 			gms_store_contact_mail_state(
 				[
 					'event'               => 'contact_invalid_submission',
@@ -2663,6 +2665,8 @@ if ( ! function_exists( 'gms_handle_contact_form_submission' ) ) {
 					'valid_email'         => is_email( $email ),
 					'valid_phone'         => $phone_is_valid,
 					'phone_required'      => $phone_required,
+					'message_required'    => $message_required,
+					'has_message'         => '' !== trim( $message ),
 					'privacy_accepted'    => $privacy_acceptance,
 					'bot_check_confirmed' => $bot_check,
 				]
@@ -2675,6 +2679,8 @@ if ( ! function_exists( 'gms_handle_contact_form_submission' ) ) {
 					'valid_email'        => is_email( $email ),
 					'valid_phone'        => $phone_is_valid,
 					'phone_required'     => $phone_required,
+					'message_required'   => $message_required,
+					'has_message'        => '' !== trim( $message ),
 					'privacy_accepted'   => $privacy_acceptance,
 					'bot_check_confirmed'=> $bot_check,
 				]

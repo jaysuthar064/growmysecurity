@@ -122,6 +122,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var nameInput = card.querySelector('input[name="full_name"]');
     var emailInput = card.querySelector('input[name="email"]');
     var phoneInput = card.querySelector('input[name="phone"]');
+    var serviceSelect = card.querySelector('select[name="service_interest"]');
+    var messageInput = card.querySelector('textarea[name="message"]');
     var cta = card.querySelector('.gms-homepage-button--primary');
 
     if (nameInput) {
@@ -156,9 +158,17 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
 
+    if (serviceSelect) {
+      serviceSelect.required = true;
+    }
+
+    if (messageInput) {
+      messageInput.required = true;
+    }
+
     if (cta) {
       cta.addEventListener('click', function (event) {
-        var fields = [nameInput, emailInput, phoneInput].filter(Boolean);
+        var fields = [nameInput, emailInput, phoneInput, serviceSelect, messageInput].filter(Boolean);
 
         if (phoneInput) {
           phoneInput.setCustomValidity(phoneInput.value.length === 10 ? '' : 'Enter exactly 10 digits.');

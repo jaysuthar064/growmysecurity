@@ -136,12 +136,14 @@ class Contact_Form_Widget extends GMS_Widget_Base {
 							<input type="hidden" name="action" value="gms_contact_form">
 							<input type="hidden" name="privacy_acceptance" value="1">
 							<input type="hidden" name="bot_check" value="1">
+							<input type="hidden" name="contact_phone_required" value="1">
+							<input type="hidden" name="contact_message_required" value="1">
 							<?php wp_nonce_field( 'gms_contact_form', 'gms_contact_nonce' ); ?>
 							<label class="gms-homepage-field gms-homepage-field--active"><span><?php esc_html_e( 'Full Name', 'grow-my-security' ); ?></span><input type="text" name="full_name" placeholder="<?php esc_attr_e( 'Enter full name', 'grow-my-security' ); ?>" autocomplete="name" required></label>
 							<label class="gms-homepage-field"><span><?php esc_html_e( 'Email Address', 'grow-my-security' ); ?></span><input type="email" name="email" placeholder="<?php esc_attr_e( 'Enter email address', 'grow-my-security' ); ?>" autocomplete="email" required></label>
-							<label class="gms-homepage-field"><span><?php esc_html_e( 'Phone', 'grow-my-security' ); ?></span><input type="tel" name="phone" placeholder="<?php esc_attr_e( '5551234567', 'grow-my-security' ); ?>" autocomplete="tel" inputmode="numeric" pattern="[0-9]*"></label>
-							<label class="gms-homepage-field"><span><?php esc_html_e( "Services you're interested in", 'grow-my-security' ); ?></span><span class="gms-homepage-select-wrap"><select name="service_interest"><?php foreach ( $services as $service ) : ?><option value="<?php echo esc_attr( $service ); ?>"<?php selected( 'Fractional CMO Services', $service ); ?>><?php echo esc_html( $service ); ?></option><?php endforeach; ?></select></span></label>
-							<label class="gms-homepage-field"><span><?php esc_html_e( 'Project description', 'grow-my-security' ); ?></span><textarea name="message" placeholder="<?php esc_attr_e( 'Tell us more about your project, timeline, budget, or other specific requirements', 'grow-my-security' ); ?>"></textarea></label>
+							<label class="gms-homepage-field"><span><?php esc_html_e( 'Phone', 'grow-my-security' ); ?></span><input type="tel" name="phone" placeholder="<?php esc_attr_e( '5551234567', 'grow-my-security' ); ?>" autocomplete="tel" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" required></label>
+							<label class="gms-homepage-field"><span><?php esc_html_e( "Services you're interested in", 'grow-my-security' ); ?></span><span class="gms-homepage-select-wrap"><select name="service_interest" required><?php foreach ( $services as $service ) : ?><option value="<?php echo esc_attr( $service ); ?>"<?php selected( 'Fractional CMO Services', $service ); ?>><?php echo esc_html( $service ); ?></option><?php endforeach; ?></select></span></label>
+							<label class="gms-homepage-field"><span><?php esc_html_e( 'Project description', 'grow-my-security' ); ?></span><textarea name="message" placeholder="<?php esc_attr_e( 'Tell us more about your project, timeline, budget, or other specific requirements', 'grow-my-security' ); ?>" required></textarea></label>
 							<button class="gms-homepage-button gms-homepage-button--primary gms-homepage-button--full" type="submit"><span><?php echo esc_html( $settings['submit_text'] ?? 'Get My Free Quote' ); ?></span><span class="gms-homepage-button__arrow" aria-hidden="true"></span></button>
 						</form>
 						<?php if ( ! empty( $settings['footer_chips'] ) ) : ?>
@@ -174,13 +176,15 @@ class Contact_Form_Widget extends GMS_Widget_Base {
 				<input type="hidden" name="action" value="gms_contact_form">
 				<input type="hidden" name="privacy_acceptance" value="1">
 				<input type="hidden" name="bot_check" value="1">
+				<input type="hidden" name="contact_phone_required" value="1">
+				<input type="hidden" name="contact_message_required" value="1">
 				<?php wp_nonce_field( 'gms_contact_form', 'gms_contact_nonce' ); ?>
 				<h3><?php esc_html_e( 'Start your project today - no obligation', 'grow-my-security' ); ?></h3>
 				<label><span><?php esc_html_e( 'Full Name', 'grow-my-security' ); ?></span><input type="text" name="full_name" placeholder="Enter full name" autocomplete="name" required></label>
 				<label><span><?php esc_html_e( 'Email Address', 'grow-my-security' ); ?></span><input type="email" name="email" placeholder="Enter email address" autocomplete="email" required></label>
-				<label><span><?php esc_html_e( 'Phone', 'grow-my-security' ); ?></span><input type="tel" name="phone" placeholder="1234567890" autocomplete="tel" inputmode="numeric" pattern="[0-9]*"></label>
-				<label><span><?php esc_html_e( "Services you're interested in", 'grow-my-security' ); ?></span><select name="service_interest"><?php foreach ( $config['services'] as $service ) : ?><option value="<?php echo esc_attr( $service['title'] ); ?>"><?php echo esc_html( $service['title'] ); ?></option><?php endforeach; ?></select></label>
-				<label><span><?php esc_html_e( 'Project description', 'grow-my-security' ); ?></span><textarea name="message" placeholder="Tell us more about your project, timeline, budget, or other specific requirements." autocomplete="off"></textarea></label>
+				<label><span><?php esc_html_e( 'Phone', 'grow-my-security' ); ?></span><input type="tel" name="phone" placeholder="1234567890" autocomplete="tel" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" required></label>
+				<label><span><?php esc_html_e( "Services you're interested in", 'grow-my-security' ); ?></span><select name="service_interest" required><?php foreach ( $config['services'] as $service ) : ?><option value="<?php echo esc_attr( $service['title'] ); ?>"><?php echo esc_html( $service['title'] ); ?></option><?php endforeach; ?></select></label>
+				<label><span><?php esc_html_e( 'Project description', 'grow-my-security' ); ?></span><textarea name="message" placeholder="Tell us more about your project, timeline, budget, or other specific requirements." autocomplete="off" required></textarea></label>
 				<div class="gms-form-submit"><button type="submit"><?php echo esc_html( $settings['submit_text'] ?? 'Get My Free Quote' ); ?></button></div>
 				<?php if ( ! empty( $settings['footer_chips'] ) ) : ?><div class="gms-contact-widget__chips"><?php foreach ( preg_split( '/\r\n|\r|\n/', $settings['footer_chips'] ) as $chip ) : ?><?php if ( '' === trim( $chip ) ) { continue; } ?><span><?php echo esc_html( trim( $chip ) ); ?></span><?php endforeach; ?></div><?php endif; ?>
 			</form>
