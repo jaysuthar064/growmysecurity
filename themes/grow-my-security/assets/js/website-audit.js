@@ -203,6 +203,25 @@
 	function parseJsonResponse(r) {
 		return r.text().then(function(t){if(!t) return null;try{return JSON.parse(t);}catch(e){throw new Error('Unexpected server response.');}});
 	}
+	function refreshAuditNonces() {
+		var fd=new FormData();
+		fd.append('action','gms_audit_refresh_nonces');
+		var refreshUrl=ajaxUrl+(ajaxUrl.indexOf('?')===-1?'?':'&')+'nocache='+new Date().getTime();
+		return fetch(refreshUrl,{method:'POST',body:fd,credentials:'same-origin'})
+			.then(parseJsonResponse)
+			.then(function(json){
+				if(!json||!json.success||!json.data) return null;
+				if(json.data.lead_nonce) {
+					leadNonce=json.data.lead_nonce;
+					app.dataset.leadNonce=leadNonce;
+				}
+				if(json.data.audit_nonce) {
+					auditNonce=json.data.audit_nonce;
+					app.dataset.auditNonce=auditNonce;
+				}
+				return json.data;
+			});
+	}
 	function fetchAuditData(strategy) {
 		if(state.resultsCache[strategy]) return Promise.resolve(state.resultsCache[strategy]);
 		if(state.inFlight[strategy]) return state.inFlight[strategy];
@@ -262,15 +281,17 @@
 		if(leadSubmit) leadSubmit.disabled=true;
 		if(leadSubmitText) leadSubmitText.textContent='Processing...';
 
-		var fd=new FormData();
-		fd.append('action','gms_audit_lead');fd.append('gms_audit_nonce',leadNonce);
-		fd.append('name',String(nameEl.value||'').trim());
-		fd.append('email',String(emailEl.value||'').trim());
-		fd.append('company',companyEl?String(companyEl.value||'').trim():'');
-		fd.append('website_url',state.currentUrl);
-		if(turnstileToken) fd.append('cf-turnstile-response',turnstileToken);
-
-		fetch(ajaxUrl,{method:'POST',body:fd,credentials:'same-origin'})
+		refreshAuditNonces().catch(function(){return null;})
+			.then(function(){
+				var fd=new FormData();
+				fd.append('action','gms_audit_lead');fd.append('gms_audit_nonce',leadNonce);
+				fd.append('name',String(nameEl.value||'').trim());
+				fd.append('email',String(emailEl.value||'').trim());
+				fd.append('company',companyEl?String(companyEl.value||'').trim():'');
+				fd.append('website_url',state.currentUrl);
+				if(turnstileToken) fd.append('cf-turnstile-response',turnstileToken);
+				return fetch(ajaxUrl,{method:'POST',body:fd,credentials:'same-origin'});
+			})
 			.then(parseJsonResponse)
 			.then(function(json){if(!json||!json.success){throw new Error(json&&json.data&&json.data.message?json.data.message:'Verification failed.');}})
 			.then(function(){closeModal();runInitialAudit();})

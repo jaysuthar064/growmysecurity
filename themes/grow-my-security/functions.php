@@ -3302,6 +3302,39 @@ function gms_sync_industries_elementor_grid() {
 	update_option( 'gms_industries_grid_sync_version', $sync_version );
 }
 add_action( 'init', 'gms_sync_industries_elementor_grid', 22 );
+
+/**
+ * Keep the public audit page out of normal page caches because it prints nonce values.
+ */
+function gms_send_audit_page_no_cache_headers(): void {
+	if ( ! is_page( 'website-audit' ) ) {
+		return;
+	}
+
+	if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+		define( 'DONOTCACHEPAGE', true );
+	}
+
+	nocache_headers();
+}
+add_action( 'template_redirect', 'gms_send_audit_page_no_cache_headers', 0 );
+
+/**
+ * Return fresh audit nonces for cached/stale browser sessions.
+ */
+function gms_ajax_refresh_audit_nonces(): void {
+	nocache_headers();
+
+	wp_send_json_success(
+		[
+			'lead_nonce'  => wp_create_nonce( 'gms_audit_lead' ),
+			'audit_nonce' => wp_create_nonce( 'gms_audit_fetch' ),
+		]
+	);
+}
+add_action( 'wp_ajax_nopriv_gms_audit_refresh_nonces', 'gms_ajax_refresh_audit_nonces' );
+add_action( 'wp_ajax_gms_audit_refresh_nonces', 'gms_ajax_refresh_audit_nonces' );
+
 /**
  * Handle AJAX audit lead submission.
  */
