@@ -2967,6 +2967,64 @@ function gms_get_audit_result_request( string $token ): array {
 	];
 }
 
+function gms_get_audit_result_cookie_name(): string {
+	return 'gms_audit_result_token';
+}
+
+function gms_get_cookie_path(): string {
+	if ( defined( 'COOKIEPATH' ) && COOKIEPATH ) {
+		return COOKIEPATH;
+	}
+
+	$path = (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH );
+
+	return '' !== $path ? $path : '/';
+}
+
+function gms_set_audit_result_cookie( string $token ): void {
+	$token = preg_replace( '/[^a-zA-Z0-9]/', '', $token );
+
+	if ( '' === $token ) {
+		return;
+	}
+
+	$name    = gms_get_audit_result_cookie_name();
+	$expires = time() + ( 2 * HOUR_IN_SECONDS );
+	$path    = gms_get_cookie_path();
+	$domain  = defined( 'COOKIE_DOMAIN' ) ? COOKIE_DOMAIN : '';
+	$secure  = is_ssl() || ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && false !== stripos( (string) $_SERVER['HTTP_X_FORWARDED_PROTO'], 'https' ) );
+
+	if ( PHP_VERSION_ID >= 70300 ) {
+		setcookie(
+			$name,
+			$token,
+			[
+				'expires'  => $expires,
+				'path'     => $path,
+				'domain'   => $domain,
+				'secure'   => $secure,
+				'httponly' => true,
+				'samesite' => 'Lax',
+			]
+		);
+	} else {
+		setcookie( $name, $token, $expires, $path . '; SameSite=Lax', $domain, $secure, true );
+	}
+
+	$_COOKIE[ $name ] = $token;
+}
+
+function gms_get_audit_result_token_from_request(): string {
+	$name  = gms_get_audit_result_cookie_name();
+	$token = sanitize_text_field( wp_unslash( $_COOKIE[ $name ] ?? '' ) );
+
+	if ( '' === $token ) {
+		$token = sanitize_text_field( wp_unslash( $_GET['audit'] ?? '' ) );
+	}
+
+	return preg_replace( '/[^a-zA-Z0-9]/', '', $token );
+}
+
 /**
  * Auto-create the Website Audit and Audit Result pages if they don't exist.
  */
@@ -3620,12 +3678,12 @@ function gms_handle_audit_lead_submission() {
 	update_option( 'gms_audit_sites_scanned', $current_scans + 1 );
 
 	$audit_token = gms_create_audit_result_token( $website_url, $audit_lead_id );
-	$result_url  = add_query_arg( 'audit', rawurlencode( $audit_token ), home_url( '/audit-result/' ) );
+	gms_set_audit_result_cookie( $audit_token );
+	$result_url = home_url( '/audit-result/' );
 
 	wp_send_json_success(
 		[
 			'message'      => 'Lead captured.',
-			'audit_token'  => $audit_token,
 			'redirect_url' => esc_url_raw( $result_url ),
 		]
 	);

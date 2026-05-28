@@ -7,7 +7,8 @@
  */
 
 $is_audit_result_page = is_page( 'audit-result' );
-$audit_result_token   = $is_audit_result_page ? sanitize_text_field( wp_unslash( $_GET['audit'] ?? '' ) ) : '';
+$audit_result_query   = $is_audit_result_page ? sanitize_text_field( wp_unslash( $_GET['audit'] ?? '' ) ) : '';
+$audit_result_token   = $is_audit_result_page && function_exists( 'gms_get_audit_result_token_from_request' ) ? gms_get_audit_result_token_from_request() : $audit_result_query;
 $audit_result_request = [];
 
 if ( $is_audit_result_page ) {
@@ -15,6 +16,15 @@ if ( $is_audit_result_page ) {
 
 	if ( empty( $audit_result_request['website_url'] ) ) {
 		wp_safe_redirect( home_url( '/website-audit/' ) );
+		exit;
+	}
+
+	if ( '' !== $audit_result_query ) {
+		if ( function_exists( 'gms_set_audit_result_cookie' ) ) {
+			gms_set_audit_result_cookie( $audit_result_token );
+		}
+
+		wp_safe_redirect( home_url( '/audit-result/' ) );
 		exit;
 	}
 }

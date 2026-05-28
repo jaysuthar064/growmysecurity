@@ -308,8 +308,8 @@
 			.then(function(json){
 				if(!json||!json.success){throw new Error(json&&json.data&&json.data.message?json.data.message:'Verification failed.');}
 				var redirectUrl=json&&json.data&&json.data.redirect_url?String(json.data.redirect_url):'';
-				if(!redirectUrl&&resultUrl&&json&&json.data&&json.data.audit_token){
-					redirectUrl=resultUrl+(resultUrl.indexOf('?')===-1?'?':'&')+'audit='+encodeURIComponent(String(json.data.audit_token));
+				if(!redirectUrl&&resultUrl){
+					redirectUrl=resultUrl;
 				}
 				if(redirectUrl){
 					window.location.assign(redirectUrl);
