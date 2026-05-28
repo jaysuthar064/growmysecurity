@@ -7,6 +7,10 @@
 	var leadNonce = app.dataset.leadNonce || '';
 	var auditNonce = app.dataset.auditNonce || '';
 	var defaultStrategy = app.dataset.defaultStrategy || 'desktop';
+	var auditMode = app.dataset.auditMode || 'form';
+	var initialUrl = app.dataset.initialUrl || '';
+	var resultUrl = app.dataset.resultUrl || '';
+	var websiteAuditUrl = app.dataset.websiteAuditUrl || '';
 
 	var stepHero = document.getElementById('gms-audit-step-hero');
 	var stepLoader = document.getElementById('gms-audit-step-loader');
@@ -244,7 +248,15 @@
 		fetchAuditData(o).catch(function(){return null;});
 	}
 	function handleAuditFailure(error) {
-		clearLoaderTimers(); showStep(stepHero);
+		clearLoaderTimers();
+		if(auditMode==='result'){
+			showStep(stepLoader);
+			setLoaderProgress(0);
+			if(loaderNote) loaderNote.textContent=error&&error.message?error.message:'The live audit could not be completed. Please try again.';
+			if(loaderUrl) loaderUrl.textContent=state.currentUrl||'';
+			return;
+		}
+		showStep(stepHero);
 		if(leadSubmit) leadSubmit.disabled=false;
 		if(leadSubmitText) leadSubmitText.textContent='Start My Free Audit';
 		if(urlError){urlError.textContent=error&&error.message?error.message:'The live audit could not be completed. Please try again.';urlError.hidden=false;}
@@ -293,8 +305,18 @@
 				return fetch(ajaxUrl,{method:'POST',body:fd,credentials:'same-origin'});
 			})
 			.then(parseJsonResponse)
-			.then(function(json){if(!json||!json.success){throw new Error(json&&json.data&&json.data.message?json.data.message:'Verification failed.');}})
-			.then(function(){closeModal();runInitialAudit();})
+			.then(function(json){
+				if(!json||!json.success){throw new Error(json&&json.data&&json.data.message?json.data.message:'Verification failed.');}
+				var redirectUrl=json&&json.data&&json.data.redirect_url?String(json.data.redirect_url):'';
+				if(!redirectUrl&&resultUrl&&json&&json.data&&json.data.audit_token){
+					redirectUrl=resultUrl+(resultUrl.indexOf('?')===-1?'?':'&')+'audit='+encodeURIComponent(String(json.data.audit_token));
+				}
+				if(redirectUrl){
+					window.location.assign(redirectUrl);
+					return;
+				}
+				closeModal();runInitialAudit();
+			})
 			.catch(function(error){
 				if(turnstileError){turnstileError.textContent=error&&error.message?error.message:'Verification failed. Please try again.';turnstileError.style.display='block';}
 				if(leadSubmit) leadSubmit.disabled=false;
@@ -314,6 +336,10 @@
 		});
 	}
 	function resetAuditState() {
+		if(auditMode==='result'&&websiteAuditUrl){
+			window.location.assign(websiteAuditUrl);
+			return;
+		}
 		state.runId+=1;state.currentUrl='';state.currentStrategy=defaultStrategy;state.resultsCache={};state.inFlight={};state.lastData=null;
 		clearLoaderTimers();closeModal();
 		if(urlError){urlError.textContent='';urlError.hidden=true;}
@@ -487,4 +513,15 @@
 	strategyButtons.forEach(function(b){b.addEventListener('click',function(){handleStrategyToggle(b.getAttribute('data-strategy'));});});
 	if(restartBtn){restartBtn.addEventListener('click',function(){resetAuditState();});}
 	if(downloadBtn){downloadBtn.addEventListener('click',function(){generatePDF();});}
+
+	if(auditMode==='result'){
+		var resultStartUrl=normalizeUrl(initialUrl);
+		if(resultStartUrl){
+			state.currentUrl=resultStartUrl;
+			state.runId+=1;
+			refreshAuditNonces().catch(function(){return null;}).then(function(){runInitialAudit();});
+		}else if(websiteAuditUrl){
+			window.location.assign(websiteAuditUrl);
+		}
+	}
 })();

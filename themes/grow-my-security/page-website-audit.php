@@ -6,6 +6,19 @@
  * @package GrowMySecurity
  */
 
+$is_audit_result_page = is_page( 'audit-result' );
+$audit_result_token   = $is_audit_result_page ? sanitize_text_field( wp_unslash( $_GET['audit'] ?? '' ) ) : '';
+$audit_result_request = [];
+
+if ( $is_audit_result_page ) {
+	$audit_result_request = function_exists( 'gms_get_audit_result_request' ) ? gms_get_audit_result_request( $audit_result_token ) : [];
+
+	if ( empty( $audit_result_request['website_url'] ) ) {
+		wp_safe_redirect( home_url( '/website-audit/' ) );
+		exit;
+	}
+}
+
 get_header();
 
 if ( function_exists( 'gms_render_elementor_content_fallback' ) && gms_render_elementor_content_fallback() ) {
@@ -13,12 +26,15 @@ if ( function_exists( 'gms_render_elementor_content_fallback' ) && gms_render_el
 	return;
 }
 
-$contact_url = home_url( '/contact-us/' );
-$logo_url    = function_exists( 'gms_get_brand_asset_url' ) ? gms_get_brand_asset_url( 'logo' ) : get_theme_file_uri( 'assets/images/logo.png' );
+$contact_url       = home_url( '/contact-us/' );
+$website_audit_url = home_url( '/website-audit/' );
+$audit_result_url  = home_url( '/audit-result/' );
+$initial_audit_url = $is_audit_result_page ? (string) ( $audit_result_request['website_url'] ?? '' ) : '';
+$logo_url          = function_exists( 'gms_get_brand_asset_url' ) ? gms_get_brand_asset_url( 'logo' ) : get_theme_file_uri( 'assets/images/logo.png' );
 $audit_logo_url = get_theme_file_uri( 'assets/images/website-audit-logo-back-remove.png' );
 ?>
 
-<div class="gms-audit-page" id="gms-audit-app" data-ajax-url="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" data-lead-nonce="<?php echo esc_attr( wp_create_nonce( 'gms_audit_lead' ) ); ?>" data-audit-nonce="<?php echo esc_attr( wp_create_nonce( 'gms_audit_fetch' ) ); ?>" data-default-strategy="desktop" data-contact-url="<?php echo esc_url( $contact_url ); ?>">
+<div class="gms-audit-page <?php echo esc_attr( $is_audit_result_page ? 'gms-audit-page--result' : 'gms-audit-page--form' ); ?>" id="gms-audit-app" data-ajax-url="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" data-lead-nonce="<?php echo esc_attr( wp_create_nonce( 'gms_audit_lead' ) ); ?>" data-audit-nonce="<?php echo esc_attr( wp_create_nonce( 'gms_audit_fetch' ) ); ?>" data-default-strategy="desktop" data-contact-url="<?php echo esc_url( $contact_url ); ?>" data-audit-mode="<?php echo esc_attr( $is_audit_result_page ? 'result' : 'form' ); ?>" data-initial-url="<?php echo esc_attr( $initial_audit_url ); ?>" data-result-url="<?php echo esc_url( $audit_result_url ); ?>" data-website-audit-url="<?php echo esc_url( $website_audit_url ); ?>">
 
 	<!-- ═══════════════ AMBIENT BACKGROUND ═══════════════ -->
 	<div class="gms-audit-ambient" aria-hidden="true">
@@ -29,6 +45,7 @@ $audit_logo_url = get_theme_file_uri( 'assets/images/website-audit-logo-back-rem
 	</div>
 
 	<!-- ═══════════════ STEP 1 — HERO / CTA BUTTON ═══════════════ -->
+	<?php if ( ! $is_audit_result_page ) : ?>
 	<section class="gms-audit-step gms-audit-step--hero is-active" id="gms-audit-step-hero" aria-labelledby="gms-audit-hero-title">
 		<div class="gms-audit-container">
 			<div class="gms-audit-hero">
@@ -133,7 +150,7 @@ $audit_logo_url = get_theme_file_uri( 'assets/images/website-audit-logo-back-rem
 					<span class="gms-audit-field__error" data-error-for="website_url"></span>
 				</div>
 
-				<?php if ( function_exists( 'gms_get_turnstile_site_key' ) && '' !== gms_get_turnstile_site_key() ) : ?>
+				<?php if ( function_exists( 'gms_turnstile_is_enabled' ) && gms_turnstile_is_enabled() && function_exists( 'gms_get_turnstile_site_key' ) && '' !== gms_get_turnstile_site_key() ) : ?>
 					<div class="gms-audit-turnstile" id="gms-audit-turnstile" data-sitekey="<?php echo esc_attr( gms_get_turnstile_site_key() ); ?>"></div>
 					<span class="gms-audit-field__error gms-audit-field__error--turnstile" id="gms-audit-turnstile-error"></span>
 				<?php endif; ?>
@@ -152,9 +169,17 @@ $audit_logo_url = get_theme_file_uri( 'assets/images/website-audit-logo-back-rem
 	</div>
 
 	<!-- ═══════════════ STEP 3 — AUDIT LOADER ═══════════════ -->
+	<?php endif; ?>
 	<section class="gms-audit-step gms-audit-step--loader" id="gms-audit-step-loader" hidden aria-labelledby="gms-audit-loader-title">
 		<div class="gms-audit-container">
 			<div class="gms-audit-loader">
+				<?php if ( $is_audit_result_page ) : ?>
+					<div class="gms-audit-loader__thanks">
+						<span class="gms-audit-loader__thanks-kicker"><?php esc_html_e( 'Thank you', 'grow-my-security' ); ?></span>
+						<h1><?php esc_html_e( 'Your audit request has been received.', 'grow-my-security' ); ?></h1>
+						<p><?php esc_html_e( 'We are generating your website audit now. Keep this page open and your report will appear here automatically.', 'grow-my-security' ); ?></p>
+					</div>
+				<?php endif; ?>
 				<div class="gms-audit-loader__shield" aria-hidden="true">
 					<svg viewBox="0 0 80 96" class="gms-audit-loader__shield-svg">
 						<path d="M40 4 8 18v24c0 22.2 15.36 42.96 32 48 16.64-5.04 32-25.8 32-48V18L40 4Z" fill="none" stroke="currentColor" stroke-width="2"/>

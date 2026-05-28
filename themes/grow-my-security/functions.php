@@ -2275,6 +2275,40 @@ if ( ! function_exists( 'gms_get_contact_form_recipient' ) ) {
 	}
 }
 
+/**
+ * Keep the public contact page out of page caches because it prints nonce values.
+ */
+function gms_send_contact_page_no_cache_headers(): void {
+	if ( ! is_page( 'contact-us' ) ) {
+		return;
+	}
+
+	if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+		define( 'DONOTCACHEPAGE', true );
+	}
+
+	nocache_headers();
+	header( 'Cache-Control: no-store, no-cache, must-revalidate, max-age=0', true );
+	header( 'Pragma: no-cache', true );
+	header( 'Expires: Wed, 11 Jan 1984 05:00:00 GMT', true );
+}
+add_action( 'template_redirect', 'gms_send_contact_page_no_cache_headers', 0 );
+
+/**
+ * Return a fresh contact form nonce for cached/stale browser sessions.
+ */
+function gms_ajax_refresh_contact_nonce(): void {
+	nocache_headers();
+
+	wp_send_json_success(
+		[
+			'nonce' => wp_create_nonce( 'gms_contact_form' ),
+		]
+	);
+}
+add_action( 'wp_ajax_nopriv_gms_contact_refresh_nonce', 'gms_ajax_refresh_contact_nonce' );
+add_action( 'wp_ajax_gms_contact_refresh_nonce', 'gms_ajax_refresh_contact_nonce' );
+
 if ( ! function_exists( 'gms_handle_local_mail_probe' ) ) {
 	function gms_handle_local_mail_probe(): void {
 		if ( ! isset( $_GET['gms_mail_probe'] ) ) {
@@ -2333,8 +2367,32 @@ if ( ! function_exists( 'gms_get_turnstile_secret_key' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gms_is_local_development_request' ) ) {
+	function gms_is_local_development_request(): bool {
+		$host = (string) ( $_SERVER['HTTP_HOST'] ?? '' );
+
+		if ( '' === $host ) {
+			$host = (string) wp_parse_url( home_url(), PHP_URL_HOST );
+		}
+
+		$host = strtolower( trim( $host ) );
+		$host = (string) preg_replace( '/:\d+$/', '', $host );
+		$host = trim( $host, '[]' );
+
+		if ( in_array( $host, [ 'localhost', '127.0.0.1', '::1' ], true ) ) {
+			return true;
+		}
+
+		return (bool) preg_match( '/\.(test|local|localhost)$/', $host );
+	}
+}
+
 if ( ! function_exists( 'gms_turnstile_is_enabled' ) ) {
 	function gms_turnstile_is_enabled(): bool {
+		if ( gms_is_local_development_request() ) {
+			return false;
+		}
+
 		return '' !== gms_get_turnstile_site_key() && '' !== gms_get_turnstile_secret_key();
 	}
 }
@@ -2343,7 +2401,7 @@ if ( ! function_exists( 'gms_enqueue_turnstile_assets' ) ) {
 	function gms_enqueue_turnstile_assets(): void {
 		$site_key = gms_get_turnstile_site_key();
 
-		if ( '' === $site_key || is_admin() ) {
+		if ( '' === $site_key || is_admin() || ! gms_turnstile_is_enabled() ) {
 			return;
 		}
 
@@ -2859,33 +2917,98 @@ function gms_maybe_create_audit_leads_table() {
 }
 add_action( 'init', 'gms_maybe_create_audit_leads_table', 5 );
 
-/**
- * Auto-create the Website Audit page if it doesn't exist.
- */
-function gms_ensure_audit_page_exists() {
-	if ( function_exists( 'gms_should_skip_runtime_maintenance_tasks' ) && gms_should_skip_runtime_maintenance_tasks() ) {
-		return;
+function gms_create_audit_result_token( string $website_url, int $lead_id = 0 ): string {
+	try {
+		$token = bin2hex( random_bytes( 16 ) );
+	} catch ( Exception $e ) {
+		$token = strtolower( preg_replace( '/[^a-zA-Z0-9]/', '', wp_generate_password( 32, false, false ) ) );
 	}
 
-	$page = get_page_by_path( 'website-audit' );
-
-	if ( $page instanceof WP_Post ) {
-		return;
+	if ( '' === $token ) {
+		$token = md5( wp_generate_uuid4() . '|' . microtime( true ) );
 	}
 
-	$page_id = wp_insert_post(
+	set_transient(
+		'gms_audit_result_' . $token,
 		[
-			'post_title'   => 'Website Audit',
-			'post_name'    => 'website-audit',
-			'post_status'  => 'publish',
-			'post_type'    => 'page',
-			'post_content' => '',
-			'post_author'  => 1,
-		]
+			'website_url' => $website_url,
+			'lead_id'     => max( 0, $lead_id ),
+			'created_at'  => time(),
+		],
+		2 * HOUR_IN_SECONDS
 	);
 
-	if ( $page_id && ! is_wp_error( $page_id ) ) {
-		update_post_meta( $page_id, '_wp_page_template', 'page-website-audit.php' );
+	return $token;
+}
+
+function gms_get_audit_result_request( string $token ): array {
+	$token = preg_replace( '/[^a-zA-Z0-9]/', '', $token );
+
+	if ( '' === $token ) {
+		return [];
+	}
+
+	$request = get_transient( 'gms_audit_result_' . $token );
+
+	if ( ! is_array( $request ) ) {
+		return [];
+	}
+
+	$website_url = esc_url_raw( (string) ( $request['website_url'] ?? '' ) );
+
+	if ( '' === $website_url ) {
+		return [];
+	}
+
+	return [
+		'website_url' => $website_url,
+		'lead_id'     => isset( $request['lead_id'] ) ? (int) $request['lead_id'] : 0,
+		'created_at'  => isset( $request['created_at'] ) ? (int) $request['created_at'] : 0,
+	];
+}
+
+/**
+ * Auto-create the Website Audit and Audit Result pages if they don't exist.
+ */
+function gms_ensure_audit_page_exists() {
+	$request_path          = (string) wp_parse_url( (string) ( $_SERVER['REQUEST_URI'] ?? '' ), PHP_URL_PATH );
+	$request_slug          = basename( trim( $request_path, '/' ) );
+	$is_audit_page_request = in_array( $request_slug, [ 'website-audit', 'audit-result' ], true );
+
+	if ( function_exists( 'gms_should_skip_runtime_maintenance_tasks' ) && gms_should_skip_runtime_maintenance_tasks() && ! $is_audit_page_request ) {
+		return;
+	}
+
+	$pages = [
+		'website-audit' => 'Website Audit',
+		'audit-result'  => 'Audit Result',
+	];
+
+	foreach ( $pages as $slug => $title ) {
+		$page = get_page_by_path( $slug );
+
+		if ( $page instanceof WP_Post ) {
+			if ( 'page-website-audit.php' !== get_post_meta( $page->ID, '_wp_page_template', true ) ) {
+				update_post_meta( $page->ID, '_wp_page_template', 'page-website-audit.php' );
+			}
+
+			continue;
+		}
+
+		$page_id = wp_insert_post(
+			[
+				'post_title'   => $title,
+				'post_name'    => $slug,
+				'post_status'  => 'publish',
+				'post_type'    => 'page',
+				'post_content' => '',
+				'post_author'  => 1,
+			]
+		);
+
+		if ( $page_id && ! is_wp_error( $page_id ) ) {
+			update_post_meta( $page_id, '_wp_page_template', 'page-website-audit.php' );
+		}
 	}
 }
 add_action( 'init', 'gms_ensure_audit_page_exists', 20 );
@@ -3307,7 +3430,7 @@ add_action( 'init', 'gms_sync_industries_elementor_grid', 22 );
  * Keep the public audit page out of normal page caches because it prints nonce values.
  */
 function gms_send_audit_page_no_cache_headers(): void {
-	if ( ! is_page( 'website-audit' ) ) {
+	if ( ! is_page( [ 'website-audit', 'audit-result' ] ) ) {
 		return;
 	}
 
@@ -3365,6 +3488,8 @@ function gms_handle_audit_lead_submission() {
 		wp_send_json_error( [ 'message' => 'Name, valid email, and website URL are required.' ], 422 );
 	}
 
+	$is_local_audit_preview = gms_is_local_development_request();
+
 	// ─── Store in database ───
 	global $wpdb;
 	$table = $wpdb->prefix . 'gms_audit_leads';
@@ -3381,6 +3506,7 @@ function gms_handle_audit_lead_submission() {
 		],
 		[ '%s', '%s', '%s', '%s', '%s', '%s' ]
 	);
+	$audit_lead_id = (int) $wpdb->insert_id;
 
 	// ─── Email notification ───
 	$recipient = gms_get_contact_form_recipient();
@@ -3400,38 +3526,59 @@ function gms_handle_audit_lead_submission() {
 		'Reply-To: ' . $name . ' <' . $email . '>',
 	];
 
-	gms_write_mail_debug_log( [
-		'event'     => 'audit_lead_attempt',
-		'mailer'    => gms_is_smtp_ready() ? 'smtp' : 'default',
-		'recipient' => $recipient,
-		'name'      => $name,
-		'email'     => $email,
-		'website'   => $website_url,
-	] );
+	$sent = false;
 
-	$sent = wp_mail( $recipient, $subject, $body, $headers );
-
-	gms_write_mail_debug_log( [
-		'event'     => $sent ? 'audit_lead_sent' : 'audit_lead_failed',
-		'mailer'    => gms_is_smtp_ready() ? 'smtp' : 'default',
-		'recipient' => $recipient,
-		'name'      => $name,
-	] );
-
-	// Retry once on failure after a brief pause.
-	if ( ! $sent ) {
-		sleep( 2 );
-		$sent = wp_mail( $recipient, $subject, $body, $headers );
+	if ( $is_local_audit_preview ) {
 		gms_write_mail_debug_log( [
-			'event'     => $sent ? 'audit_lead_retry_sent' : 'audit_lead_retry_failed',
+			'event'     => 'audit_lead_mail_skipped_local',
+			'mailer'    => gms_is_smtp_ready() ? 'smtp' : 'default',
+			'recipient' => $recipient,
+			'name'      => $name,
+			'email'     => $email,
+			'website'   => $website_url,
+		] );
+	} else {
+		gms_write_mail_debug_log( [
+			'event'     => 'audit_lead_attempt',
+			'mailer'    => gms_is_smtp_ready() ? 'smtp' : 'default',
+			'recipient' => $recipient,
+			'name'      => $name,
+			'email'     => $email,
+			'website'   => $website_url,
+		] );
+
+		$sent = wp_mail( $recipient, $subject, $body, $headers );
+
+		gms_write_mail_debug_log( [
+			'event'     => $sent ? 'audit_lead_sent' : 'audit_lead_failed',
 			'mailer'    => gms_is_smtp_ready() ? 'smtp' : 'default',
 			'recipient' => $recipient,
 			'name'      => $name,
 		] );
+
+		// Retry once on failure after a brief pause.
+		if ( ! $sent ) {
+			sleep( 2 );
+			$sent = wp_mail( $recipient, $subject, $body, $headers );
+			gms_write_mail_debug_log( [
+				'event'     => $sent ? 'audit_lead_retry_sent' : 'audit_lead_retry_failed',
+				'mailer'    => gms_is_smtp_ready() ? 'smtp' : 'default',
+				'recipient' => $recipient,
+				'name'      => $name,
+			] );
+		}
 	}
 
 	// ─── Optional webhook ───
-	gms_send_leadconnector_webhook(
+	if ( $is_local_audit_preview ) {
+		gms_write_mail_debug_log( [
+			'event'   => 'audit_lead_webhook_skipped_local',
+			'name'    => $name,
+			'email'   => $email,
+			'website' => $website_url,
+		] );
+	} else {
+		gms_send_leadconnector_webhook(
 		[
 			'form_type'       => 'website_audit',
 			'name'            => $name,
@@ -3467,10 +3614,21 @@ function gms_handle_audit_lead_submission() {
 	}
 
 	// ─── Increment sites scanned counter ───
+	}
+
 	$current_scans = (int) get_option( 'gms_audit_sites_scanned', 12400 );
 	update_option( 'gms_audit_sites_scanned', $current_scans + 1 );
 
-	wp_send_json_success( [ 'message' => 'Lead captured.' ] );
+	$audit_token = gms_create_audit_result_token( $website_url, $audit_lead_id );
+	$result_url  = add_query_arg( 'audit', rawurlencode( $audit_token ), home_url( '/audit-result/' ) );
+
+	wp_send_json_success(
+		[
+			'message'      => 'Lead captured.',
+			'audit_token'  => $audit_token,
+			'redirect_url' => esc_url_raw( $result_url ),
+		]
+	);
 }
 add_action( 'admin_post_nopriv_gms_audit_lead', 'gms_handle_audit_lead_submission' );
 add_action( 'admin_post_gms_audit_lead', 'gms_handle_audit_lead_submission' );
@@ -5199,7 +5357,7 @@ add_action( 'wp_ajax_gms_audit_update_scores', 'gms_handle_audit_score_update' )
  * Enqueue audit page assets.
  */
 function gms_enqueue_audit_page_assets() {
-	if ( ! is_page( 'website-audit' ) ) {
+	if ( ! is_page( [ 'website-audit', 'audit-result' ] ) ) {
 		return;
 	}
 

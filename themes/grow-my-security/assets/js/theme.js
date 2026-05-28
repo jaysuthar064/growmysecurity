@@ -756,6 +756,43 @@ document.addEventListener('DOMContentLoaded', () => {
   if (contactValidationForms.length) {
     const phonePattern = /^[0-9\s().+-]+$/;
     const getPhoneDigits = (value) => String(value || '').replace(/\D/g, '').replace(/^1(?=\d{10}$)/, '');
+    const getContactAjaxUrl = (form) => {
+      const action = form.getAttribute('action') || '';
+
+      try {
+        const url = new URL(action, window.location.href);
+        url.pathname = url.pathname.replace(/\/wp-admin\/admin-post\.php$/, '/wp-admin/admin-ajax.php');
+        return url.href;
+      } catch (error) {
+        return `${window.location.origin}/wp-admin/admin-ajax.php`;
+      }
+    };
+    const refreshContactNonce = async (form) => {
+      const nonceField = form.querySelector('input[name="gms_contact_nonce"]');
+      const actionField = form.querySelector('input[name="action"][value="gms_contact_form"]');
+
+      if (!nonceField || !actionField || typeof window.fetch !== 'function') {
+        return false;
+      }
+
+      const body = new FormData();
+      body.append('action', 'gms_contact_refresh_nonce');
+
+      const response = await fetch(getContactAjaxUrl(form), {
+        method: 'POST',
+        credentials: 'same-origin',
+        body
+      });
+      const data = await response.json();
+      const nonce = data?.success && data?.data?.nonce ? String(data.data.nonce) : '';
+
+      if (!nonce) {
+        return false;
+      }
+
+      nonceField.value = nonce;
+      return true;
+    };
 
     const getFieldLabel = (field) => {
       const label = field.closest('label');
@@ -890,6 +927,11 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       form.addEventListener('submit', (event) => {
+        if (form.dataset.gmsContactNonceReady === '1') {
+          delete form.dataset.gmsContactNonceReady;
+          return;
+        }
+
         const fields = Array.from(form.querySelectorAll('input, select, textarea'));
         let firstInvalid = null;
 
@@ -903,7 +945,47 @@ document.addEventListener('DOMContentLoaded', () => {
           event.preventDefault();
           firstInvalid.focus({ preventScroll: true });
           firstInvalid.scrollIntoView({ block: 'center', behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+          return;
         }
+
+        if (form.dataset.gmsContactRefreshingNonce === '1') {
+          event.preventDefault();
+          return;
+        }
+
+        const nonceField = form.querySelector('input[name="gms_contact_nonce"]');
+        const actionField = form.querySelector('input[name="action"][value="gms_contact_form"]');
+
+        if (!nonceField || !actionField) {
+          return;
+        }
+
+        event.preventDefault();
+        form.dataset.gmsContactRefreshingNonce = '1';
+
+        const submitter = event.submitter || form.querySelector('button[type="submit"], input[type="submit"]');
+
+        if (submitter) {
+          submitter.disabled = true;
+          submitter.setAttribute('aria-busy', 'true');
+        }
+
+        refreshContactNonce(form).catch(() => false).finally(() => {
+          form.dataset.gmsContactRefreshingNonce = '0';
+
+          if (submitter) {
+            submitter.disabled = false;
+            submitter.removeAttribute('aria-busy');
+          }
+
+          form.dataset.gmsContactNonceReady = '1';
+
+          if (typeof form.requestSubmit === 'function') {
+            form.requestSubmit(submitter instanceof HTMLElement && submitter.form === form ? submitter : undefined);
+          } else {
+            HTMLFormElement.prototype.submit.call(form);
+          }
+        });
       });
     });
   }
