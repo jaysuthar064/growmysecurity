@@ -27,6 +27,10 @@ if ( $is_audit_result_page ) {
 		wp_safe_redirect( home_url( '/audit-result/' ) );
 		exit;
 	}
+
+	if ( function_exists( 'gms_clear_audit_result_cookie' ) ) {
+		gms_clear_audit_result_cookie();
+	}
 }
 
 get_header();

@@ -3014,6 +3014,32 @@ function gms_set_audit_result_cookie( string $token ): void {
 	$_COOKIE[ $name ] = $token;
 }
 
+function gms_clear_audit_result_cookie(): void {
+	$name   = gms_get_audit_result_cookie_name();
+	$path   = gms_get_cookie_path();
+	$domain = defined( 'COOKIE_DOMAIN' ) ? COOKIE_DOMAIN : '';
+	$secure = is_ssl() || ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && false !== stripos( (string) $_SERVER['HTTP_X_FORWARDED_PROTO'], 'https' ) );
+
+	if ( PHP_VERSION_ID >= 70300 ) {
+		setcookie(
+			$name,
+			'',
+			[
+				'expires'  => time() - HOUR_IN_SECONDS,
+				'path'     => $path,
+				'domain'   => $domain,
+				'secure'   => $secure,
+				'httponly' => true,
+				'samesite' => 'Lax',
+			]
+		);
+	} else {
+		setcookie( $name, '', time() - HOUR_IN_SECONDS, $path . '; SameSite=Lax', $domain, $secure, true );
+	}
+
+	unset( $_COOKIE[ $name ] );
+}
+
 function gms_get_audit_result_token_from_request(): string {
 	$name  = gms_get_audit_result_cookie_name();
 	$token = sanitize_text_field( wp_unslash( $_COOKIE[ $name ] ?? '' ) );
