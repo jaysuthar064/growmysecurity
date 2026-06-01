@@ -154,8 +154,9 @@ $audit_logo_url = get_theme_file_uri( 'assets/images/website-audit-logo-back-rem
 				</div>
 
 				<div class="gms-audit-field">
-					<label for="gms-audit-lead-company"><?php esc_html_e( 'Company', 'grow-my-security' ); ?> <span class="gms-audit-field__optional">(<?php esc_html_e( 'Optional', 'grow-my-security' ); ?>)</span></label>
-					<input type="text" id="gms-audit-lead-company" name="company" placeholder="<?php esc_attr_e( 'Acme Security Inc.', 'grow-my-security' ); ?>" autocomplete="organization">
+					<label for="gms-audit-lead-company"><?php esc_html_e( 'Company', 'grow-my-security' ); ?> <span aria-hidden="true">*</span></label>
+					<input type="text" id="gms-audit-lead-company" name="company" placeholder="<?php esc_attr_e( 'Acme Security Inc.', 'grow-my-security' ); ?>" required autocomplete="organization">
+					<span class="gms-audit-field__error" data-error-for="company"></span>
 				</div>
 
 				<div class="gms-audit-field">

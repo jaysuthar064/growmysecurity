@@ -277,9 +277,10 @@
 		var companyEl=document.getElementById('gms-audit-lead-company');
 		var urlEl=document.getElementById('gms-audit-lead-url');
 		var valid=true;
-		[nameEl,emailEl,urlEl].forEach(function(f){if(!f) return;f.classList.remove('is-invalid');var fe=f.parentElement.querySelector('.gms-audit-field__error');if(fe) fe.textContent='';});
+		[nameEl,emailEl,companyEl,urlEl].forEach(function(f){if(!f) return;f.classList.remove('is-invalid');var fe=f.parentElement.querySelector('.gms-audit-field__error');if(fe) fe.textContent='';});
 		if(!nameEl||!String(nameEl.value||'').trim()){valid=false;if(nameEl){nameEl.classList.add('is-invalid');var ne=nameEl.parentElement.querySelector('.gms-audit-field__error');if(ne) ne.textContent='Name is required';}}
 		if(!emailEl||!isValidEmail(emailEl.value)){valid=false;if(emailEl){emailEl.classList.add('is-invalid');var ee=emailEl.parentElement.querySelector('.gms-audit-field__error');if(ee) ee.textContent='Valid email is required';}}
+		if(!companyEl||!String(companyEl.value||'').trim()){valid=false;if(companyEl){companyEl.classList.add('is-invalid');var ce=companyEl.parentElement.querySelector('.gms-audit-field__error');if(ce) ce.textContent='Company is required';}}
 		var rawUrl=urlEl?String(urlEl.value||'').trim():'';
 		var normalized=normalizeUrl(rawUrl);
 		if(!normalized||!isValidUrl(normalized)){valid=false;if(urlEl){urlEl.classList.add('is-invalid');var ue=urlEl.parentElement.querySelector('.gms-audit-field__error');if(ue) ue.textContent='Valid website URL is required';}}

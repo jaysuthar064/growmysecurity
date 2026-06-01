@@ -3568,8 +3568,8 @@ function gms_handle_audit_lead_submission() {
 	$website_url = esc_url_raw( wp_unslash( $_POST['website_url']         ?? '' ) );
 	$ip_address  = sanitize_text_field( $_SERVER['REMOTE_ADDR'] ?? '' );
 
-	if ( '' === $name || ! is_email( $email ) || '' === $website_url ) {
-		wp_send_json_error( [ 'message' => 'Name, valid email, and website URL are required.' ], 422 );
+	if ( '' === $name || ! is_email( $email ) || '' === $company || '' === $website_url ) {
+		wp_send_json_error( [ 'message' => 'Name, valid email, company, and website URL are required.' ], 422 );
 	}
 
 	$is_local_audit_preview = gms_is_local_development_request();
@@ -3600,7 +3600,7 @@ function gms_handle_audit_lead_submission() {
 		'',
 		'Name:    ' . $name,
 		'Email:   ' . $email,
-		'Company: ' . ( $company ?: 'Not provided' ),
+		'Company: ' . $company,
 		'Website: ' . $website_url,
 		'IP:      ' . $ip_address,
 		'Time:    ' . current_time( 'Y-m-d H:i:s' ),
@@ -3653,53 +3653,7 @@ function gms_handle_audit_lead_submission() {
 		}
 	}
 
-	// ─── Optional webhook ───
-	if ( $is_local_audit_preview ) {
-		gms_write_mail_debug_log( [
-			'event'   => 'audit_lead_webhook_skipped_local',
-			'name'    => $name,
-			'email'   => $email,
-			'website' => $website_url,
-		] );
-	} else {
-		gms_send_leadconnector_webhook(
-		[
-			'form_type'       => 'website_audit',
-			'name'            => $name,
-			'full_name'       => $name,
-			'email'           => $email,
-			'company'         => $company,
-			'website_url'     => $website_url,
-			'ip_address'      => $ip_address,
-			'email_sent'      => (bool) $sent,
-			'email_recipient' => $recipient,
-		],
-		'website_audit'
-	);
-
-	$webhook_url = get_theme_mod( 'gms_audit_webhook_url', '' );
-	if ( '' !== $webhook_url ) {
-		wp_remote_post(
-			$webhook_url,
-			[
-				'body'      => wp_json_encode( [
-					'name'        => $name,
-					'email'       => $email,
-					'company'     => $company,
-					'website_url' => $website_url,
-					'timestamp'   => current_time( 'c' ),
-				] ),
-				'headers'   => [ 'Content-Type' => 'application/json' ],
-				'timeout'   => 5,
-				'blocking'  => false,
-				'sslverify' => false,
-			]
-		);
-	}
-
 	// ─── Increment sites scanned counter ───
-	}
-
 	$current_scans = (int) get_option( 'gms_audit_sites_scanned', 12400 );
 	update_option( 'gms_audit_sites_scanned', $current_scans + 1 );
 
@@ -5485,27 +5439,6 @@ function gms_enqueue_audit_page_assets() {
 	wp_script_add_data( 'grow-my-security-audit', 'strategy', 'defer' );
 }
 add_action( 'wp_enqueue_scripts', 'gms_enqueue_audit_page_assets', 1010 );
-
-/**
- * Customizer: add webhook URL field for audit leads.
- */
-function gms_audit_customizer_settings( $wp_customize ) {
-	$wp_customize->add_setting( 'gms_audit_webhook_url', [
-		'default'           => '',
-		'sanitize_callback' => 'esc_url_raw',
-	] );
-
-	// Only add the control if the brand section exists.
-	$section_id = $wp_customize->get_section( 'gms_brand_section' ) ? 'gms_brand_section' : 'title_tagline';
-
-	$wp_customize->add_control( 'gms_audit_webhook_url', [
-		'label'       => __( 'Audit Lead Webhook URL', 'grow-my-security' ),
-		'description' => __( 'Optional Zapier / CRM webhook to receive audit leads as JSON POST.', 'grow-my-security' ),
-		'section'     => $section_id,
-		'type'        => 'url',
-	] );
-}
-add_action( 'customize_register', 'gms_audit_customizer_settings', 30 );
 
 /**
  * Check whether the current page should use the shared service detail experience.

@@ -64,6 +64,8 @@ abstract class GMS_Widget_Base extends Widget_Base {
 			return '';
 		}
 
+		$text = wp_specialchars_decode( $text, ENT_QUOTES );
+
 		return wp_kses_post( wpautop( $text ) );
 	}
 
