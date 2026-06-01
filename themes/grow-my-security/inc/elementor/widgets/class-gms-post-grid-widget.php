@@ -62,7 +62,7 @@ class Post_Grid_Widget extends GMS_Widget_Base {
 		$repeater = new Repeater();
 		$repeater->add_control( 'meta', [ 'label' => __( 'Meta', 'grow-my-security' ), 'type' => Controls_Manager::TEXT ] );
 		$repeater->add_control( 'title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'label_block' => true ] );
-		$repeater->add_control( 'excerpt', [ 'label' => __( 'Excerpt', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA ] );
+		$repeater->add_control( 'excerpt', [ 'label' => __( 'Excerpt', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG ] );
 		$repeater->add_control( 'image', [ 'label' => __( 'Image', 'grow-my-security' ), 'type' => Controls_Manager::MEDIA ] );
 		$repeater->add_control( 'url', [ 'label' => __( 'URL', 'grow-my-security' ), 'type' => Controls_Manager::URL ] );
 		$repeater->add_control( 'metric_value', [ 'label' => __( 'Metric Value', 'grow-my-security' ), 'type' => Controls_Manager::TEXT ] );
@@ -127,7 +127,7 @@ class Post_Grid_Widget extends GMS_Widget_Base {
 				<div class="gms-homepage-section-heading gms-homepage-section-heading--center gms-homepage-section-heading--wide">
 					<div class="gms-homepage-chip"><span class="gms-homepage-chip__icon gms-homepage-chip__icon--blogs" aria-hidden="true"></span><span><?php echo esc_html( $settings['eyebrow'] ?? '' ); ?></span></div>
 					<h2><?php echo esc_html( $settings['title'] ?? '' ); ?></h2>
-					<?php if ( ! empty( $settings['description'] ) ) : ?><p><?php echo esc_html( $settings['description'] ); ?></p><?php endif; ?>
+					<?php if ( ! empty( $settings['description'] ) ) : ?><?php $this->render_rich_text( (string) $settings['description'] ); ?><?php endif; ?>
 				</div>
 				<div class="gms-homepage-journal__grid">
 					<?php foreach ( $settings['items'] as $item ) : ?>
@@ -162,7 +162,7 @@ class Post_Grid_Widget extends GMS_Widget_Base {
 				<div class="gms-homepage-section-heading gms-homepage-section-heading--center gms-homepage-section-heading--wide">
 					<div class="gms-homepage-chip"><span class="gms-homepage-chip__icon gms-homepage-chip__icon--solution" aria-hidden="true"></span><span><?php echo esc_html( $settings['eyebrow'] ?? '' ); ?></span></div>
 					<h2><?php echo esc_html( $settings['title'] ?? '' ); ?></h2>
-					<?php if ( ! empty( $settings['description'] ) ) : ?><p><?php echo esc_html( $settings['description'] ); ?></p><?php endif; ?>
+					<?php if ( ! empty( $settings['description'] ) ) : ?><?php $this->render_rich_text( (string) $settings['description'] ); ?><?php endif; ?>
 				</div>
 				<div class="gms-cs-grid">
 					<?php foreach ( $settings['items'] as $index => $item ) : ?>
@@ -188,7 +188,7 @@ class Post_Grid_Widget extends GMS_Widget_Base {
 							</div>
 							<div class="gms-cs-card__content">
 								<h3><?php echo esc_html( $item['title'] ?? '' ); ?></h3>
-								<p><?php echo esc_html( $item['excerpt'] ?? '' ); ?></p>
+								<?php $this->render_rich_text( (string) ( $item['excerpt'] ?? '' ) ); ?>
 								<?php if ( $item_url ) : ?>
 									<a href="<?php echo esc_url( $item_url ); ?>" class="gms-cs-card__link"><?php echo esc_html( $settings['card_button_text'] ?? __( 'View Case Study', 'grow-my-security' ) ); ?></a>
 								<?php endif; ?>
@@ -241,7 +241,7 @@ class Post_Grid_Widget extends GMS_Widget_Base {
 									<?php echo esc_html( $item['title'] ?? '' ); ?>
 								<?php endif; ?>
 							</h3>
-							<p><?php echo esc_html( $item['excerpt'] ?? '' ); ?></p>
+							<?php $this->render_rich_text( (string) ( $item['excerpt'] ?? '' ) ); ?>
 							<?php if ( $has_item_link && '' !== trim( $card_button_text ) ) : ?>
 								<div class="gms-post-card__actions">
 									<?php $this->render_link( 'post-card-cta-' . $this->get_id() . '-' . $index, $item['url'] ?? [], $card_button_text, 'gms-post-card__cta' ); ?>
@@ -289,7 +289,7 @@ class Post_Grid_Widget extends GMS_Widget_Base {
 							<?php echo esc_html( $item['title'] ?? '' ); ?>
 						<?php endif; ?>
 					</h3>
-					<p><?php echo esc_html( $item['excerpt'] ?? '' ); ?></p>
+					<?php $this->render_rich_text( (string) ( $item['excerpt'] ?? '' ) ); ?>
 					<?php if ( $has_item_link && '' !== trim( $card_button_text ) ) : ?>
 						<div class="gms-post-card__actions">
 							<?php $this->render_link( 'post-card-cta-inline-' . $this->get_id() . '-' . $index, $item['url'] ?? [], $card_button_text, 'gms-post-card__cta' ); ?>
@@ -350,7 +350,7 @@ class Post_Grid_Widget extends GMS_Widget_Base {
 					<h1><?php echo esc_html( $title ); ?></h1>
 					<?php if ( '' !== trim( $description ) ) : ?>
 						<div class="gms-approved-intro__lede">
-							<p><?php echo esc_html( $description ); ?></p>
+							<?php $this->render_rich_text( (string) $description ); ?>
 						</div>
 					<?php endif; ?>
 				</div>

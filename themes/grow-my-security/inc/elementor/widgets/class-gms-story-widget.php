@@ -65,9 +65,9 @@ class Story_Widget extends GMS_Widget_Base {
 				'default' => [ 'url' => \gms_asset( 'assets/images/image-3.png' ) ],
 			]
 		);
-		$this->add_control( 'supporting_text', [ 'label' => __( 'Supporting Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA ] );
-		$this->add_control( 'copy_secondary', [ 'label' => __( 'Secondary Copy', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA ] );
-		$this->add_control( 'highlight_text', [ 'label' => __( 'Highlight Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA ] );
+		$this->add_control( 'supporting_text', [ 'label' => __( 'Supporting Text', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG ] );
+		$this->add_control( 'copy_secondary', [ 'label' => __( 'Secondary Copy', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG ] );
+		$this->add_control( 'highlight_text', [ 'label' => __( 'Highlight Text', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG ] );
 		$this->add_control( 'bullets', [ 'label' => __( 'Bullets', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'description' => __( 'One per line.', 'grow-my-security' ) ] );
 		$this->add_control( 'chips', [ 'label' => __( 'Chips', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'description' => __( 'One per line.', 'grow-my-security' ) ] );
 		$this->add_control( 'button_text', [ 'label' => __( 'Button Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXT ] );
@@ -76,7 +76,7 @@ class Story_Widget extends GMS_Widget_Base {
 
 		$repeater = new Repeater();
 		$repeater->add_control( 'title', [ 'label' => __( 'Value Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXT ] );
-		$repeater->add_control( 'text', [ 'label' => __( 'Value Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA ] );
+		$repeater->add_control( 'text', [ 'label' => __( 'Value Text', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG ] );
 		$this->add_control(
 			'values',
 			[
@@ -98,16 +98,7 @@ class Story_Widget extends GMS_Widget_Base {
 	}
 
 	private function render_rich_copy( string $text ): void {
-		if ( '' === trim( $text ) ) {
-			return;
-		}
-
-		foreach ( preg_split( '/\r\n|\r|\n/', $text ) as $paragraph ) {
-			if ( '' === trim( $paragraph ) ) {
-				continue;
-			}
-			echo '<p>' . esc_html( trim( $paragraph ) ) . '</p>';
-		}
+		$this->render_rich_text( $text );
 	}
 
 	private function get_lines( string $text ): array {
@@ -133,7 +124,7 @@ class Story_Widget extends GMS_Widget_Base {
 						<div class="gms-homepage-chip"><span class="gms-homepage-chip__icon gms-homepage-chip__icon--problem" aria-hidden="true"></span><span><?php echo esc_html( $settings['eyebrow'] ?? '' ); ?></span></div>
 						<h2><?php echo esc_html( $settings['title'] ?? '' ); ?></h2>
 						<div class="gms-homepage-problem__copy">
-							<?php if ( ! empty( $settings['description'] ) ) : ?><p><?php echo esc_html( $settings['description'] ); ?></p><?php endif; ?>
+							<?php if ( ! empty( $settings['description'] ) ) : ?><?php $this->render_rich_text( (string) $settings['description'] ); ?><?php endif; ?>
 							<?php $this->render_rich_copy( $settings['supporting_text'] ?? '' ); ?>
 							<?php $this->render_rich_copy( $settings['copy_secondary'] ?? '' ); ?>
 						</div>
@@ -144,7 +135,7 @@ class Story_Widget extends GMS_Widget_Base {
 								<div class="gms-homepage-problem__marker" aria-hidden="true"></div>
 								<div class="gms-homepage-problem__body">
 									<h3><?php echo esc_html( $value['title'] ?? '' ); ?></h3>
-									<p><?php echo esc_html( $value['text'] ?? '' ); ?></p>
+									<?php $this->render_rich_text( (string) ( $value['text'] ?? '' ) ); ?>
 								</div>
 							</li>
 						<?php endforeach; ?>
@@ -164,8 +155,8 @@ class Story_Widget extends GMS_Widget_Base {
 				<div class="gms-homepage-section-heading gms-homepage-section-heading--center gms-homepage-section-heading--wide">
 					<div class="gms-homepage-chip"><span class="gms-homepage-chip__icon gms-homepage-chip__icon--solution" aria-hidden="true"></span><span><?php echo esc_html( $settings['eyebrow'] ?? '' ); ?></span></div>
 					<h2><?php echo esc_html( $settings['title'] ?? '' ); ?></h2>
-					<?php if ( ! empty( $settings['description'] ) ) : ?><p><?php echo esc_html( $settings['description'] ); ?></p><?php endif; ?>
-					<?php if ( ! empty( $settings['highlight_text'] ) ) : ?><div class="gms-solution-lead-callout"><?php echo esc_html( $settings['highlight_text'] ); ?></div><?php endif; ?>
+					<?php if ( ! empty( $settings['description'] ) ) : ?><?php $this->render_rich_text( (string) $settings['description'] ); ?><?php endif; ?>
+					<?php if ( ! empty( $settings['highlight_text'] ) ) : ?><?php $this->render_rich_text( (string) $settings['highlight_text'], 'gms-solution-lead-callout' ); ?><?php endif; ?>
 				</div>
 				<div class="gms-homepage-solution">
 					<figure class="gms-homepage-solution__media">
@@ -231,14 +222,14 @@ class Story_Widget extends GMS_Widget_Base {
 				<h2><?php echo esc_html( $settings['title'] ?? '' ); ?></h2>
 			</div>
 			<div class="gms-approved-section__content">
-				<?php if ( ! empty( $settings['description'] ) ) : ?><p><?php echo esc_html( $settings['description'] ); ?></p><?php endif; ?>
+				<?php if ( ! empty( $settings['description'] ) ) : ?><?php $this->render_rich_text( (string) $settings['description'] ); ?><?php endif; ?>
 				<?php $this->render_rich_copy( $settings['supporting_text'] ?? '' ); ?>
-				<?php if ( ! empty( $settings['highlight_text'] ) ) : ?><div class="gms-approved-quote"><?php echo esc_html( $settings['highlight_text'] ); ?></div><?php endif; ?>
+				<?php if ( ! empty( $settings['highlight_text'] ) ) : ?><?php $this->render_rich_text( (string) $settings['highlight_text'], 'gms-approved-quote' ); ?><?php endif; ?>
 				<div class="gms-approved-value-grid">
 					<?php foreach ( $values as $value ) : ?>
 						<article class="gms-approved-value-card">
 							<h3><?php echo esc_html( $value['title'] ?? '' ); ?></h3>
-							<p><?php echo esc_html( $value['text'] ?? '' ); ?></p>
+							<?php $this->render_rich_text( (string) ( $value['text'] ?? '' ) ); ?>
 						</article>
 					<?php endforeach; ?>
 				</div>

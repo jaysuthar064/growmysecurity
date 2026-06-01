@@ -118,7 +118,7 @@ class Contact_Form_Widget extends GMS_Widget_Base {
 					<div class="gms-homepage-quote__content">
 						<div class="gms-homepage-chip"><span class="gms-homepage-chip__icon gms-homepage-chip__icon--contact" aria-hidden="true"></span><span><?php echo esc_html( $settings['eyebrow'] ?? '' ); ?></span></div>
 						<h2><?php echo esc_html( $settings['title'] ?? '' ); ?></h2>
-						<?php if ( ! empty( $settings['description'] ) ) : ?><p><?php echo esc_html( $settings['description'] ); ?></p><?php endif; ?>
+						<?php if ( ! empty( $settings['description'] ) ) : ?><?php $this->render_rich_text( (string) $settings['description'] ); ?><?php endif; ?>
 						<div class="gms-homepage-quote__services">
 							<h3><?php esc_html_e( "What services you'll get", 'grow-my-security' ); ?></h3>
 							<ul><?php foreach ( $services as $service ) : ?><li><span class="gms-homepage-inline-icon gms-homepage-inline-icon--check" aria-hidden="true"></span><span><?php echo esc_html( $service ); ?></span></li><?php endforeach; ?></ul>

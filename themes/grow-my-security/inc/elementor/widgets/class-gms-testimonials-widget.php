@@ -65,7 +65,7 @@ class Testimonials_Widget extends GMS_Widget_Base {
 				'type'  => Controls_Manager::MEDIA,
 			]
 		);
-		$repeater->add_control( 'quote', [ 'label' => __( 'Quote', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA ] );
+		$repeater->add_control( 'quote', [ 'label' => __( 'Quote', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG ] );
 		$repeater->add_control( 'name', [ 'label' => __( 'Name', 'grow-my-security' ), 'type' => Controls_Manager::TEXT ] );
 		$repeater->add_control( 'role', [ 'label' => __( 'Role', 'grow-my-security' ), 'type' => Controls_Manager::TEXT ] );
 
@@ -132,7 +132,7 @@ class Testimonials_Widget extends GMS_Widget_Base {
 									<div class="gms-testimonial-card__logo">
 										<?php $this->render_logo( (array) $item ); ?>
 									</div>
-									<div class="gms-testimonial-card__content"><p><?php echo esc_html( $item['quote'] ?? '' ); ?></p></div>
+									<div class="gms-testimonial-card__content"><?php $this->render_rich_text( (string) ( $item['quote'] ?? '' ) ); ?></div>
 									<div class="gms-testimonial-card__footer">
 										<div class="gms-testimonial-card__stars" aria-hidden="true"><?php $this->render_stars(); ?></div>
 										<div class="gms-testimonial-card__author">

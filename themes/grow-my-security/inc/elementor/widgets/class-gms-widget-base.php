@@ -57,6 +57,37 @@ abstract class GMS_Widget_Base extends Widget_Base {
 		return true;
 	}
 
+	protected function get_rich_text_html( string $text ): string {
+		$text = trim( $text );
+
+		if ( '' === $text ) {
+			return '';
+		}
+
+		return wp_kses_post( wpautop( $text ) );
+	}
+
+	protected function render_rich_text( string $text, string $class_name = '' ): bool {
+		$html = $this->get_rich_text_html( $text );
+
+		if ( '' === trim( $html ) ) {
+			return false;
+		}
+
+		if ( '' === trim( $class_name ) ) {
+			echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			return true;
+		}
+
+		printf(
+			'<div class="%1$s">%2$s</div>',
+			esc_attr( trim( 'gms-widget-rich-text ' . $class_name ) ),
+			$html // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		);
+
+		return true;
+	}
+
 	protected function add_section_heading_controls( $defaults = [] ) {
 		$this->add_control(
 			'eyebrow',
@@ -82,7 +113,7 @@ abstract class GMS_Widget_Base extends Widget_Base {
 			'description',
 			[
 				'label'       => __( 'Description', 'grow-my-security' ),
-				'type'        => Controls_Manager::TEXTAREA,
+				'type'        => Controls_Manager::WYSIWYG,
 				'default'     => $defaults['description'] ?? '',
 				'label_block' => true,
 			]
@@ -262,7 +293,7 @@ abstract class GMS_Widget_Base extends Widget_Base {
 		}
 
 		if ( ! empty( $settings['description'] ) ) {
-			echo '<p>' . esc_html( $settings['description'] ) . '</p>';
+			$this->render_rich_text( (string) $settings['description'] );
 		}
 
 		echo '</div>';

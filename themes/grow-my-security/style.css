@@ -3437,3 +3437,42 @@ button[type="submit"]:focus-visible,
     padding: 0 14px;
   }
 }
+
+/* Rich text emitted by custom Elementor widgets. */
+.gms-widget-rich-text > *:first-child {
+  margin-top: 0;
+}
+
+.gms-widget-rich-text > *:last-child {
+  margin-bottom: 0;
+}
+
+.gms-widget-rich-text p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.gms-widget-rich-text p + p,
+.gms-widget-rich-text ul + p,
+.gms-widget-rich-text ol + p,
+.gms-widget-rich-text p + ul,
+.gms-widget-rich-text p + ol {
+  margin-top: 1em;
+}
+
+.gms-widget-rich-text ul,
+.gms-widget-rich-text ol {
+  margin-bottom: 0;
+  padding-left: 1.25em;
+}
+
+.gms-widget-rich-text a {
+  color: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+}
+
+.gms-widget-rich-text a:hover {
+  color: var(--gms-accent);
+}

@@ -83,7 +83,7 @@ class Service_Grid_Widget extends GMS_Widget_Base {
 		);
 		$repeater->add_control( 'title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'label_block' => true ] );
 
-		$repeater->add_control( 'text', [ 'label' => __( 'Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA ] );
+		$repeater->add_control( 'text', [ 'label' => __( 'Text', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG ] );
 		$repeater->add_control( 'bullets', [ 'label' => __( 'Bullets', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'description' => __( 'One per line.', 'grow-my-security' ) ] );
 		$repeater->add_control( 'button_text', [ 'label' => __( 'Button Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => 'Learn More' ] );
 		$repeater->add_control( 'button_url', [ 'label' => __( 'Button URL', 'grow-my-security' ), 'type' => Controls_Manager::URL ] );
@@ -235,7 +235,7 @@ class Service_Grid_Widget extends GMS_Widget_Base {
 								<h3><?php echo esc_html( $title ); ?></h3>
 							<?php endif; ?>
 							<?php if ( ! empty( $card['text'] ) ) : ?>
-								<p><?php echo esc_html( (string) $card['text'] ); ?></p>
+								<?php $this->render_rich_text( (string) $card['text'] ); ?>
 							<?php endif; ?>
 							<?php if ( ! empty( $bullets ) ) : ?>
 								<ul class="gms-service-tile__list">
@@ -289,7 +289,7 @@ class Service_Grid_Widget extends GMS_Widget_Base {
 								<div class="gms-industry-card__meta"><?php echo esc_html( str_replace( [ 'Industry', 'Industries' ], '', (string) $card['meta'] ) ); ?></div>
 							<?php endif; ?>
 							<h3 class="gms-industry-card__title"><?php echo esc_html( str_replace( [ ' Industry', ' Industries' ], '', $title ) ); ?></h3>
-							<p class="gms-industry-card__text"><?php echo esc_html( (string) ( $card['text'] ?? '' ) ); ?></p>
+							<?php $this->render_rich_text( (string) ( $card['text'] ?? '' ), 'gms-industry-card__text' ); ?>
 							<?php if ( ! empty( $card['bullets'] ) ) : ?>
 								<ul class="gms-industry-card__list">
 									<?php foreach ( $this->get_card_lines( (string) $card['bullets'] ) as $line ) : ?>

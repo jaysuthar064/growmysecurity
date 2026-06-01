@@ -77,7 +77,7 @@ class Service_Detail_Widget extends GMS_Widget_Base {
 		$this->start_controls_section( 'section_hero', [ 'label' => __( 'Hero', 'grow-my-security' ) ] );
 		$this->add_control( 'hero_eyebrow', [ 'label' => __( 'Eyebrow', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => $defaults['hero_eyebrow'] ?? '' ] );
 		$this->add_control( 'hero_title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['hero_title'] ?? '' ] );
-		$this->add_control( 'hero_subtext', [ 'label' => __( 'Subtext', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['hero_subtext'] ?? '' ] );
+		$this->add_control( 'hero_subtext', [ 'label' => __( 'Subtext', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG, 'default' => $defaults['hero_subtext'] ?? '' ] );
 		$this->add_control( 'hero_badges', [ 'label' => __( 'Hero Highlights', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['hero_badges'] ?? '', 'description' => __( 'One per line.', 'grow-my-security' ) ] );
 		$this->add_control( 'hero_image', [ 'label' => __( 'Hero Image', 'grow-my-security' ), 'type' => Controls_Manager::MEDIA, 'default' => $defaults['hero_image'] ?? [] ] );
 		$this->add_control( 'hero_primary_text', [ 'label' => __( 'Primary Button Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => $defaults['hero_primary_text'] ?? '' ] );
@@ -90,7 +90,7 @@ class Service_Detail_Widget extends GMS_Widget_Base {
 		$this->start_controls_section( 'section_about', [ 'label' => __( 'About', 'grow-my-security' ) ] );
 		$this->add_control( 'about_eyebrow', [ 'label' => __( 'Eyebrow', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => $defaults['about_eyebrow'] ?? '' ] );
 		$this->add_control( 'about_title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['about_title'] ?? '' ] );
-		$this->add_control( 'about_text', [ 'label' => __( 'Paragraphs', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['about_text'] ?? '', 'description' => __( 'Separate paragraphs with a blank line.', 'grow-my-security' ) ] );
+		$this->add_control( 'about_text', [ 'label' => __( 'Paragraphs', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG, 'default' => $defaults['about_text'] ?? '' ] );
 		$this->add_control( 'about_points', [ 'label' => __( 'Highlights', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['about_points'] ?? '', 'description' => __( 'One per line.', 'grow-my-security' ) ] );
 		$this->add_control( 'about_image', [ 'label' => __( 'About Image', 'grow-my-security' ), 'type' => Controls_Manager::MEDIA, 'default' => $defaults['about_image'] ?? [] ] );
 		$this->end_controls_section();
@@ -99,53 +99,53 @@ class Service_Detail_Widget extends GMS_Widget_Base {
 		$feature_repeater = new Repeater();
 		$feature_repeater->add_control( 'icon', [ 'label' => __( 'Icon', 'grow-my-security' ), 'type' => Controls_Manager::SELECT, 'options' => $icon_options, 'default' => 'shield' ] );
 		$feature_repeater->add_control( 'title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'label_block' => true ] );
-		$feature_repeater->add_control( 'text', [ 'label' => __( 'Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA ] );
+		$feature_repeater->add_control( 'text', [ 'label' => __( 'Text', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG ] );
 
 		$this->start_controls_section( 'section_features', [ 'label' => __( 'Features', 'grow-my-security' ) ] );
 		$this->add_control( 'features_eyebrow', [ 'label' => __( 'Eyebrow', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => $defaults['features_eyebrow'] ?? '' ] );
 		$this->add_control( 'features_title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['features_title'] ?? '' ] );
-		$this->add_control( 'features_text', [ 'label' => __( 'Intro', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['features_text'] ?? '' ] );
+		$this->add_control( 'features_text', [ 'label' => __( 'Intro', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG, 'default' => $defaults['features_text'] ?? '' ] );
 		$this->add_control( 'features', [ 'label' => __( 'Feature Cards', 'grow-my-security' ), 'type' => Controls_Manager::REPEATER, 'fields' => $feature_repeater->get_controls(), 'default' => $defaults['features'] ?? [], 'title_field' => '{{{ title }}}' ] );
 		$this->end_controls_section();
 
 		$industry_repeater = new Repeater();
 		$industry_repeater->add_control( 'icon', [ 'label' => __( 'Icon', 'grow-my-security' ), 'type' => Controls_Manager::SELECT, 'options' => $icon_options, 'default' => 'shield' ] );
 		$industry_repeater->add_control( 'title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'label_block' => true ] );
-		$industry_repeater->add_control( 'text', [ 'label' => __( 'Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA ] );
+		$industry_repeater->add_control( 'text', [ 'label' => __( 'Text', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG ] );
 
 		$this->start_controls_section( 'section_industries', [ 'label' => __( 'Industries', 'grow-my-security' ) ] );
 		$this->add_control( 'industries_eyebrow', [ 'label' => __( 'Eyebrow', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => $defaults['industries_eyebrow'] ?? '' ] );
 		$this->add_control( 'industries_title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['industries_title'] ?? '' ] );
-		$this->add_control( 'industries_text', [ 'label' => __( 'Intro', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['industries_text'] ?? '' ] );
+		$this->add_control( 'industries_text', [ 'label' => __( 'Intro', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG, 'default' => $defaults['industries_text'] ?? '' ] );
 		$this->add_control( 'industries', [ 'label' => __( 'Industry Cards', 'grow-my-security' ), 'type' => Controls_Manager::REPEATER, 'fields' => $industry_repeater->get_controls(), 'default' => $defaults['industries'] ?? [], 'title_field' => '{{{ title }}}' ] );
 		$this->end_controls_section();
 
 		$why_repeater = new Repeater();
 		$why_repeater->add_control( 'title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'label_block' => true ] );
-		$why_repeater->add_control( 'text', [ 'label' => __( 'Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA ] );
+		$why_repeater->add_control( 'text', [ 'label' => __( 'Text', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG ] );
 
 		$this->start_controls_section( 'section_why', [ 'label' => __( 'Why Choose Us', 'grow-my-security' ) ] );
 		$this->add_control( 'why_eyebrow', [ 'label' => __( 'Eyebrow', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => $defaults['why_eyebrow'] ?? '' ] );
 		$this->add_control( 'why_title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['why_title'] ?? '' ] );
-		$this->add_control( 'why_text', [ 'label' => __( 'Intro', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['why_text'] ?? '' ] );
+		$this->add_control( 'why_text', [ 'label' => __( 'Intro', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG, 'default' => $defaults['why_text'] ?? '' ] );
 		$this->add_control( 'why_items', [ 'label' => __( 'Value Cards', 'grow-my-security' ), 'type' => Controls_Manager::REPEATER, 'fields' => $why_repeater->get_controls(), 'default' => $defaults['why_items'] ?? [], 'title_field' => '{{{ title }}}' ] );
 		$this->end_controls_section();
 
 		$process_repeater = new Repeater();
 		$process_repeater->add_control( 'title', [ 'label' => __( 'Step Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'label_block' => true ] );
-		$process_repeater->add_control( 'text', [ 'label' => __( 'Step Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA ] );
+		$process_repeater->add_control( 'text', [ 'label' => __( 'Step Text', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG ] );
 
 		$this->start_controls_section( 'section_process', [ 'label' => __( 'Process', 'grow-my-security' ) ] );
 		$this->add_control( 'process_eyebrow', [ 'label' => __( 'Eyebrow', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => $defaults['process_eyebrow'] ?? '' ] );
 		$this->add_control( 'process_title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['process_title'] ?? '' ] );
-		$this->add_control( 'process_text', [ 'label' => __( 'Intro', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['process_text'] ?? '' ] );
+		$this->add_control( 'process_text', [ 'label' => __( 'Intro', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG, 'default' => $defaults['process_text'] ?? '' ] );
 		$this->add_control( 'process_items', [ 'label' => __( 'Steps', 'grow-my-security' ), 'type' => Controls_Manager::REPEATER, 'fields' => $process_repeater->get_controls(), 'default' => $defaults['process_items'] ?? [], 'title_field' => '{{{ title }}}' ] );
 		$this->end_controls_section();
 
 		$this->start_controls_section( 'section_cta', [ 'label' => __( 'CTA', 'grow-my-security' ) ] );
 		$this->add_control( 'cta_eyebrow', [ 'label' => __( 'Eyebrow', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => $defaults['cta_eyebrow'] ?? '' ] );
 		$this->add_control( 'cta_title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['cta_title'] ?? '' ] );
-		$this->add_control( 'cta_text', [ 'label' => __( 'Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['cta_text'] ?? '' ] );
+		$this->add_control( 'cta_text', [ 'label' => __( 'Text', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG, 'default' => $defaults['cta_text'] ?? '' ] );
 		$this->add_control( 'cta_primary_text', [ 'label' => __( 'Primary Button Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => $defaults['cta_primary_text'] ?? '' ] );
 		$this->add_control( 'cta_primary_url', [ 'label' => __( 'Primary Button URL', 'grow-my-security' ), 'type' => Controls_Manager::URL, 'default' => $defaults['cta_primary_url'] ?? [] ] );
 		$this->add_control( 'cta_secondary_text', [ 'label' => __( 'Secondary Button Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => $defaults['cta_secondary_text'] ?? '' ] );
@@ -202,13 +202,7 @@ class Service_Detail_Widget extends GMS_Widget_Base {
 	}
 
 	private function render_paragraphs( string $text ): void {
-		foreach ( preg_split( '/\r\n\r\n|\n\n|\r\r/', trim( $text ) ) as $paragraph ) {
-			$paragraph = trim( $paragraph );
-			if ( '' === $paragraph ) {
-				continue;
-			}
-			echo '<p>' . esc_html( $paragraph ) . '</p>';
-		}
+		$this->render_rich_text( $text );
 	}
 
 	private function render_line_items( string $text, string $wrapper_class, string $item_class ): void {
@@ -239,7 +233,7 @@ class Service_Detail_Widget extends GMS_Widget_Base {
 			echo '<h2>' . esc_html( $title ) . '</h2>';
 		}
 		if ( '' !== trim( $text ) ) {
-			echo '<p>' . esc_html( $text ) . '</p>';
+			$this->render_rich_text( $text );
 		}
 		echo '</div>';
 	}
@@ -259,7 +253,7 @@ class Service_Detail_Widget extends GMS_Widget_Base {
 							<div class="gms-service-premium__hero-copy">
 								<?php if ( ! empty( $settings['hero_eyebrow'] ) ) : ?><span class="gms-service-premium__eyebrow"><?php echo esc_html( $settings['hero_eyebrow'] ); ?></span><?php endif; ?>
 								<?php if ( ! empty( $settings['hero_title'] ) ) : ?><h1><?php echo esc_html( $settings['hero_title'] ); ?></h1><?php endif; ?>
-								<?php if ( ! empty( $settings['hero_subtext'] ) ) : ?><p class="gms-service-premium__hero-text"><?php echo esc_html( $settings['hero_subtext'] ); ?></p><?php endif; ?>
+								<?php if ( ! empty( $settings['hero_subtext'] ) ) : ?><?php $this->render_rich_text( (string) $settings['hero_subtext'], 'gms-service-premium__hero-text' ); ?><?php endif; ?>
 								<?php $this->render_line_items( (string) ( $settings['hero_badges'] ?? '' ), 'gms-service-premium__badges', 'gms-service-premium__badge' ); ?>
 								<div class="gms-service-premium__actions">
 									<?php $this->render_link( 'service-hero-primary-' . $this->get_id(), $settings['hero_primary_url'] ?? [], $settings['hero_primary_text'] ?? '', 'gms-button gms-service-premium__button' ); ?>
@@ -304,7 +298,7 @@ class Service_Detail_Widget extends GMS_Widget_Base {
 							<article class="gms-service-premium__glass-card">
 								<div class="gms-service-premium__icon" aria-hidden="true"><?php echo $this->render_icon_markup( (string) ( $feature['icon'] ?? 'shield' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
 								<h3><?php echo esc_html( $feature['title'] ?? '' ); ?></h3>
-								<p><?php echo esc_html( $feature['text'] ?? '' ); ?></p>
+								<?php $this->render_rich_text( (string) ( $feature['text'] ?? '' ) ); ?>
 							</article>
 						<?php endforeach; ?>
 					</div>
@@ -320,7 +314,7 @@ class Service_Detail_Widget extends GMS_Widget_Base {
 								<article class="gms-service-premium__glass-card gms-service-premium__glass-card--compact">
 									<div class="gms-service-premium__icon" aria-hidden="true"><?php echo $this->render_icon_markup( (string) ( $industry['icon'] ?? 'shield' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
 									<h3><?php echo esc_html( $industry['title'] ?? '' ); ?></h3>
-									<p><?php echo esc_html( $industry['text'] ?? '' ); ?></p>
+									<?php $this->render_rich_text( (string) ( $industry['text'] ?? '' ) ); ?>
 								</article>
 							<?php endforeach; ?>
 						</div>
@@ -335,7 +329,7 @@ class Service_Detail_Widget extends GMS_Widget_Base {
 						<?php foreach ( $why_items as $item ) : ?>
 							<article class="gms-service-premium__glass-card gms-service-premium__glass-card--value">
 								<h3><?php echo esc_html( $item['title'] ?? '' ); ?></h3>
-								<p><?php echo esc_html( $item['text'] ?? '' ); ?></p>
+								<?php $this->render_rich_text( (string) ( $item['text'] ?? '' ) ); ?>
 							</article>
 						<?php endforeach; ?>
 					</div>
@@ -351,7 +345,7 @@ class Service_Detail_Widget extends GMS_Widget_Base {
 								<div class="gms-service-premium__step-index"><?php echo esc_html( str_pad( (string) ( $index + 1 ), 2, '0', STR_PAD_LEFT ) ); ?></div>
 								<div class="gms-service-premium__step-copy">
 									<h3><?php echo esc_html( $item['title'] ?? '' ); ?></h3>
-									<p><?php echo esc_html( $item['text'] ?? '' ); ?></p>
+									<?php $this->render_rich_text( (string) ( $item['text'] ?? '' ) ); ?>
 								</div>
 							</article>
 						<?php endforeach; ?>
@@ -364,7 +358,7 @@ class Service_Detail_Widget extends GMS_Widget_Base {
 					<div class="gms-service-premium__cta-card">
 						<?php if ( ! empty( $settings['cta_eyebrow'] ) ) : ?><span class="gms-service-premium__eyebrow"><?php echo esc_html( $settings['cta_eyebrow'] ); ?></span><?php endif; ?>
 						<?php if ( ! empty( $settings['cta_title'] ) ) : ?><h2><?php echo esc_html( $settings['cta_title'] ); ?></h2><?php endif; ?>
-						<?php if ( ! empty( $settings['cta_text'] ) ) : ?><p><?php echo esc_html( $settings['cta_text'] ); ?></p><?php endif; ?>
+						<?php if ( ! empty( $settings['cta_text'] ) ) : ?><?php $this->render_rich_text( (string) $settings['cta_text'] ); ?><?php endif; ?>
 						<div class="gms-service-premium__actions gms-service-premium__actions--center">
 							<?php $this->render_link( 'service-cta-primary-' . $this->get_id(), $settings['cta_primary_url'] ?? [], $settings['cta_primary_text'] ?? '', 'gms-button gms-service-premium__button' ); ?>
 						</div>

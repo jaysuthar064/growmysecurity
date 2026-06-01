@@ -46,7 +46,7 @@ class Cta_Widget extends GMS_Widget_Base {
 			'trust_text',
 			[
 				'label'       => __( 'Trust Text', 'grow-my-security' ),
-				'type'        => Controls_Manager::TEXTAREA,
+				'type'        => Controls_Manager::WYSIWYG,
 				'default'     => '82% of B2B buyers ignore vendors they do not trust. We help your people earn belief before the first conversation, because trust is what drives every deal.',
 				'label_block' => true,
 			]
@@ -84,7 +84,7 @@ class Cta_Widget extends GMS_Widget_Base {
 					<?php endif; ?>
 
 					<?php if ( '' !== $copy ) : ?>
-						<p class="gms-approved-cta-premium__description"><?php echo esc_html( $copy ); ?></p>
+						<?php $this->render_rich_text( $copy, 'gms-approved-cta-premium__description' ); ?>
 					<?php endif; ?>
 
 					<?php
@@ -101,7 +101,7 @@ class Cta_Widget extends GMS_Widget_Base {
 							<div class="gms-approved-cta-premium__trust-icon" aria-hidden="true">
 								<svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V5l-8-3Zm0 2.18 6 2.25V11c0 4.4-2.89 8.82-6 10.17C8.89 19.82 6 15.4 6 11V6.43l6-2.25Zm-1.23 4.41-1.41 1.41 2.64 2.64 4.24-4.24-1.41-1.41L12 10.82l-1.23-1.23Z" fill="currentColor"/></svg>
 							</div>
-							<p><?php echo esc_html( $trust_text ); ?></p>
+							<?php $this->render_rich_text( $trust_text ); ?>
 						</div>
 					<?php endif; ?>
 				</div>

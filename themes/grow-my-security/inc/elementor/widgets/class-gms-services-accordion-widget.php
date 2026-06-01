@@ -57,7 +57,7 @@ class Services_Accordion_Widget extends GMS_Widget_Base {
 		$repeater = new Repeater();
 		$repeater->add_control( 'title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'label_block' => true ] );
 		$repeater->add_control( 'subtitle', [ 'label' => __( 'Subtitle', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'label_block' => true ] );
-		$repeater->add_control( 'summary', [ 'label' => __( 'Summary', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA ] );
+		$repeater->add_control( 'summary', [ 'label' => __( 'Summary', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG ] );
 		$repeater->add_control( 'benefits', [ 'label' => __( 'Benefits', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'description' => __( 'One per line.', 'grow-my-security' ) ] );
 		$repeater->add_control( 'tags', [ 'label' => __( 'Legacy Tags', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'description' => __( 'Fallback benefits. One per line.', 'grow-my-security' ) ] );
 		$repeater->add_control( 'image', [ 'label' => __( 'Panel Image', 'grow-my-security' ), 'type' => Controls_Manager::MEDIA ] );
@@ -161,7 +161,7 @@ class Services_Accordion_Widget extends GMS_Widget_Base {
 				<div class="gms-homepage-section-heading gms-homepage-section-heading--center gms-homepage-section-heading--wide">
 					<div class="gms-homepage-chip"><span class="gms-homepage-chip__icon gms-homepage-chip__icon--services" aria-hidden="true"></span><span><?php echo esc_html( $settings['eyebrow'] ?? '' ); ?></span></div>
 					<h2><?php echo esc_html( $settings['title'] ?? '' ); ?></h2>
-					<?php if ( ! empty( $settings['description'] ) ) : ?><p><?php echo esc_html( $settings['description'] ); ?></p><?php endif; ?>
+					<?php if ( ! empty( $settings['description'] ) ) : ?><?php $this->render_rich_text( (string) $settings['description'] ); ?><?php endif; ?>
 				</div>
 				<div class="gms-services-tabs" data-gms-tabs>
 					<div class="gms-services-tabs__nav" role="tablist">
@@ -186,7 +186,7 @@ class Services_Accordion_Widget extends GMS_Widget_Base {
 										<div class="gms-services-tabs__header">
 											<p class="gms-services-tabs__subtitle"><?php echo esc_html( $item['subtitle'] ?? sprintf( __( 'Service %02d', 'grow-my-security' ), $index + 1 ) ); ?></p>
 											<h3><?php echo esc_html( $item['title'] ?? '' ); ?></h3>
-											<p class="gms-services-tabs__summary"><?php echo esc_html( $item['summary'] ?? '' ); ?></p>
+											<?php $this->render_rich_text( (string) ( $item['summary'] ?? '' ), 'gms-services-tabs__summary' ); ?>
 										</div>
 										<div class="gms-services-tabs__benefits">
 											<h4><?php esc_html_e( 'Key Strategic Benefits:', 'grow-my-security' ); ?></h4>

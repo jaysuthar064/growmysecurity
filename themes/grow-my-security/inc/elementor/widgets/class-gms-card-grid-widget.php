@@ -66,7 +66,7 @@ class Card_Grid_Widget extends GMS_Widget_Base {
 			]
 		);
 		$repeater->add_control( 'title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'label_block' => true ] );
-		$repeater->add_control( 'text', [ 'label' => __( 'Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA ] );
+		$repeater->add_control( 'text', [ 'label' => __( 'Text', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG ] );
 		$repeater->add_control( 'bullets', [ 'label' => __( 'Bullets', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'description' => __( 'One per line.', 'grow-my-security' ) ] );
 		$repeater->add_control( 'button_text', [ 'label' => __( 'Button Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => 'Learn More' ] );
 		$repeater->add_control( 'button_url', [ 'label' => __( 'Button URL', 'grow-my-security' ), 'type' => Controls_Manager::URL ] );
@@ -178,7 +178,7 @@ class Card_Grid_Widget extends GMS_Widget_Base {
 							<div class="gms-approved-industry-card__content">
 								<h3><?php echo esc_html( $clean_title ); ?></h3>
 								<?php if ( '' !== $card_text ) : ?>
-									<p><?php echo esc_html( $card_text ); ?></p>
+									<?php $this->render_rich_text( $card_text ); ?>
 								<?php endif; ?>
 							</div>
 

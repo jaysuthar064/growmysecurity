@@ -231,7 +231,7 @@ class Hero_Widget extends GMS_Widget_Base {
 		);
 		$repeater->add_control( 'label', [ 'label' => __( 'Label', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'label_block' => true ] );
 		$repeater->add_control( 'title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'label_block' => true ] );
-		$repeater->add_control( 'copy', [ 'label' => __( 'Copy', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'label_block' => true ] );
+		$repeater->add_control( 'copy', [ 'label' => __( 'Copy', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG, 'label_block' => true ] );
 		$repeater->add_control( 'image', [ 'label' => __( 'Background Image', 'grow-my-security' ), 'type' => Controls_Manager::MEDIA ] );
 		$repeater->add_control(
 			'art_media_type',
@@ -360,7 +360,7 @@ class Hero_Widget extends GMS_Widget_Base {
 						<?php endif; ?>
 						<h1><?php echo esc_html( $first_slide['title'] ?? '' ); ?></h1>
 						<?php if ( ! empty( $first_slide['copy'] ) ) : ?>
-							<div class="gms-approved-intro__lede"><p><?php echo esc_html( $first_slide['copy'] ); ?></p></div>
+							<div class="gms-approved-intro__lede"><?php $this->render_rich_text( (string) $first_slide['copy'] ); ?></div>
 						<?php endif; ?>
 						<?php if ( ! empty( $first_slide['primary_text'] ) || ! empty( $first_slide['secondary_text'] ) ) : ?>
 							<div class="gms-page-hero__actions gms-page-hero__actions--banner">
@@ -403,7 +403,7 @@ class Hero_Widget extends GMS_Widget_Base {
 										<span><?php echo esc_html( $slide['label'] ?? '' ); ?></span>
 									</div>
 									<h2><?php echo esc_html( $slide['title'] ?? '' ); ?></h2>
-									<p><?php echo esc_html( $slide['copy'] ?? '' ); ?></p>
+									<?php $this->render_rich_text( (string) ( $slide['copy'] ?? '' ) ); ?>
 									<div class="gms-homepage-hero__actions">
 										<?php $this->render_primary_button( 'hero-home-primary-' . $this->get_id() . '-' . $index, $slide['primary_url'] ?? [], $slide['primary_text'] ?? '' ); ?>
 										<?php $this->render_secondary_button( 'hero-home-secondary-' . $this->get_id() . '-' . $index, $slide['secondary_url'] ?? [], $slide['secondary_text'] ?? '' ); ?>

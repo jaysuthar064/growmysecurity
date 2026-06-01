@@ -145,7 +145,7 @@ class Page_Hero_Widget extends GMS_Widget_Base {
 				<div class="gms-approved-intro__main">
 					<?php if ( ! empty( $settings['eyebrow'] ) ) : ?><div class="gms-eyebrow"><?php echo esc_html( $settings['eyebrow'] ); ?></div><?php endif; ?>
 					<?php if ( ! empty( $settings['title'] ) ) : ?><h1><?php echo wp_kses_post( nl2br( esc_html( (string) $settings['title'] ) ) ); ?></h1><?php endif; ?>
-					<?php if ( ! empty( $settings['description'] ) ) : ?><div class="gms-approved-intro__lede"><p><?php echo esc_html( $settings['description'] ); ?></p></div><?php endif; ?>
+					<?php if ( ! empty( $settings['description'] ) ) : ?><div class="gms-approved-intro__lede"><?php $this->render_rich_text( (string) $settings['description'] ); ?></div><?php endif; ?>
 					<?php if ( ! empty( $settings['primary_text'] ) || ! empty( $settings['secondary_text'] ) ) : ?>
 						<div class="gms-page-hero__actions">
 							<?php $this->render_link( 'page-hero-primary-' . $this->get_id(), $settings['primary_url'] ?? [], $settings['primary_text'] ?? '', 'gms-button' ); ?>

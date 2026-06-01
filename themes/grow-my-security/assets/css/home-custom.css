@@ -4814,6 +4814,18 @@ body.home .gms-homepage-section--guarantee .gms-homepage-guarantee__link {
   color: var(--gms-home-muted);
 }
 
+.gms-services-tabs__summary a {
+  color: #fff;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 20, 20, 0.72);
+  text-underline-offset: 4px;
+}
+
+.gms-services-tabs__summary a:hover {
+  color: var(--gms-home-red);
+}
+
 .gms-services-tabs__benefits {
   margin-bottom: 40px;
 }

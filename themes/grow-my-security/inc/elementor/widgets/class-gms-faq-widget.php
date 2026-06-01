@@ -64,7 +64,7 @@ class Faq_Widget extends GMS_Widget_Base {
 
 		$repeater = new Repeater();
 		$repeater->add_control( 'question', [ 'label' => __( 'Question', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'label_block' => true ] );
-		$repeater->add_control( 'answer', [ 'label' => __( 'Answer', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA ] );
+		$repeater->add_control( 'answer', [ 'label' => __( 'Answer', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG ] );
 		$this->add_control(
 			'items',
 			[
@@ -91,7 +91,7 @@ class Faq_Widget extends GMS_Widget_Base {
 							<div class="gms-homepage-chip"><span class="gms-homepage-chip__icon gms-homepage-chip__icon--faq" aria-hidden="true"></span><span><?php echo esc_html( $settings['eyebrow'] ?? '' ); ?></span></div>
 							<h2><?php echo wp_kses_post( nl2br( esc_html( $settings['title'] ?? '' ) ) ); ?></h2>
 							<div class="gms-homepage-faq__desc">
-								<?php if ( ! empty( $settings['description'] ) ) : ?><p><?php echo esc_html( $settings['description'] ); ?></p><?php endif; ?>
+								<?php if ( ! empty( $settings['description'] ) ) : ?><?php $this->render_rich_text( (string) $settings['description'] ); ?><?php endif; ?>
 							</div>
 							<div class="gms-homepage-faq__actions">
 								<?php if ( ! empty( $settings['primary_button_text'] ) && $this->has_valid_link( $settings['primary_button_url'] ?? [] ) ) : ?>
@@ -112,7 +112,7 @@ class Faq_Widget extends GMS_Widget_Base {
 							<?php $is_open = 0 === $index; ?>
 							<article class="gms-homepage-faq__item<?php echo $is_open ? ' is-open' : ''; ?>">
 								<h3><button class="gms-homepage-faq__question" type="button" aria-expanded="<?php echo $is_open ? 'true' : 'false'; ?>" data-faq-trigger><span><?php echo esc_html( $item['question'] ?? '' ); ?></span><span class="gms-homepage-faq__icon" aria-hidden="true"></span></button></h3>
-								<div class="gms-homepage-faq__answer"<?php echo $is_open ? '' : ' hidden'; ?> data-faq-panel><p><?php echo wp_kses_post( $item['answer'] ?? '' ); ?></p></div>
+								<div class="gms-homepage-faq__answer"<?php echo $is_open ? '' : ' hidden'; ?> data-faq-panel><?php $this->render_rich_text( (string) ( $item['answer'] ?? '' ) ); ?></div>
 							</article>
 						<?php endforeach; ?>
 						<?php if ( ! empty( $settings['footer_text'] ) || ! empty( $settings['footer_link_text'] ) ) : ?>
@@ -161,7 +161,7 @@ class Faq_Widget extends GMS_Widget_Base {
 					<?php $is_open = 0 === $index; ?>
 					<div class="gms-faq-item<?php echo $is_open ? ' is-open' : ''; ?>">
 						<h3><button class="gms-faq-question" type="button" aria-expanded="<?php echo $is_open ? 'true' : 'false'; ?>" data-faq-trigger><span><?php echo esc_html( $item['question'] ?? '' ); ?></span><span class="gms-homepage-faq__icon" aria-hidden="true"></span></button></h3>
-						<div class="gms-faq-answer"<?php echo $is_open ? '' : ' hidden'; ?> data-faq-panel><p><?php echo wp_kses_post( $item['answer'] ?? '' ); ?></p></div>
+						<div class="gms-faq-answer"<?php echo $is_open ? '' : ' hidden'; ?> data-faq-panel><?php $this->render_rich_text( (string) ( $item['answer'] ?? '' ) ); ?></div>
 					</div>
 				<?php endforeach; ?>
 			</div>

@@ -46,7 +46,7 @@ class Process_Timeline_Widget extends GMS_Widget_Base {
 		$repeater = new Repeater();
 		$repeater->add_control( 'accent', [ 'label' => __( 'Accent Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXT ] );
 		$repeater->add_control( 'title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'label_block' => true ] );
-		$repeater->add_control( 'text', [ 'label' => __( 'Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA ] );
+		$repeater->add_control( 'text', [ 'label' => __( 'Text', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG ] );
 		$repeater->add_control( 'link_text', [ 'label' => __( 'Link Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXT ] );
 		$repeater->add_control( 'link_url', [ 'label' => __( 'Link URL', 'grow-my-security' ), 'type' => Controls_Manager::URL ] );
 		$repeater->add_control(
@@ -137,7 +137,7 @@ class Process_Timeline_Widget extends GMS_Widget_Base {
 				<div class="gms-homepage-section-heading gms-homepage-section-heading--center gms-homepage-section-heading--wide">
 					<div class="gms-homepage-chip"><span class="gms-homepage-chip__icon gms-homepage-chip__icon--guarantee" aria-hidden="true"></span><span><?php echo esc_html( $settings['eyebrow'] ?? '' ); ?></span></div>
 					<h2><?php echo esc_html( $settings['title'] ?? '' ); ?></h2>
-					<?php if ( ! empty( $settings['description'] ) ) : ?><p><?php echo esc_html( $settings['description'] ); ?></p><?php endif; ?>
+					<?php if ( ! empty( $settings['description'] ) ) : ?><?php $this->render_rich_text( (string) $settings['description'] ); ?><?php endif; ?>
 				</div>
 				<div class="gms-homepage-guarantee__timeline">
 					<div class="gms-homepage-guarantee__line-bg" aria-hidden="true"></div>
@@ -151,7 +151,7 @@ class Process_Timeline_Widget extends GMS_Widget_Base {
 							</div>
 							<div class="gms-homepage-guarantee__body">
 								<h3><span><?php echo esc_html( $item['accent'] ?? '' ); ?></span><?php echo esc_html( $item['title'] ?? '' ); ?></h3>
-								<p><?php echo esc_html( $item['text'] ?? '' ); ?></p>
+								<?php $this->render_rich_text( (string) ( $item['text'] ?? '' ) ); ?>
 								<?php if ( ! $hide_links_on_home && ! empty( $item['link_text'] ) && $this->has_valid_link( $item['link_url'] ?? [] ) ) : ?>
 									<?php $this->add_render_attribute( 'process-link-' . $this->get_id() . '-' . $index, 'class', 'gms-homepage-guarantee__link' ); ?>
 									<?php $this->add_link_attributes( 'process-link-' . $this->get_id() . '-' . $index, $item['link_url'] ); ?>

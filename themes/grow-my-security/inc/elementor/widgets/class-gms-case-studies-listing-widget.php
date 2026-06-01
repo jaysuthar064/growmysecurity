@@ -50,7 +50,7 @@ class Case_Studies_Listing_Widget extends GMS_Widget_Base {
 
 		$this->add_control( 'hero_subtitle', [
 			'label'       => __( 'Subtitle', 'grow-my-security' ),
-			'type'        => Controls_Manager::TEXTAREA,
+			'type'        => Controls_Manager::WYSIWYG,
 			'default'     => 'Real results from cybersecurity marketing strategies',
 			'label_block' => true,
 		] );
@@ -92,7 +92,7 @@ class Case_Studies_Listing_Widget extends GMS_Widget_Base {
 
 		$repeater->add_control( 'excerpt', [
 			'label'       => __( 'Excerpt', 'grow-my-security' ),
-			'type'        => Controls_Manager::TEXTAREA,
+			'type'        => Controls_Manager::WYSIWYG,
 			'default'     => 'Short description of the case study...',
 			'label_block' => true,
 		] );
@@ -202,7 +202,7 @@ class Case_Studies_Listing_Widget extends GMS_Widget_Base {
 							<?php endif; ?>
 							<h1 class="gms-cs-hero-alt__title"><?php echo esc_html( $hero_title ); ?></h1>
 							<?php if ( '' !== $hero_subtitle ) : ?>
-								<p class="gms-cs-hero-alt__subtitle"><?php echo esc_html( $hero_subtitle ); ?></p>
+								<?php $this->render_rich_text( $hero_subtitle, 'gms-cs-hero-alt__subtitle' ); ?>
 							<?php endif; ?>
 						</div>
 					</div>
@@ -337,7 +337,7 @@ class Case_Studies_Listing_Widget extends GMS_Widget_Base {
 
 			<div class="gms-cs-card__content">
 				<h3><?php echo esc_html( $title ); ?></h3>
-				<p><?php echo esc_html( $excerpt ); ?></p>
+				<?php $this->render_rich_text( (string) $excerpt ); ?>
 				<div class="gms-cs-card__actions">
 					<span class="gms-cs-card__link">
 						<?php esc_html_e( 'Read Case Study', 'grow-my-security' ); ?>

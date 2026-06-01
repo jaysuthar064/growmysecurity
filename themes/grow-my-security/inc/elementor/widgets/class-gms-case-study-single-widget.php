@@ -44,7 +44,7 @@ class Case_Study_Single_Widget extends GMS_Widget_Base {
 
 		$this->add_control( 'hero_subtitle', [
 			'label'       => __( 'Subtitle (leave blank = short desc)', 'grow-my-security' ),
-			'type'        => Controls_Manager::TEXTAREA,
+			'type'        => Controls_Manager::WYSIWYG,
 			'default'     => '',
 			'label_block' => true,
 		] );
@@ -127,7 +127,7 @@ class Case_Study_Single_Widget extends GMS_Widget_Base {
 
 		$this->add_control( 'cta_text', [
 			'label'       => __( 'CTA Text', 'grow-my-security' ),
-			'type'        => Controls_Manager::TEXTAREA,
+			'type'        => Controls_Manager::WYSIWYG,
 			'default'     => 'Our tailored cyber-marketing strategies drive conversion through technical authority.',
 			'label_block' => true,
 		] );
@@ -231,7 +231,7 @@ class Case_Study_Single_Widget extends GMS_Widget_Base {
 						</div>
 						<h1 class="gms-cs-report-title"><?php echo esc_html( $hero_title ); ?></h1>
 						<?php if ( '' !== $hero_subtitle ) : ?>
-							<p class="gms-cs-report-subtitle"><?php echo esc_html( $hero_subtitle ); ?></p>
+							<?php $this->render_rich_text( $hero_subtitle, 'gms-cs-report-subtitle' ); ?>
 						<?php elseif ( $is_editor ) : ?>
 							<p class="gms-cs-report-subtitle" style="opacity:0.5; font-style:italic;">[Add subtitle in Elementor Hero section]</p>
 						<?php endif; ?>
@@ -341,7 +341,7 @@ class Case_Study_Single_Widget extends GMS_Widget_Base {
 					<div class="gms-cs-report-cta-card gms-glass-v2">
 						<h2><?php echo esc_html( (string) ( $s['cta_title'] ?? '' ) ); ?></h2>
 						<?php if ( ! empty( $s['cta_text'] ) ) : ?>
-							<p><?php echo esc_html( $s['cta_text'] ); ?></p>
+							<?php $this->render_rich_text( (string) $s['cta_text'] ); ?>
 						<?php endif; ?>
 						<?php
 						$cta_url  = $s['cta_btn_url']['url'] ?? '/contact/';

@@ -47,7 +47,7 @@ class Industry_Detail_Widget extends GMS_Widget_Base {
 
 		$this->add_control( 'hero_eyebrow', [ 'label' => __( 'Eyebrow', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => $defaults['hero_eyebrow'] ?? '' ] );
 		$this->add_control( 'hero_title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['hero_title'] ?? '', 'label_block' => true ] );
-		$this->add_control( 'hero_subtext', [ 'label' => __( 'Subtext', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['hero_subtext'] ?? '' ] );
+		$this->add_control( 'hero_subtext', [ 'label' => __( 'Subtext', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG, 'default' => $defaults['hero_subtext'] ?? '' ] );
 		$this->add_control( 'hero_image', [ 'label' => __( 'Hero Image', 'grow-my-security' ), 'type' => Controls_Manager::MEDIA, 'default' => $defaults['hero_image'] ?? [ 'url' => \gms_asset( 'assets/images/Industry.png' ) ] ] );
 		$this->add_control( 'hero_primary_text', [ 'label' => __( 'Primary Button Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => $defaults['hero_primary_text'] ?? '' ] );
 		$this->add_control( 'hero_primary_url', [ 'label' => __( 'Primary Button URL', 'grow-my-security' ), 'type' => Controls_Manager::URL, 'default' => $defaults['hero_primary_url'] ?? [ 'url' => '#cta' ] ] );
@@ -64,7 +64,7 @@ class Industry_Detail_Widget extends GMS_Widget_Base {
 
 		$this->add_control( 'overview_eyebrow', [ 'label' => __( 'Eyebrow', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => $defaults['overview_eyebrow'] ?? '' ] );
 		$this->add_control( 'overview_title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['overview_title'] ?? '', 'label_block' => true ] );
-		$this->add_control( 'overview_text', [ 'label' => __( 'Description', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['overview_text'] ?? '' ] );
+		$this->add_control( 'overview_text', [ 'label' => __( 'Description', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG, 'default' => $defaults['overview_text'] ?? '' ] );
 		$this->add_control(
 			'overview_points',
 			[
@@ -76,7 +76,7 @@ class Industry_Detail_Widget extends GMS_Widget_Base {
 		);
 		$this->add_control( 'overview_image', [ 'label' => __( 'Side Image', 'grow-my-security' ), 'type' => Controls_Manager::MEDIA, 'default' => $defaults['overview_image'] ?? [ 'url' => \gms_asset( 'assets/images/security-tech-visual.png' ) ] ] );
 		$this->add_control( 'overview_note_title', [ 'label' => __( 'Note Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => $defaults['overview_note_title'] ?? '' ] );
-		$this->add_control( 'overview_note_text', [ 'label' => __( 'Note Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['overview_note_text'] ?? '' ] );
+		$this->add_control( 'overview_note_text', [ 'label' => __( 'Note Text', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG, 'default' => $defaults['overview_note_text'] ?? '' ] );
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -88,12 +88,12 @@ class Industry_Detail_Widget extends GMS_Widget_Base {
 
 		$this->add_control( 'solutions_eyebrow', [ 'label' => __( 'Eyebrow', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => $defaults['solutions_eyebrow'] ?? '' ] );
 		$this->add_control( 'solutions_title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['solutions_title'] ?? '', 'label_block' => true ] );
-		$this->add_control( 'solutions_text', [ 'label' => __( 'Description', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['solutions_text'] ?? '' ] );
+		$this->add_control( 'solutions_text', [ 'label' => __( 'Description', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG, 'default' => $defaults['solutions_text'] ?? '' ] );
 
 		$feature_repeater = new Repeater();
 		$feature_repeater->add_control( 'icon', [ 'label' => __( 'Icon Key', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => 'shield' ] );
 		$feature_repeater->add_control( 'title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'label_block' => true ] );
-		$feature_repeater->add_control( 'desc', [ 'label' => __( 'Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA ] );
+		$feature_repeater->add_control( 'desc', [ 'label' => __( 'Text', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG ] );
 
 		$this->add_control(
 			'solutions_features',
@@ -116,13 +116,13 @@ class Industry_Detail_Widget extends GMS_Widget_Base {
 
 		$this->add_control( 'benefits_eyebrow', [ 'label' => __( 'Eyebrow', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => $defaults['benefits_eyebrow'] ?? '' ] );
 		$this->add_control( 'benefits_title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['benefits_title'] ?? '', 'label_block' => true ] );
-		$this->add_control( 'benefits_text', [ 'label' => __( 'Description', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['benefits_text'] ?? '' ] );
+		$this->add_control( 'benefits_text', [ 'label' => __( 'Description', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG, 'default' => $defaults['benefits_text'] ?? '' ] );
 
 		$benefit_repeater = new Repeater();
 		$benefit_repeater->add_control( 'icon', [ 'label' => __( 'Icon Key', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => 'shield' ] );
 		$benefit_repeater->add_control( 'stat', [ 'label' => __( 'Stat', 'grow-my-security' ), 'type' => Controls_Manager::TEXT ] );
 		$benefit_repeater->add_control( 'title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'label_block' => true ] );
-		$benefit_repeater->add_control( 'description', [ 'label' => __( 'Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA ] );
+		$benefit_repeater->add_control( 'description', [ 'label' => __( 'Text', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG ] );
 
 		$this->add_control(
 			'benefits_items',
@@ -145,12 +145,12 @@ class Industry_Detail_Widget extends GMS_Widget_Base {
 
 		$this->add_control( 'why_eyebrow', [ 'label' => __( 'Eyebrow', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => $defaults['why_eyebrow'] ?? '' ] );
 		$this->add_control( 'why_title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['why_title'] ?? '', 'label_block' => true ] );
-		$this->add_control( 'why_text', [ 'label' => __( 'Description', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['why_text'] ?? '' ] );
+		$this->add_control( 'why_text', [ 'label' => __( 'Description', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG, 'default' => $defaults['why_text'] ?? '' ] );
 		$this->add_control( 'why_image', [ 'label' => __( 'Section Image', 'grow-my-security' ), 'type' => Controls_Manager::MEDIA, 'default' => $defaults['why_image'] ?? [ 'url' => \gms_asset( 'assets/images/security-dashboard-visual.png' ) ] ] );
 
 		$step_repeater = new Repeater();
 		$step_repeater->add_control( 'title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'label_block' => true ] );
-		$step_repeater->add_control( 'desc', [ 'label' => __( 'Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA ] );
+		$step_repeater->add_control( 'desc', [ 'label' => __( 'Text', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG ] );
 
 		$this->add_control(
 			'why_steps',
@@ -173,7 +173,7 @@ class Industry_Detail_Widget extends GMS_Widget_Base {
 
 		$this->add_control( 'cta_eyebrow', [ 'label' => __( 'Eyebrow', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => $defaults['cta_eyebrow'] ?? '' ] );
 		$this->add_control( 'cta_title', [ 'label' => __( 'Title', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['cta_title'] ?? '', 'label_block' => true ] );
-		$this->add_control( 'cta_text', [ 'label' => __( 'Description', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => $defaults['cta_text'] ?? '' ] );
+		$this->add_control( 'cta_text', [ 'label' => __( 'Description', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG, 'default' => $defaults['cta_text'] ?? '' ] );
 		$this->add_control( 'cta_primary_text', [ 'label' => __( 'Primary Button Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => $defaults['cta_primary_text'] ?? '' ] );
 		$this->add_control( 'cta_primary_url', [ 'label' => __( 'Primary Button URL', 'grow-my-security' ), 'type' => Controls_Manager::URL, 'default' => $defaults['cta_primary_url'] ?? [ 'url' => \home_url( '/contact-us/' ) ] ] );
 		$this->add_control( 'cta_secondary_text', [ 'label' => __( 'Secondary Button Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => $defaults['cta_secondary_text'] ?? '' ] );
@@ -246,7 +246,7 @@ class Industry_Detail_Widget extends GMS_Widget_Base {
 							<?php endif; ?>
 							<h1><?php echo esc_html( $hero_title ); ?></h1>
 							<?php if ( ! empty( $settings['hero_subtext'] ) ) : ?>
-								<p class="gms-industry-hero__lead"><?php echo esc_html( $settings['hero_subtext'] ); ?></p>
+								<?php $this->render_rich_text( (string) $settings['hero_subtext'], 'gms-industry-hero__lead' ); ?>
 							<?php endif; ?>
 							<div class="gms-industry-hero__actions">
 								<?php $this->render_link( 'industry-hero-primary-' . $this->get_id(), $settings['hero_primary_url'] ?? [], (string) ( $settings['hero_primary_text'] ?? '' ), 'gms-button' ); ?>
@@ -271,7 +271,7 @@ class Industry_Detail_Widget extends GMS_Widget_Base {
 								<?php endif; ?>
 								<h2><?php echo esc_html( (string) ( $settings['overview_title'] ?? '' ) ); ?></h2>
 								<?php if ( ! empty( $settings['overview_text'] ) ) : ?>
-									<p><?php echo esc_html( $settings['overview_text'] ); ?></p>
+									<?php $this->render_rich_text( (string) $settings['overview_text'] ); ?>
 								<?php endif; ?>
 							</div>
 							<?php if ( ! empty( $overview_points ) ) : ?>
@@ -294,7 +294,7 @@ class Industry_Detail_Widget extends GMS_Widget_Base {
 									<h3><?php echo esc_html( $settings['overview_note_title'] ); ?></h3>
 								<?php endif; ?>
 								<?php if ( ! empty( $settings['overview_note_text'] ) ) : ?>
-									<p><?php echo esc_html( $settings['overview_note_text'] ); ?></p>
+									<?php $this->render_rich_text( (string) $settings['overview_note_text'] ); ?>
 								<?php endif; ?>
 							</div>
 						</div>
@@ -310,7 +310,7 @@ class Industry_Detail_Widget extends GMS_Widget_Base {
 						<?php endif; ?>
 						<h2><?php echo esc_html( (string) ( $settings['solutions_title'] ?? '' ) ); ?></h2>
 						<?php if ( ! empty( $settings['solutions_text'] ) ) : ?>
-							<p><?php echo esc_html( $settings['solutions_text'] ); ?></p>
+							<?php $this->render_rich_text( (string) $settings['solutions_text'] ); ?>
 						<?php endif; ?>
 					</div>
 					<div class="gms-industry-card-grid">
@@ -318,7 +318,7 @@ class Industry_Detail_Widget extends GMS_Widget_Base {
 							<article class="gms-industry-info-card animate-up" style="animation-delay: <?php echo esc_attr( 0.08 * ( $index + 1 ) ); ?>s;">
 								<div class="gms-industry-info-card__icon" aria-hidden="true"><?php echo $this->render_icon( (string) ( $feature['icon'] ?? 'shield' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
 								<h3><?php echo esc_html( (string) ( $feature['title'] ?? '' ) ); ?></h3>
-								<p><?php echo esc_html( (string) ( $feature['desc'] ?? '' ) ); ?></p>
+								<?php $this->render_rich_text( (string) ( $feature['desc'] ?? '' ) ); ?>
 							</article>
 						<?php endforeach; ?>
 					</div>
@@ -333,7 +333,7 @@ class Industry_Detail_Widget extends GMS_Widget_Base {
 						<?php endif; ?>
 						<h2><?php echo esc_html( (string) ( $settings['benefits_title'] ?? '' ) ); ?></h2>
 						<?php if ( ! empty( $settings['benefits_text'] ) ) : ?>
-							<p><?php echo esc_html( $settings['benefits_text'] ); ?></p>
+							<?php $this->render_rich_text( (string) $settings['benefits_text'] ); ?>
 						<?php endif; ?>
 					</div>
 					<div class="gms-industry-card-grid gms-industry-card-grid--benefits">
@@ -344,7 +344,7 @@ class Industry_Detail_Widget extends GMS_Widget_Base {
 									<div class="gms-industry-benefit-card__stat"><?php echo esc_html( (string) $benefit['stat'] ); ?></div>
 								<?php endif; ?>
 								<h3><?php echo esc_html( (string) ( $benefit['title'] ?? '' ) ); ?></h3>
-								<p><?php echo esc_html( (string) ( $benefit['description'] ?? '' ) ); ?></p>
+								<?php $this->render_rich_text( (string) ( $benefit['description'] ?? '' ) ); ?>
 							</article>
 						<?php endforeach; ?>
 					</div>
@@ -366,7 +366,7 @@ class Industry_Detail_Widget extends GMS_Widget_Base {
 								<?php endif; ?>
 								<h2><?php echo esc_html( (string) ( $settings['why_title'] ?? '' ) ); ?></h2>
 								<?php if ( ! empty( $settings['why_text'] ) ) : ?>
-									<p><?php echo esc_html( $settings['why_text'] ); ?></p>
+									<?php $this->render_rich_text( (string) $settings['why_text'] ); ?>
 								<?php endif; ?>
 							</div>
 							<div class="gms-industry-step-list">
@@ -375,7 +375,7 @@ class Industry_Detail_Widget extends GMS_Widget_Base {
 										<div class="gms-industry-step-card__number"><?php echo esc_html( str_pad( (string) ( $index + 1 ), 2, '0', STR_PAD_LEFT ) ); ?></div>
 										<div class="gms-industry-step-card__content">
 											<h3><?php echo esc_html( (string) ( $step['title'] ?? '' ) ); ?></h3>
-											<p><?php echo esc_html( (string) ( $step['desc'] ?? '' ) ); ?></p>
+											<?php $this->render_rich_text( (string) ( $step['desc'] ?? '' ) ); ?>
 										</div>
 									</div>
 								<?php endforeach; ?>
@@ -393,7 +393,7 @@ class Industry_Detail_Widget extends GMS_Widget_Base {
 						<?php endif; ?>
 						<h2><?php echo esc_html( (string) ( $settings['cta_title'] ?? '' ) ); ?></h2>
 						<?php if ( ! empty( $settings['cta_text'] ) ) : ?>
-							<p><?php echo esc_html( $settings['cta_text'] ); ?></p>
+							<?php $this->render_rich_text( (string) $settings['cta_text'] ); ?>
 						<?php endif; ?>
 						<div class="gms-industry-cta__actions">
 							<?php $this->render_link( 'industry-cta-primary-' . $this->get_id(), $settings['cta_primary_url'] ?? [], (string) ( $settings['cta_primary_text'] ?? '' ), 'gms-button' ); ?>

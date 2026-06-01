@@ -91,7 +91,7 @@ class Icon_Grid_Widget extends GMS_Widget_Base {
 
 		$this->add_control( 'button_text', [ 'label' => __( 'Button Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXT, 'default' => 'Schedule a Free Consultation' ] );
 		$this->add_control( 'button_url', [ 'label' => __( 'Button URL', 'grow-my-security' ), 'type' => Controls_Manager::URL ] );
-		$this->add_control( 'footer_text', [ 'label' => __( 'Footer Text', 'grow-my-security' ), 'type' => Controls_Manager::TEXTAREA, 'default' => "Don't see your industry? Contact us to see if we can help you." ] );
+		$this->add_control( 'footer_text', [ 'label' => __( 'Footer Text', 'grow-my-security' ), 'type' => Controls_Manager::WYSIWYG, 'default' => "Don't see your industry? Contact us to see if we can help you." ] );
 
 		$this->end_controls_section();
 
@@ -137,7 +137,7 @@ class Icon_Grid_Widget extends GMS_Widget_Base {
 				<div class="gms-homepage-section-heading gms-homepage-section-heading--center gms-homepage-section-heading--wide">
 					<div class="gms-homepage-chip"><span class="gms-homepage-chip__icon gms-homepage-chip__icon--serve" aria-hidden="true"></span><span><?php echo esc_html( $settings['eyebrow'] ?? '' ); ?></span></div>
 					<h2><?php echo esc_html( $settings['title'] ?? '' ); ?></h2>
-					<?php if ( ! empty( $settings['description'] ) ) : ?><p><?php echo esc_html( $settings['description'] ); ?></p><?php endif; ?>
+					<?php if ( ! empty( $settings['description'] ) ) : ?><?php $this->render_rich_text( (string) $settings['description'] ); ?><?php endif; ?>
 				</div>
 				<div class="gms-homepage-serve__grid">
 					<?php foreach ( $items as $index => $item ) : ?>
@@ -154,7 +154,7 @@ class Icon_Grid_Widget extends GMS_Widget_Base {
 						<?php $this->add_link_attributes( 'icon-grid-button-' . $this->get_id(), $settings['button_url'] ?? [] ); ?>
 						<a <?php echo $this->get_render_attribute_string( 'icon-grid-button-' . $this->get_id() ); ?>><span><?php echo esc_html( $settings['button_text'] ); ?></span><span class="gms-homepage-button__arrow" aria-hidden="true"></span></a>
 					<?php endif; ?>
-					<?php if ( ! empty( $settings['footer_text'] ) ) : ?><p><?php echo esc_html( $settings['footer_text'] ); ?></p><?php endif; ?>
+					<?php if ( ! empty( $settings['footer_text'] ) ) : ?><?php $this->render_rich_text( (string) $settings['footer_text'] ); ?><?php endif; ?>
 				</div>
 			</div>
 		</section>
