@@ -663,7 +663,21 @@ $use_elementor_homepage = function_exists( 'gms_should_use_elementor_builder_on_
 									<div class="gms-services-tabs__header">
 										<p class="gms-services-tabs__subtitle"><?php echo esc_html( $item['subtitle'] ); ?></p>
 										<h3><?php echo esc_html( $item['title'] ); ?></h3>
-										<p class="gms-services-tabs__summary"><?php echo esc_html( $item['summary'] ); ?></p>
+										<div class="gms-services-tabs__summary">
+											<?php
+											$summary_html = (string) ( $item['summary'] ?? '' );
+											for ( $decode_index = 0; $decode_index < 3; $decode_index++ ) {
+												$decoded_summary = wp_specialchars_decode( $summary_html, ENT_QUOTES );
+
+												if ( $decoded_summary === $summary_html ) {
+													break;
+												}
+
+												$summary_html = $decoded_summary;
+											}
+											echo wp_kses_post( wpautop( $summary_html ) );
+											?>
+										</div>
 									</div>
 									<div class="gms-services-tabs__benefits">
 										<h4>Key Strategic Benefits:</h4>

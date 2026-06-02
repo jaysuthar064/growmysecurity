@@ -64,7 +64,15 @@ abstract class GMS_Widget_Base extends Widget_Base {
 			return '';
 		}
 
-		$text = wp_specialchars_decode( $text, ENT_QUOTES );
+		for ( $i = 0; $i < 3; $i++ ) {
+			$decoded_text = wp_specialchars_decode( $text, ENT_QUOTES );
+
+			if ( $decoded_text === $text ) {
+				break;
+			}
+
+			$text = $decoded_text;
+		}
 
 		return wp_kses_post( wpautop( $text ) );
 	}
