@@ -444,6 +444,14 @@ function gms_get_demo_config() {
 				'bullets'     => [ 'SEO Optimization', 'Content Marketing', 'Social Media Management' ],
 			],
 			[
+				'title'       => 'PPC Management',
+				'slug'        => 'ppc-management',
+				'nav_title'   => 'PPC Management',
+				'icon'        => 'PPC',
+				'description' => 'Run high-intent Google Ads and pay-per-click campaigns that put your security company in front of buyers searching for protection, while lowering cost per lead.',
+				'bullets'     => [ 'Google Ads management', 'High-intent keyword strategy', 'Conversion tracking & reporting' ],
+			],
+			[
 				'title'       => 'AI Solutions',
 				'slug'        => 'ai-solutions',
 				'nav_title'   => 'AI Solutions',

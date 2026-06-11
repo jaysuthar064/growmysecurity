@@ -398,6 +398,7 @@ function gms_get_footer_groups(): array
 				['label' => __('Fractional CMO Services', 'grow-my-security'), 'url' => home_url('/services/fractional-cmo-services/')],
 				['label' => __('Digital Marketing Solutions', 'grow-my-security'), 'url' => home_url('/services/digital-marketing-solutions/')],
 				['label' => __('Advertising Services', 'grow-my-security'), 'url' => home_url('/services/advertising-solutions/')],
+				['label' => __('PPC Management', 'grow-my-security'), 'url' => home_url('/services/ppc-management/')],
 				['label' => __('Web Development', 'grow-my-security'), 'url' => home_url('/services/web-development/')],
 				['label' => __('Content Marketing', 'grow-my-security'), 'url' => home_url('/services/content-marketing/')],
 				['label' => __('Marketing Strategies', 'grow-my-security'), 'url' => home_url('/services/marketing-strategies/')],

@@ -165,7 +165,7 @@ function gms_sync_service_catalog_elementor_content(): void {
 		return;
 	}
 
-	$sync_version = '2026-04-17-service-catalog-v5';
+	$sync_version = '2026-04-17-service-catalog-v6';
 
 	if ( get_option( 'gms_service_catalog_elementor_sync_version' ) === $sync_version ) {
 		return;
