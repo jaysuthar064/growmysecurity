@@ -417,7 +417,7 @@ $use_elementor_homepage = function_exists( 'gms_should_use_elementor_builder_on_
 									<span class="gms-homepage-chip__icon gms-homepage-chip__icon--hero" aria-hidden="true"></span>
 									<span><?php echo esc_html( $slide['label'] ); ?></span>
 								</div>
-								<h2><?php echo esc_html( $slide['title'] ); ?></h2>
+								<?php $hero_heading_tag = 0 === (int) $index ? 'h1' : 'h2'; ?><<?php echo $hero_heading_tag; ?>><?php echo esc_html( $slide['title'] ); ?></<?php echo $hero_heading_tag; ?>>
 								<p><?php echo esc_html( $slide['copy'] ); ?></p>
 								<div class="gms-homepage-hero__actions">
 									<a class="gms-homepage-button gms-homepage-button--primary" href="<?php echo esc_url( $slide['primary_url'] ); ?>">
