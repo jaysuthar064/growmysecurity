@@ -418,7 +418,7 @@ $use_elementor_homepage = function_exists( 'gms_should_use_elementor_builder_on_
 									<span><?php echo esc_html( $slide['label'] ); ?></span>
 								</div>
 								<?php $hero_heading_tag = 0 === (int) $index ? 'h1' : 'h2'; ?><<?php echo $hero_heading_tag; ?>><?php echo esc_html( $slide['title'] ); ?></<?php echo $hero_heading_tag; ?>>
-								<p><?php echo esc_html( $slide['copy'] ); ?></p>
+								<p><?php echo esc_html( wp_strip_all_tags( html_entity_decode( (string) ( $slide['copy'] ?? '' ), ENT_QUOTES | ENT_HTML5, 'UTF-8' ) ) ); ?></p>
 								<div class="gms-homepage-hero__actions">
 									<a class="gms-homepage-button gms-homepage-button--primary" href="<?php echo esc_url( $slide['primary_url'] ); ?>">
 										<span><?php echo esc_html( $slide['primary_text'] ); ?></span>
